@@ -7,11 +7,7 @@ module.exports = {
   mode: 'production',
   target: 'webworker',
   devtool: 'eval',
-  entry: [
-    // 'react-datasheet/lib/react-datasheet.css',
-    // '@shopify/polaris/styles.css',
-    path.resolve(__dirname, '../proxy/src/index.js')
-  ],
+  entry: [path.resolve(__dirname, '../proxy/src/index.js')],
   output: {
     filename: 'proxy.js',
     path: path.resolve(__dirname, '../assets'),

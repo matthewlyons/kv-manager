@@ -3,4 +3,7 @@
 **/assets
 **/logs
 **/package-lock.json 
+package-lock.json 
 .env
+Route.xlsx
+~$Route.xlsx

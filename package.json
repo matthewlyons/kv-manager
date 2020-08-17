@@ -5,8 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
     "build-proxy": "npm run build-proxy --prefix compiler",
-    "build-admin": "npm run build-admin --prefix compiler"
+    "build-admin": "npm run build-admin --prefix compiler",
+    "admin": "npm run start --prefix admin",
+    "proxy": "npm run start --prefix admin",
+    "dev": "nodemon server.js"
   },
   "author": "Matthew Lyons",
   "license": "ISC",
