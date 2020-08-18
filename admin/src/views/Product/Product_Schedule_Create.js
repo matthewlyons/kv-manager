@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Page, Layout } from '@shopify/polaris';
 
-export default function Rental_Create() {
+export default function Product_Schedule_Create() {
   return (
     <Page
       full-width
@@ -15,7 +15,7 @@ export default function Rental_Create() {
       ]}
     >
       <Layout>
-        <h1>Hello from Rental_Create</h1>
+        <h1>Hello from Product_Schedule_Create</h1>
       </Layout>
     </Page>
   );

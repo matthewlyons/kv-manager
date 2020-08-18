@@ -9,6 +9,8 @@ import Teacher_Create from './views/Teacher/Teacher_Create';
 import Teacher_View from './views/Teacher/Teacher_View';
 import Teacher_ViewAll from './views/Teacher/Teacher_ViewAll';
 import Teacher_Request from './views/Teacher/Teacher_Request';
+import Teacher_Order from './views/Teacher/Teacher_Order';
+import Teacher_Order_View from './views/Teacher/Teacher_Order_View';
 
 // School Views
 import School_Create from './views/School/School_Create';
@@ -31,6 +33,9 @@ import Rental_Form from './views/Rental/Rental_Form';
 // Product Views
 import Product_Home from './views/Product/Product_Home';
 import Product_Form from './views/Product/Product_Form';
+import Product_Schedule from './views/Product/Product_Schedule';
+import Product_Schedule_Create from './views/Product/Product_Schedule_Create';
+import Product_Schedule_View from './views/Product/Product_Schedule_View';
 import Product_Config from './views/Product/Product_Config';
 import Product_Config_Form from './views/Product/Product_Config_Form';
 import Product_Customizer from './views/Product/Product_Customizer';
@@ -46,6 +51,8 @@ function App() {
       <Route exact path="/Teacher/Teachers/Create" component={Teacher_Create} />
       <Route exact path="/Teacher/Teachers/View/:id" component={Teacher_View} />
       <Route exact path="/Teacher/Request/:id" component={Teacher_Request} />
+      <Route exact path="/Teacher/Order" component={Teacher_Order} />
+      <Route exact path="/Teacher/Order/View/:id" component={Teacher_Order_View} />
 
       {/* School Routes */}
       <Route exact path="/Teacher/Schools" component={School_ViewAll} />
@@ -75,6 +82,9 @@ function App() {
       <Route exact path="/Product/Customizer" component={Product_Customizer} />
       <Route exact path="/Product/Customizer/Create" component={Product_Customizer_Form} />
       <Route exact path="/Product/Customizer/View/:id" component={Product_Customizer_Form} />
+      <Route exact path="/Product/Schedule" component={Product_Schedule} />
+      <Route exact path="/Product/Schedule/Create" component={Product_Schedule_Create} />
+      <Route exact path="/Product/Schedule/View/:id" component={Product_Schedule_View} />
     </MemoryRouter>
   );
 }
