@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const hbs = require('hbs');
 const jwt = require('jsonwebtoken');
@@ -9,6 +10,7 @@ const nonce = require('nonce')();
 
 const Store = require('./models/Store');
 
+const memCache = require('./helpers/cache').default;
 const { SHOPIFY_APP_SECRET, PORT, MONGO_URI, SHOPIFY_APP_KEY, SHOPIFY_APP_SCOPE, host } = process.env;
 
 // DB Config
@@ -18,9 +20,13 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 
+mongoose.set('useFindAndModify', false);
+
 const app = express();
 
 app.use(express.static('assets'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'hbs');
@@ -37,7 +43,7 @@ app.get('/*', async function (req, res) {
   }
 
   let shopifyStore = await Store.findOne({ store: shop });
-  console.log(shopifyStore);
+
   if (!shopifyStore) {
     const state = nonce();
     const installUrl = `https://${shop}/admin/oauth/authorize?client_id=${SHOPIFY_APP_KEY}&scope=${SHOPIFY_APP_SCOPE}&redirect_uri=${host}/install&state=${state}`;

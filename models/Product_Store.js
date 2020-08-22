@@ -16,7 +16,23 @@ const Product_Store_Schema = new Schema({
     required: true
   },
   image: [String],
-  features: [String]
+  features: [String],
+  config: {
+    type: String
+  },
+  fields: [
+    {
+      metafield: {
+        type: Number
+      },
+      key: {
+        type: String
+      },
+      value: {
+        type: String
+      }
+    }
+  ]
 });
 
 module.exports = Product_Store = mongoose.model('productStore', Product_Store_Schema);

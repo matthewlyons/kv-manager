@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TeacherSchema = new Schema({
+  approved: {
+    type: Boolean,
+    default: false
+  },
   pinned: {
     type: Boolean,
     default: false
@@ -37,10 +41,8 @@ const TeacherSchema = new Schema({
   },
   schools: [
     {
-      school: {
-        type: Schema.Types.ObjectId,
-        ref: 'school'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'school'
     }
   ],
   purchaseHistory: [

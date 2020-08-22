@@ -32,10 +32,8 @@ const SchoolSchema = new Schema({
   },
   teachers: [
     {
-      teacher: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'teacher'
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'teacher'
     }
   ],
   classList: [
@@ -66,8 +64,7 @@ const SchoolSchema = new Schema({
       type: Date
     },
     fulfilled: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
   notes: [
