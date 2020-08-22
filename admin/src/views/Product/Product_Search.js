@@ -2,24 +2,22 @@ import React from 'react';
 
 import { Page, Layout } from '@shopify/polaris';
 
-export default function Rental_Home() {
+export default function Product_Search() {
   return (
     <Page
       full-width
       separator
-      title="Rental Products"
+      title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product'
         }
       ]}
-      primaryAction={{
-        content: 'Create New Rental Product',
-        url: '/Rental/Create'
-      }}
     >
-      <Layout></Layout>
+      <Layout>
+        <h1>Hello from Product_Search</h1>
+      </Layout>
     </Page>
   );
 }

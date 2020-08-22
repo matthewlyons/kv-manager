@@ -6,11 +6,12 @@ export default function Rental_Form() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Rental'
         }
       ]}
     >

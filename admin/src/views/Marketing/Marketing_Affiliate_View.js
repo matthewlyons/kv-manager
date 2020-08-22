@@ -6,6 +6,7 @@ export default function Marketing_Affiliate_View() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {

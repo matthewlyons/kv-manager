@@ -6,6 +6,7 @@ export default function Product_Schedule_View() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {

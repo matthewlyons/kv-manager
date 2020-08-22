@@ -6,11 +6,12 @@ export default function Marketing_Affiliate() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Marketing'
         }
       ]}
     >

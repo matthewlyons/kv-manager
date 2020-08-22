@@ -1,5 +1,6 @@
 import React from 'react';
-import { MemoryRouter, Route } from 'react-router-dom';
+import Router from './components/Router';
+import { Route } from 'react-router-dom';
 
 import Home from './views/Home';
 
@@ -32,6 +33,7 @@ import Rental_Form from './views/Rental/Rental_Form';
 
 // Product Views
 import Product_Home from './views/Product/Product_Home';
+import Product_Search from './views/Product/Product_Search';
 import Product_Form from './views/Product/Product_Form';
 import Product_Schedule from './views/Product/Product_Schedule';
 import Product_Schedule_Create from './views/Product/Product_Schedule_Create';
@@ -41,9 +43,15 @@ import Product_Config_Form from './views/Product/Product_Config_Form';
 import Product_Customizer from './views/Product/Product_Customizer';
 import Product_Customizer_Form from './views/Product/Product_Customizer_Form';
 
+// Shipping Views
+import Shipping_Home from './views/Shipping/Shipping_Home';
+
+// Asset Views
+import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
+
 function App() {
   return (
-    <MemoryRouter>
+    <Router>
       <Route exact path="/" component={Home} />
       {/* Teacher Routes */}
       <Route exact path="/Teacher" component={Teacher_Home} />
@@ -51,8 +59,8 @@ function App() {
       <Route exact path="/Teacher/Teachers/Create" component={Teacher_Create} />
       <Route exact path="/Teacher/Teachers/View/:id" component={Teacher_View} />
       <Route exact path="/Teacher/Request/:id" component={Teacher_Request} />
-      <Route exact path="/Teacher/Order" component={Teacher_Order} />
-      <Route exact path="/Teacher/Order/View/:id" component={Teacher_Order_View} />
+      <Route exact path="/Teacher/Orders" component={Teacher_Order} />
+      <Route exact path="/Teacher/Orders/View/:id" component={Teacher_Order_View} />
 
       {/* School Routes */}
       <Route exact path="/Teacher/Schools" component={School_ViewAll} />
@@ -74,6 +82,7 @@ function App() {
 
       {/* Store Product Routes */}
       <Route exact path="/Product" component={Product_Home} />
+      <Route exact path="/Product/Search" component={Product_Search} />
       <Route exact path="/Product/Create" component={Product_Form} />
       <Route exact path="/Product/View/:id" component={Product_Form} />
       <Route exact path="/Product/Config" component={Product_Config} />
@@ -85,7 +94,13 @@ function App() {
       <Route exact path="/Product/Schedule" component={Product_Schedule} />
       <Route exact path="/Product/Schedule/Create" component={Product_Schedule_Create} />
       <Route exact path="/Product/Schedule/View/:id" component={Product_Schedule_View} />
-    </MemoryRouter>
+
+      {/* Shipping Routes */}
+      <Route exact path="/Shipping" component={Shipping_Home} />
+
+      {/* Asset Routes */}
+      <Route exact path="/Asset" component={Image_Assets_Home} />
+    </Router>
   );
 }
 

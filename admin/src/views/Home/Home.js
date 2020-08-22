@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Page, Layout, Card, Banner } from '@shopify/polaris';
 
+import { helloWorld } from '../../util';
+
 export default function Home() {
+  let value = helloWorld();
+  console.log(`Value: ${value}`);
   return (
     <Page title="Kennedy Violins Manager App" separator>
       <Layout>
@@ -10,27 +14,37 @@ export default function Home() {
           <Banner
             title="New Teacher Order"
             status="warning"
-            action={{ content: 'View Orders', url: '/Teacher/Order' }}
+            action={{ content: 'View Orders', url: '/Teacher/Orders' }}
           ></Banner>
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Card title="Marketing" sectioned primaryFooterAction={{ content: 'View', url: '/Marketing' }}>
+          <Card title="Marketing" sectioned primaryFooterAction={{ content: 'Manage', url: '/Marketing' }}>
             <p>Manage Affiliate Links & Contact Forms</p>
           </Card>
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Card title="Products" sectioned primaryFooterAction={{ content: 'View', url: '/Product' }}>
+          <Card title="Products" sectioned primaryFooterAction={{ content: 'Manage', url: '/Product' }}>
             <p>Manage Products, Collections, & the Customizer</p>
           </Card>
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Card title="Rental Program" sectioned primaryFooterAction={{ content: 'View', url: '/Rental' }}>
+          <Card title="Rental Program" sectioned primaryFooterAction={{ content: 'Manage', url: '/Rental' }}>
             <p>Manage Rental Products</p>
           </Card>
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Card title="Teachers" sectioned primaryFooterAction={{ content: 'View', url: '/Teacher' }}>
+          <Card title="Teacher Loyalty Program" sectioned primaryFooterAction={{ content: 'Manage', url: '/Teacher' }}>
             <p>Manage Schools, Teachers, & View Teacher Orders</p>
+          </Card>
+        </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card title="Shipping" sectioned primaryFooterAction={{ content: 'Manage', url: '/Shipping' }}>
+            <p>Manage Shipping Rates & View Recent Estimates</p>
+          </Card>
+        </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card title="Image Assets" sectioned primaryFooterAction={{ content: 'Manage', url: '/Asset' }}>
+            <p>View and Manage Image Assets</p>
           </Card>
         </Layout.Section>
       </Layout>

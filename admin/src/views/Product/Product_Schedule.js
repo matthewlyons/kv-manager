@@ -6,11 +6,12 @@ export default function Product_Schedule() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product'
         }
       ]}
     >

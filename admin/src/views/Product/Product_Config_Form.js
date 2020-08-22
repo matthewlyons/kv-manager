@@ -6,6 +6,7 @@ export default function Product_Config_Form() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {

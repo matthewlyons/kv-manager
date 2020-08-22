@@ -6,11 +6,12 @@ export default function Product_Config() {
   return (
     <Page
       full-width
-      title="Products"
+      separator
+      title="Product Configurations"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product'
         }
       ]}
     >

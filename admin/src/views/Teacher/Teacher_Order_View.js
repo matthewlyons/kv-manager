@@ -6,6 +6,7 @@ export default function Teacher_Order_View() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {

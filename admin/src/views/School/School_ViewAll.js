@@ -6,11 +6,12 @@ export default function School_ViewAll() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Teacher'
         }
       ]}
     >

@@ -6,11 +6,12 @@ export default function Teacher_Request() {
   return (
     <Page
       full-width
+      separator
       title="Products"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Teacher'
         }
       ]}
     >
