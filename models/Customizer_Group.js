@@ -9,10 +9,8 @@ const Customizer_Group_Schema = new Schema({
   },
   instruments: [
     {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'productStore'
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'productStore'
     }
   ],
   components: [
@@ -23,14 +21,15 @@ const Customizer_Group_Schema = new Schema({
       },
       products: [
         {
-          product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'productStore'
-          }
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'productStore'
         }
       ]
     }
   ]
 });
 
-module.exports = Customizer_Group = mongoose.model('customizerGroup', Customizer_Group_Schema);
+module.exports = Customizer_Group = mongoose.model(
+  'customizerGroup',
+  Customizer_Group_Schema
+);

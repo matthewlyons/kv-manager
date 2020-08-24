@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const Rental_Payment_Schema = new Schema({
+const Order_Store_Teacher_Schema = new Schema({
+  orderNumber: {
+    type: String
+  },
   teacherCode: {
     type: String
   },
@@ -16,7 +19,7 @@ const Rental_Payment_Schema = new Schema({
   }
 });
 
-module.exports = Rental_Payment = mongoose.model(
-  'rentalPayment',
-  Rental_Payment_Schema
+module.exports = Order_Store_Teacher = mongoose.model(
+  'orderStoreTeacher',
+  Order_Store_Teacher_Schema
 );
