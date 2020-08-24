@@ -47,7 +47,6 @@ router
     School.findById(req.params.id)
       .populate('teachers')
       .then((school) => {
-        console.log(school);
         return res.json(school);
       })
       .catch((error) => {
@@ -58,7 +57,10 @@ router
       });
   })
   .put((req, res) => {
-    School.findByIdAndUpdate(req.params.id, { $set: req.body }, function (error, result) {
+    School.findByIdAndUpdate(req.params.id, { $set: req.body }, function (
+      error,
+      result
+    ) {
       if (error) {
         let errors = getErrors(error);
         return res.status(400).send({
