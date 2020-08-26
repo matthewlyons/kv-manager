@@ -1,5 +1,21 @@
+const axios = require('axios');
+
 module.exports = {
-  helloWorld() {
-    return 'Hello';
+  makeRequest(method, route, data) {
+    console.log('Running');
+    return new Promise((resolve, reject) => {
+      axios({
+        method: method,
+        url: `/admin${route}`,
+        headers: { Authorization: 'Bearer ' + window.authToken },
+        data
+      })
+        .then((result) => {
+          resolve(result.data);
+        })
+        .catch((err) => {
+          reject(err.response.data.message);
+        });
+    });
   }
 };

@@ -10,8 +10,14 @@ const nonce = require('nonce')();
 
 const Store = require('./models/Store');
 
-const memCache = require('./helpers/cache').default;
-const { SHOPIFY_APP_SECRET, PORT, MONGO_URI, SHOPIFY_APP_KEY, SHOPIFY_APP_SCOPE, host } = process.env;
+const {
+  SHOPIFY_APP_SECRET,
+  PORT,
+  MONGO_URI,
+  SHOPIFY_APP_KEY,
+  SHOPIFY_APP_SCOPE,
+  host
+} = process.env;
 
 // DB Config
 const db = MONGO_URI;

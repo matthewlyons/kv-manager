@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Page, Layout } from '@shopify/polaris';
+import { makeRequest } from '../../util';
 
 export default function Marketing_Affiliate_View() {
+  const [affiliate, setAffiliate] = useState({});
+  useEffect(() => {
+    makeRequest('GET', '/affiliate').then((data) => {
+      setAffiliate(data);
+    });
+  }, []);
   return (
     <Page
       full-width
@@ -11,7 +18,7 @@ export default function Marketing_Affiliate_View() {
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Marketing/Affiliate'
         }
       ]}
     >
