@@ -61,6 +61,13 @@ const TeacherSchema = new Schema({
       }
     }
   ],
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'teacherOrder'
+    }
+  ],
+
   date: {
     type: Date,
     default: Date.now

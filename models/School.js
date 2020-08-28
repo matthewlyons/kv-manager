@@ -43,8 +43,8 @@ const SchoolSchema = new Schema({
         required: true
       },
       teacher: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'teacher'
       },
       book: {
         type: String,

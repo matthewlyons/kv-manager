@@ -32,10 +32,24 @@ const Product_Rental_Schema = new Schema({
   linkEducation: {
     type: String
   },
-  features: [String],
+  feature1: {
+    type: String
+  },
+  feature2: {
+    type: String
+  },
+  feature3: {
+    type: String
+  },
+  feature4: {
+    type: String
+  },
   sizes: {
     type: String
   }
 });
 
-module.exports = Product_Rental = mongoose.model('productRental', Product_Rental_Schema);
+module.exports = Product_Rental = mongoose.model(
+  'productRental',
+  Product_Rental_Schema
+);

@@ -66,6 +66,7 @@ router
       });
   })
   .put((req, res) => {
+    console.log(req.body);
     Product_Rental.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },

@@ -2,7 +2,6 @@ const axios = require('axios');
 
 module.exports = {
   makeRequest(method, route, data) {
-    console.log('Running');
     return new Promise((resolve, reject) => {
       axios({
         method: method,

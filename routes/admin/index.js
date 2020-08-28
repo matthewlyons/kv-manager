@@ -13,6 +13,7 @@ router.use('/contact', require('./contact'));
 router.use('/product', require('./product'));
 router.use('/rental', require('./rental'));
 router.use('/school', require('./school'));
+router.use('/shipping', require('./shipping'));
 router.use('/teacher', require('./teacher'));
 
 router.get('*', async function (req, res) {

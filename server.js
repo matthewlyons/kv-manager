@@ -22,7 +22,11 @@ const {
 // DB Config
 const db = MONGO_URI;
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 
@@ -34,13 +38,18 @@ app.use(express.static('assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Handlebars helper to skip sections for Shopify to compile values
+hbs.registerHelper('raw', function (options) {
+  return options.fn();
+});
+
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'hbs');
 
 app.use('/admin', require('./routes/admin/'));
 app.use('/install', require('./routes/install/'));
-// app.use('/proxy', require('./routes/proxy/'));
-// app.use('/webhook', require('./routes/webhooks/'));
+app.use('/proxy', require('./routes/proxy/'));
+app.use('/webhook', require('./routes/webhook/'));
 
 app.get('/*', async function (req, res) {
   let { shop } = req.query;

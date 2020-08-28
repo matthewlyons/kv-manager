@@ -46,6 +46,7 @@ router
   .get(async (req, res) => {
     School.findById(req.params.id)
       .populate('teachers')
+      .populate('classList.teacher')
       .then((school) => {
         return res.json(school);
       })

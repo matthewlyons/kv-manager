@@ -45,6 +45,8 @@ import Product_Customizer_Form from './views/Product/Product_Customizer_Form';
 
 // Shipping Views
 import Shipping_Home from './views/Shipping/Shipping_Home';
+import Shipping_Services from './views/Shipping/Shipping_Services';
+import Shipping_Rate from './views/Shipping/Shipping_Rate';
 
 // Asset Views
 import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
@@ -60,7 +62,11 @@ function App() {
       <Route exact path="/Teacher/Teachers/View/:id" component={Teacher_View} />
       <Route exact path="/Teacher/Request/:id" component={Teacher_Request} />
       <Route exact path="/Teacher/Orders" component={Teacher_Order} />
-      <Route exact path="/Teacher/Orders/View/:id" component={Teacher_Order_View} />
+      <Route
+        exact
+        path="/Teacher/Orders/View/:id"
+        component={Teacher_Order_View}
+      />
 
       {/* School Routes */}
       <Route exact path="/Teacher/Schools" component={School_ViewAll} />
@@ -68,12 +74,32 @@ function App() {
       <Route exact path="/Teacher/Schools/View/:id" component={School_View} />
 
       <Route exact path="/Marketing" component={Marketing_Home} />
-      <Route exact path="/Marketing/Affiliate" component={Marketing_Affiliate} />
-      <Route exact path="/Marketing/Affiliate/Create" component={Marketing_Affiliate_Create} />
-      <Route exact path="/Marketing/Affiliate/View/:id" component={Marketing_Affiliate_View} />
+      <Route
+        exact
+        path="/Marketing/Affiliate"
+        component={Marketing_Affiliate}
+      />
+      <Route
+        exact
+        path="/Marketing/Affiliate/Create"
+        component={Marketing_Affiliate_Create}
+      />
+      <Route
+        exact
+        path="/Marketing/Affiliate/View/:id"
+        component={Marketing_Affiliate_View}
+      />
       <Route exact path="/Marketing/Contact" component={Marketing_Contact} />
-      <Route exact path="/Marketing/Contact/Create" component={Marketing_Contact_Create} />
-      <Route exact path="/Marketing/Contact/View/:id" component={Marketing_Contact_View} />
+      <Route
+        exact
+        path="/Marketing/Contact/Create"
+        component={Marketing_Contact_Create}
+      />
+      <Route
+        exact
+        path="/Marketing/Contact/View/:id"
+        component={Marketing_Contact_View}
+      />
 
       {/* Rental Product Routes */}
       <Route exact path="/Rental" component={Rental_Home} />
@@ -86,17 +112,43 @@ function App() {
       <Route exact path="/Product/Create" component={Product_Form} />
       <Route exact path="/Product/View/:id" component={Product_Form} />
       <Route exact path="/Product/Config" component={Product_Config} />
-      <Route exact path="/Product/Config/Create" component={Product_Config_Form} />
-      <Route exact path="/Product/Config/View/:id" component={Product_Config_Form} />
+      <Route
+        exact
+        path="/Product/Config/Create"
+        component={Product_Config_Form}
+      />
+      <Route
+        exact
+        path="/Product/Config/View/:id"
+        component={Product_Config_Form}
+      />
       <Route exact path="/Product/Customizer" component={Product_Customizer} />
-      <Route exact path="/Product/Customizer/Create" component={Product_Customizer_Form} />
-      <Route exact path="/Product/Customizer/View/:id" component={Product_Customizer_Form} />
+      <Route
+        exact
+        path="/Product/Customizer/Create"
+        component={Product_Customizer_Form}
+      />
+      <Route
+        exact
+        path="/Product/Customizer/View/:id"
+        component={Product_Customizer_Form}
+      />
       <Route exact path="/Product/Schedule" component={Product_Schedule} />
-      <Route exact path="/Product/Schedule/Create" component={Product_Schedule_Create} />
-      <Route exact path="/Product/Schedule/View/:id" component={Product_Schedule_View} />
+      <Route
+        exact
+        path="/Product/Schedule/Create"
+        component={Product_Schedule_Create}
+      />
+      <Route
+        exact
+        path="/Product/Schedule/View/:id"
+        component={Product_Schedule_View}
+      />
 
       {/* Shipping Routes */}
       <Route exact path="/Shipping" component={Shipping_Home} />
+      <Route exact path="/Shipping/Services" component={Shipping_Services} />
+      <Route exact path="/Shipping/Rate/:id" component={Shipping_Rate} />
 
       {/* Asset Routes */}
       <Route exact path="/Asset" component={Image_Assets_Home} />

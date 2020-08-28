@@ -9,6 +9,7 @@ const {
 
 const Teacher = require('../../../models/Teacher');
 const School = require('../../../models/School');
+const Teacher_Point_Change = require('../../../models/Teacher_Point_Change');
 
 // Teacher Route
 router
@@ -37,9 +38,12 @@ router
     let { teacher } = req.body;
 
     let { title, firstName, lastName, email, code } = teacher;
+    console.log(email);
+    email = email.toLowerCase();
+    console.log(email);
 
     // Check if teacher email is in use
-    let teacherEmail = await Teacher.findOne({ email: email.toLowerCase() });
+    let teacherEmail = await Teacher.findOne({ email });
 
     if (teacherEmail) {
       return res.status(401).json({
@@ -59,8 +63,10 @@ router
     // check if shopify customer is registered
     let shopifyCustomer;
     let customers = await getShopifyCustomers(email);
+    console.log(customers);
     if (customers.length === 0) {
       // if no customer create customer and send them an email invite
+      console.log('Creating Customer');
       shopifyCustomer = await createShopifyCustomer({
         data: teacher,
         invite: true
@@ -92,6 +98,13 @@ router
         });
       });
   });
+
+router.route('/points/:id').get(async (req, res) => {
+  let rentalPayments = await Teacher_Point_Change.find({
+    teacher: req.params.id
+  });
+  res.json(rentalPayments);
+});
 
 router
   .route('/link')
