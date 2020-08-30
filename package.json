@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "heroku-prebuild": "cd compiler && npm install && cd ../admin && npm install && cd ../proxy && npm install",
+    "heroku-postbuild": "npm run build --prefix compiler",
     "build": "npm run build --prefix compiler",
     "build-proxy": "npm run build-proxy --prefix compiler",
     "build-admin": "npm run build-admin --prefix compiler",
