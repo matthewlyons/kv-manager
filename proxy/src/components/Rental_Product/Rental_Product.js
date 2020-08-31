@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Rental_Product(props) {
   let {
-    img,
+    image,
     name,
     type,
     price,
@@ -10,13 +10,13 @@ export default function Rental_Product(props) {
     feature2,
     feature3,
     feature4,
-    sizes,
-    link
+    sizes
   } = props.product;
+  let { link } = props;
   return (
     <section className="Grid Gap Third BottomLine PaddingTopBottom">
       <div>
-        <img src={img} alt="" className="FullWidth" />
+        <img src={image} alt={`${name} ${type}`} className="FullWidth" />
       </div>
       <div>
         <h3 className="TextBold Red TextCenter">
@@ -34,7 +34,7 @@ export default function Rental_Product(props) {
         <h3 className="TextBold">Available Sizes:</h3>
         <p>{sizes}</p>
       </div>
-      <div className="TextCenter Grid RowGap">
+      <div className="Flex FlexCenter">
         <a href={link.url} className="PaddingTopBottom">
           <button className="btn">{link.label}</button>
         </a>
