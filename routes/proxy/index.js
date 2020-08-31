@@ -11,6 +11,7 @@ router.use('/api', require('./api'));
 // Authorize Api Route
 // Send everything from this route back as liquid.
 router.use((req, res, next) => {
+  res.set('Content-Type', 'text/html');
   res.set('Content-Type', 'application/liquid');
   return next();
   // TODO Proxy Auth

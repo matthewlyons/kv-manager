@@ -2,6 +2,7 @@ const axios = require('axios');
 
 module.exports = {
   makeRequest(method, route, data) {
+    let url;
     if (process.env.NODE_ENV === 'development') {
       url = `/proxy/api${route}`;
     } else {

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link href="//cdn.shopify.com/s/files/1/2994/5334/t/17/assets/theme.scss.css?v=12780955427004077842" rel="stylesheet"
+    type="text/css" media="all" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,20 +24,1189 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <title>React App</title>
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+  <div id="wrapper">
+    <div id="shopify-section-header" class="shopify-section">
+      <!-- Nav Start -->
+      <section class="desktop">
+        <!-- Top Bar-->
+        <section id="topbarSection" class="desktop">
+          <section class="container">
+            <ul class="flex">
+              <li class="flex firstAlert">
+                <img
+                  data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/shipping_icon_28651a4b-2630-49a4-a2ef-fe7ad05b2e7f_61x26.png?v=1519627405
+                  class="alertIcon lazyload">
+                <p class="alertText"><a href=/pages/shipping-returns.html> FREE SAME DAY SHIPPING</a></p>
+              </li>
+              <li class="flex">
+                <img
+                  data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/45day_icon_fbc5f92e-3515-4c57-86c7-9625a8ef8f6e_25x25.png?v=1519627412
+                  class="alertIcon lazyload ">
+                <p class="alertText"><a href=/pages/shipping-returns.html>45 DAY MONEY BACK GUARANTEE</a></p>
+              </li>
+              <li class="lastAlert">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+                <a href="/account/login">
+
+                  <p class="alertText">My Account</p>
+                </a>
+              </li>
+              <li style="margin-top: -6px; padding-left:15px;">
+                <a href="/cart">
+                  <img
+                    data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/cart_icon_copy_f55c15ed-dba7-43f6-a2a4-c24fd89dc82b_40x40.png?v=1557441005
+                    class="lazyload" id="cartIcon">
+                </a>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <!-- Middle Bar-->
+        <section id="middlebarSection">
+          <a href="/" class="HoverPointer">
+            <img data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/logo_full_285x130.png?v=1519624137
+              class="logo lazyload">
+            <img
+              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/logo_full_85x130_crop_left.png?v=1519624137
+              class="logo desktop lazyload" id="logoCrop">
+          </a>
+          <p class="MiddleText desktop" id="GiveUsACall">Give Us A Call<br>1-800-779-0242</p>
+          <p class="MiddleText desktop" id="storeHours">Store Hours<br>Mon - Fri 10-6, Sat 10-4</p>
+          <div class="search-container desktop">
+            <form action="/search" method="get" class="search-form" role="search">
+              <input type="text" placeholder="Search..." name="q" id="SearchBox">
+              <button type="submit"><i class="fa fa-search"></i></button>
+              <input type="hidden" name="type" value="product" />
+            </form>
+          </div>
+        </section>
+        <!-- Bottom Bar-->
+        <section id="bottombarSection" class="desktop">
+          <div id="nav">
+            <div id="search">
+              <ul>
+                <!-- Instruments -->
+                <li class="NavTopLevel"><a href="/pages/instrument-select" class="NavTopLevelLink">INSTRUMENTS</a>
+                  <ul class="dropdown">
+                    <section class="megaMenu">
+                      <section class="TopBar MegaFull">
+                        <h2>Violins & Other Instruments</h2>
+                      </section>
+                      <section class="MegaHalf">
+                        <div class="InstrumentNavSection" style="top: 69px; left: 20px;">
+                          <a href="/collections/new-violin">
+
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-violin_35x102.png?v=1519760844
+                              alt="Violin" class="InstrumentSVG BasicSVG lazyload">
+
+                          </a>
+                          <h4 class="MegaSubheader" style="margin-top: -7px;"><a
+                              href="/collections/new-violin">Violins</a></h4>
+                          <ul class="InstrumentNavList">
+                            <li class="InstrumentNavListItem"><a href="/collections/new-violin" class="MegaItem">New
+                                Violins</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/electric-violin">Electric
+                                Violins</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/clearance-violin">Clearance
+                                Violins</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/fine-violin">Fine
+                                Violins</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/kennedy-violins-fiddles">Fiddles</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="InstrumentNavSection" style="top: 234px; left: 20px; width:320px;">
+                          <a href="/collections/accessories-violin">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Accessories_39x101.png?v=1519760850
+                              alt="Violin Accessories" class="InstrumentSVG BasicSVG lazyload">
+                          </a>
+                          <h4 class="MegaSubheader" style="padding-left: 48px;"><a
+                              href="/collections/accessories-violin">Violin Accessories</a></h4>
+                          <ul class="InstrumentNavList" id="InstrumentNavAccessories1">
+                            <li class="InstrumentNavListItem"><a href="/collections/violin-strings">Strings</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/violin-cases">Cases</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/violin-bows">Bows</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/violin-sheet-music">Sheet Music</a>
+                            </li>
+                          </ul>
+                          <ul class="InstrumentNavList" id="InstrumentNavAccessories2">
+
+                            <li class="InstrumentNavListItem"><a href="/collections/metronomes-tuners">Metronomes/
+                                Tuners</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/instrument-care">Instrument Care</a>
+                            </li>
+                            <li class="InstrumentNavListItem"><a href="/collections/violin-shoulder-rests">Shoulder
+                                Rests</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/accessories-violin">See All...</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div>
+                          <a href="/products/ricard-bunnel-g1-violin-outfit">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/instrument-graphic_230x391.png?v=1519799714
+                              alt="InstrumentSpecial" id="InstrumentSpecial" class="lazyload">
+                          </a>
+                        </div>
+                      </section>
+                      <section class="MegaQuarter" style="border-bottom: 1px solid lightgray;">
+                        <div class="InstrumentNavSection" style="top:70px; left: 510px;">
+                          <a href="/collections/new-viola">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-viola_40x102.png?v=1519761402
+                              alt="Viola" class="InstrumentSVG BasicSVG lazyload">
+                          </a>
+                          <h4 class="MegaSubheader"><a href="/collections/new-viola">Violas</a></h4>
+                          <ul class="InstrumentNavList">
+                            <li class="InstrumentNavListItem"><a href="/collections/new-viola">New
+                                Violas</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/clearance-viola">Clearance
+                                Violas</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Accessories-Viola">Viola
+                                Accessories</a></li>
+                          </ul>
+                        </div>
+                        <div class="InstrumentNavSection" style="top:70px; left: 743px;">
+                          <a href="/collections/new-cello">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Cello_33x101.png?v=1519761654
+                              alt="Cello" class="InstrumentSVG BasicSVG lazyload">
+                          </a>
+                          <h4 class="MegaSubheader"><a href="/collections/new-cello">Cellos</a></h4>
+                          <ul class="InstrumentNavList">
+                            <li class="InstrumentNavListItem"><a href="/collections/new-cello">New
+                                Cellos</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Clearance-Cello">Clearance
+                                Cellos</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Accessories-Cello">Cello
+                                Accessories</a></li>
+                          </ul>
+                        </div>
+                      </section>
+                      <section class="MegaQuarter">
+                        <div class="InstrumentNavSection" style="top:237px; left: 510px;">
+                          <a href="/collections/new-bass">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Bass_40x102.png?v=1519761662
+                              alt="Bass" class="InstrumentSVG BasicSVG lazyload">
+                          </a>
+                          <h4 class="MegaSubheader"><a href="/collections/new-bass">Basses</a></h4>
+                          <ul class="InstrumentNavList">
+                            <li class="InstrumentNavListItem"><a href="/collections/new-bass">New
+                                Basses</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Clearance-Bass">Clearance Basses</a>
+                            </li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Accessories-Bass">Bass
+                                Accessories</a></li>
+                          </ul>
+                        </div>
+                        <div class="InstrumentNavSection" style="top:237px; left: 743px;">
+                          <a href="/collections/New-Guitar">
+                            <img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-guitar_36x101.png?v=1519763269
+                              alt="guitar" class="InstrumentSVG BasicSVG lazyload">
+                          </a>
+                          <h4 class="MegaSubheader"><a href="/collections/New-Guitar">Guitars</a></h4>
+                          <ul class="InstrumentNavList">
+                            <li class="InstrumentNavListItem"><a href="/collections/New-Guitar">New
+                                Guitars</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/New-Ukulele">New
+                                Ukuleles</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Clearance-Guitar">Clearance
+                                Guitars</a></li>
+                            <li class="InstrumentNavListItem"><a href="/collections/Accessories-Guitar">Guitar
+                                Accessories</a></li>
+                          </ul>
+                        </div>
+                      </section>
+                      <section class="BottomBar MegaFull">
+                        <ul style="display: flex; padding: 7px; padding-left:150px; padding-top: 14px;">
+                          <a class="InstrumentBottomLink" href="/pages/shipping-returns">
+                            <li class="InstrumentBottom">Free Shipping</li>
+                          </a>
+                          <a class="InstrumentBottomLink" href="/pages/violin-size-chart">
+                            <li class="InstrumentBottom">Sizing</li>
+                          </a>
+                          <a class="InstrumentBottomLink" href="/pages/instrument-setup">
+                            <li class="InstrumentBottom">Setup</li>
+                          </a>
+                          <a class="InstrumentBottomLink" href="/pages/in-home-trial">
+                            <li class="InstrumentBottom">In-Home Trials</li>
+                          </a>
+                          <a class="InstrumentBottomLink" href="/pages/rentals">
+                            <li class="InstrumentBottom">Rentals</li>
+                          </a>
+                          <a class="InstrumentBottomLink" href="/pages/trade-up-program">
+                            <li class="InstrumentBottom">Trade-Up</li>
+                          </a>
+                        </ul>
+                      </section>
+                    </section>
+                  </ul>
+                </li>
+                <!-- Accessories -->
+                <li class="NavTopLevel"><a href="/pages/accessories" class="NavTopLevelLink">ACCESSORIES</a>
+                  <ul class="dropdown">
+                    <section class="megaMenu" style="height: fit-content;">
+                      <section class="TopBar MegaFull">
+                        <h2>Search By Instrument</h2>
+                      </section>
+                      <section class="MegaFull">
+                        <section class="Flex FlexSpaceAround" style="margin-top: 25px;margin: 25px 0;">
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/violin">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-violin.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Violin</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/electric">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-ElectricViolin.png?v=1589654974"
+                                class="InstrumentSelectImage">
+                              <h3>Electric Violin</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/viola">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-viola.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Viola</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/cello">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-Cello.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Cello</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/bass">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-Bass.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Bass</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/guitar">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-guitar.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Guitar</h3>
+                            </a>
+                          </div>
+                          <div class="InstrumentSelectItem">
+                            <a href="/pages/accessories/ukulele">
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-ukulele.png?7826848096287280869"
+                                class="InstrumentSelectImage">
+                              <h3>Ukulele</h3>
+                            </a>
+                          </div>
+                        </section>
+                      </section>
+                    </section>
+                  </ul>
+                  <!-- <ul class="dropdown">
+                            <section class="megaMenu">
+
+                                <section class="TopBar MegaFull">
+                                    <h2>Instrument Accessories & Sheet Music</h2>
+                                </section>
+
+                                <section class="MegaHalf" style="float: left; height: 264px;">
+                                    <div style="display: flex; justify-content: center; padding: 15px 0;">
+                                        <a href="/collections/accessory-packs"><img
+                                                data-src=//cdn.shopify.com/s/files/1/2994/5334/files/nav-acc-gold-ad_200x200.png?v=1519799805
+                                                id="AccNavAd" class="lazyload"></a>
+                                        <div>
+                                            <a href="/collections/accessory-packs" id="AccNavSubheader">
+                                                <h3>Accessory Packages For Violin</h3>
+                                            </a>
+                                            <ul class="AccNavList">
+                                                <li clss="AccNavListItem"><a
+                                                        href="/products/kennedy-starter-violin-accessory-package">Starter
+                                                        Accessory Package</a></li>
+                                                <li clss="AccNavListItem"><a
+                                                        href="/products/kennedy-gold-violin-accessory-package">Gold
+                                                        Accessory Package</a></li>
+                                                <li clss="AccNavListItem"><a
+                                                        href="/products/kennedy-platinum-violin-accessory-package">Platinum
+                                                        Accessory Package</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="hidden"
+                                        style="border-top: 1px solid lightgray; display: flex; align-items: center; justify-content: center;">
+                                        <a href="/collections/kennedy-violins-merch">
+                                            <h3 style="padding:17px 0;">SHOP THE KENNEDY VIOLINS BRAND!</h3>
+                                        </a>
+                                    </div>
+                                </section>
+
+                                <section class="MegaHalf" style="float:left; height: 264px;">
+                                    <div class="AccessoryContainer">
+                                        <div class="AccessoryBorderRight Flex FlexSpaceAround">
+                                            <ul class="AccessoryList">
+                                                <li><a href="/collections/accessories-violin">Violin</a></li>
+                                                <li><a href="/collections/electric-violin-accessories">Electric
+                                                        Violin</a></li>
+                                                <li><a href="/collections/Accessories-Viola">Viola</a></li>
+                                                <li><a href="/collections/Accessories-Cello">Cello</a></li>
+                                                <li><a href="/collections/Accessories-Bass">Bass</a></li>
+                                                <li><a href="/collections/Accessories-Guitar">Guitar</a></li>
+                                                <li><a href="/collections/ukulele-accessories">Ukulele</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="Flex FlexSpaceAround">
+                                            <ul class="AccessoryList">
+                                                <li><a href="/pages/strings">Strings</a></li>
+                                                <li><a href="/pages/bows">Bows</a></li>
+                                                <li><a href="/collections/rosin">Rosin</a></li>
+                                                <li><a href="/pages/cases">Cases</a></li>
+                                                <li><a href="/pages/shoulder-rests">Shoulder Rests</a></li>
+                                                <li><a href="/collections/Metronomes-Tuners">Metronomes</a></li>
+                                                <li><a href="/collections/Metronomes-Tuners">Tuners</a></li>
+                                            </ul>
+                                            <ul class="AccessoryList">
+                                                <li><a href="/collections/Mutes">Mutes</a></li>
+                                                <li><a href="/collections/Music-Stands">Music Stands</a></li>
+                                                <li><a href="/collections/Instrument-Care">Instrument Care</a></li>
+                                                <li><a href="/collections/Sheet-Music">Sheet Music</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="MegaFull"
+                                    style="height: 122px; border-top:1px solid lightgray; float:left;">
+                                    <a href="/collections/codabows"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-acc-codabow-logo_90x50.png?v=1519799812
+                                            alt="CodaBow" class="AccNavLogo lazyload"></a>
+                                    <a href="/collections/giuliani-fine-instrument-bows"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-acc-guiliani-logo_164x50.png?v=1519799829
+                                            alt="Guiliani" class="AccNavLogo lazyload"></a>
+                                    <a href="/collections/portland"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/portland_178x70.png?v=1519799819
+                                            alt="Portland" class="AccNavLogo lazyload"></a>
+                                    <a href="/products/everest-es-2-spring-collection-violin-shoulder-rest"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/Everest_logo_240x71.png?v=1519799842
+                                            alt="Everest" class="AccNavLogo lazyload"></a>
+                                    <a href="/products/incredibow"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-acc-incredibow-logo_86x50.png?v=1519799850
+                                            alt="Incredibow" class="AccNavLogo lazyload"></a>
+                                    <a href="/collections/arcos-brasil"><img
+                                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-acc-arcos-brasil-logo_49x50.png?v=1519799859
+                                            alt="Arcos" class="AccNavLogo lazyload"></a>
+                                </section>
+                            </section>
+                        </ul> -->
+                </li>
+                <!-- FAQ -->
+                <li class="NavTopLevel"><a href="/pages/faq" class="NavTopLevelLink">FAQs</a>
+
+                  <ul class="dropdown">
+                    <section class="megaMenu">
+                      <section class="TopBar MegaFull">
+                        <h2>Frequently Asked Questions</h2>
+                      </section>
+                      <section class="MegaFull">
+                        <div style="width: 35%; float: left; margin: 9px 30px 0px 30px;">
+                          <h3 style="padding-bottom: 10px;">For Violinists, By Violinists</h3>
+                          <p style="padding-bottom: 10px;">At Kennedy Violins we are a family of string
+                            players committed to helping fellow musicians reach their goals. We are here
+                            to answer your musical questions, help find the perfect instrument for your
+                            needs, and provide resources for learning the music you want to play. Give
+                            us a call and one of our friendly customer service representatives will be
+                            happy to assist!</p>
+                          <p style="padding-top: 20px;">Please call 1-800-779-0242 to ask for any special
+                            requests with your order or email us at support@kennedyviolins.com</p>
+                        </div>
+                        <div style="width: 25%; float: left;">
+                          <div>
+                            <h4 class="MegaSubheader eduSubheader" style="width: 250px;"><a
+                                href="/pages/meet-the-staff">Meet Kennedy Violins</a></h4>
+                            <ul class="EducationNavList">
+                              <li class="EducationNavListItem"><a href="/pages/about-us">About Us</a>
+                              </li>
+                              <li class="EducationNavListItem TextBold" style="letter-spacing: 1px;">
+                                <a href="/pages/contact-us">Contact Us</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/events">Events</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/meet-the-staff">Meet
+                                  The Staff</a></li>
+                            </ul>
+                          </div>
+                          <img
+                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/teamphoto_290x201.png?v=1519799865
+                            alt="Teamphoto" class="lazyload">
+                        </div>
+                        <div style="position: relative; top: -20px; left: 63px;">
+                          <div class="EducationNavSection">
+                            <h4 class="MegaSubheader eduSubheader"><a href="/pages/coming-soon">First
+                                Time Buyers</a></h4>
+                            <ul class="EducationNavList">
+                              <li class="EducationNavListItem"><a href="/pages/violin-size-chart">Find
+                                  Your Size</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/instrument-setup">Instrument Setup</a>
+                              </li>
+                              <li class="EducationNavListItem"><a href="/pages/violin-specifications">Violin
+                                  Specifications</a>
+                              </li>
+                              <li class="EducationNavListItem"><a href="/pages/parents-guide">Parents'
+                                  Guide</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/tesimonials">Testimonials</a></li>
+
+                            </ul>
+                          </div>
+                          <div class="EducationNavSection">
+                            <h4 class="MegaSubheader eduSubheader"><a href="/account/login">Your
+                                Order</a></h4>
+                            <ul class="EducationNavList">
+                              <li class="EducationNavListItem"><a href="/pages/shipping-returns">Shipping & Returns</a>
+                              </li>
+                              <li class="EducationNavListItem"><a href="/pages/in-home-trial">In-Home
+                                  Trials</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/trade-up-program">Trade-Ups</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/customizations">Customizations</a></li>
+                              <li class="EducationNavListItem"><a href="/pages/lifetime-warranty">Lifetime Warranty</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </section>
+
+                    </section>
+                  </ul>
+                </li>
+                <!-- Explore -->
+                <a href="/" id="ExploreButton">
+
+                  <img data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/explore_100x100.png?v=1519624667
+                    alt="Explore Kennedy Violins" style="margin-top: -75px;" class="HoverPointer lazyload">
+
+                </a>
+                <!-- Lessons -->
+                <li class="NavTopLevel" style="margin-left: -15px;"><a href="/pages/lessons"
+                    class="NavTopLevelLink">LESSONS</a>
+                  <ul class="dropdown">
+                    <section class="megaMenu">
+                      <section class="TopBar MegaFull">
+                        <h2>Private Lessons & Group Classes</h2>
+                      </section>
+                      <section class="TopBar" style="height: 237px;">
+                        <div class="RentalsLeft RentalsSection">
+                          <h3 class="RentalsSubHeader" style="text-align: left; padding:25px 0px 20px 14px;">Group
+                            Classes</h3>
+                          <img
+                            data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/grouplessons_265x138.png?v=1519799872
+                            alt="grouplessons" class="lazyload">
+                        </div>
+                        <div class="RentalsRight RentalsSection">
+                          <h3 class="RentalsSubHeader">Private Lessons</h3>
+                          <div class="RentalMod"><a href="/pages/lessons/#violin">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-violin_35x102.png?v=1519760844
+                                alt="violin" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Violin</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#viola">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-viola_40x102.png?v=1519761402
+                                alt="Viola" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Viola</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#cello">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Cello_33x101.png?v=1519761654
+                                alt="Cello" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Cello</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#bass">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Bass_40x102.png?v=1519761662
+                                alt="Bass" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Bass</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#guitar">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-guitar_36x101.png?v=1519763269
+                                alt="Guitar" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Guitar</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#ukulele">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-ukulele_83x230.png?v=1519763279
+                                alt="Ukulele" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Uklulele</h3>
+                            </a></div>
+
+                          <div class="RentalMod"><a href="/pages/lessons/#piano">
+                              <img
+                                data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-instruments-Piano_31x77.png?v=1519763289
+                                alt="piano" class="BasicSVG lazyload">
+                              <h3 class="RentalTitle">Piano</h3>
+                            </a></div>
+                        </div>
+                      </section>
+                      <section>
+                        <div class="LessonsBottomSection" style="padding-left: 50px;">
+                          <ul class="LessonsBottomList">
+                            <li class="LessonsBottomItem">•Conservatory Prep Training</li>
+                            <li class="LessonsBottomItem">•Irish & Regional Fiddling</li>
+                            <li class="LessonsBottomItem">•Suzuki Certified Teachers</li>
+                          </ul>
+                        </div>
+                        <div class="LessonsBottomSection">
+                          <ul class="LessonsBottomList">
+                            <li class="LessonsBottomItem">•Orchestra & Audition Coaching</li>
+                            <li class="LessonsBottomItem">•Jazz & Electric Bass</li>
+                            <li class="LessonsBottomItem">•Classical Guitar & Ukulele</li>
+                          </ul>
+                        </div>
+                        <div class="LessonsBottomSection">
+                          <h3 class="LessonsBottomInformation">Your first lesson is free!<br>Call
+                            1-800-779-0242 for<br>a teacher recommendation</h3>
+                        </div>
+                      </section>
+
+                    </section>
+                  </ul>
+                </li>
+                <!-- Rentals -->
+                <li class="NavTopLevel"><a href="/pages/rentals" class="NavTopLevelLink">RENTALS</a>
+                  <!--                                 <ul class="dropdown">
+                                    <section class="megaMenu">
+                                        <section class="TopBar MegaFull">
+                                          <h2>Instrument Rentals</h2>
+                                      </section>
+                                      <section class="TopBar" style="height: 237px;">
+                                        <div class="RentalsLeft RentalsSection">
+                                          <h3 class="RentalsSubHeader">National Rentals</h3>
+                                          <div class="RentalMod" style="padding-left: 50px;">
+                                            <a href="/community/app/NationalRentals/Violin">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-violin.png?8816603110846724415" alt="violin" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Violin</h3>
+                                            </a>
+                                          </div>
+                                          <div class="RentalMod">
+                                            <a href="/community/app/NationalRentals/Viola">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-viola.png?3721164219464105432" alt="viola" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Viola</h3>
+                                            </a>
+                                          </div>
+                                        </div>
+                                        <div class="RentalsRight RentalsSection">
+                                          <h3  class="RentalsSubHeader">Local Rentals</h3>
+                                          <div class="RentalMod" style="padding-left: 25px;">
+                                            <a href="/community/app/LocalRentals/Violin">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-violin.png?8816603110846724415" alt="violin" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Violin</h3>
+                                            </a>
+                                          </div>
+                                          <div class="RentalMod">
+                                            <a href="/community/app/LocalRentals/Viola">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-viola.png?3721164219464105432" alt="Viola" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Viola</h3>
+                                            </a>
+                                          </div>
+                                          <div class="RentalMod">
+                                            <a href="/community/app/LocalRentals/Cello">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-Cello.png?3721164219464105432" alt="Cello" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Cello</h3>
+                                            </a>
+                                          </div>
+                                          
+                                          <div class="RentalMod">
+                                            <a href="/community/app/LocalRentals/Bass">
+                                              <img data-src="https://cdn.shopify.com/s/files/1/2994/5334/files/nav-instruments-Bass.png?3721164219464105432" alt="Bass" class="BasicSVG lazyload">
+                                              <h3 class="RentalTitle">Bass</h3>
+                                            </a>
+                                          </div>
+                                          <div class="RentalNavInformation">
+                                            <p class="TextBold">Are you a K-12 Student?</p>
+                                            <a href="/school-rentals"><button class="btn">Click Here</button></a>
+                                            <div style="margin: 10px auto;"></div>
+                                            <p class="TextBold">Are you a Teacher?</p>
+                                            <a href="/community/app/teacher/request"><button class="btn">Click Here</button></a>
+                                          </div>
+                                        </div>
+                                      </section>
+                                      <section>
+                                           
+                                            <img data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/RentalsNav_BottomBar_900x140.png?v=1519799880 alt="Rentals" style="width: 960px; position:absolute;left: 0; top: 296px;" class="lazyload">
+                                            <div class="RentalNavFeature" style="padding-left: 19px;">
+                                                <h3 class="RentalNavFeatureHeader">No Contracts</h3>
+                                                <p class="RentalNavFeatureText">Rent month to month</p>
+                                            </div>
+                                            <div class="RentalNavFeature">
+                                                <h3 class="RentalNavFeatureHeader">Change Size</h3>
+                                                <p class="RentalNavFeatureText">Change size at any time, no charge</p>
+                                            </div>
+                                            <div class="RentalNavFeature">
+                                                <h3 class="RentalNavFeatureHeader">Expert Help</h3>
+                                                <p class="RentalNavFeatureText">Rent from the string instrument experts</p>
+                                            </div>
+                                            <div class="RentalNavFeature">
+                                                <h3 class="RentalNavFeatureHeader">Receive Credit</h3>
+                                                <p class="RentalNavFeatureText">12 Months rental payments toward purchase of an instrument</p>
+                                            </div>
+                                            
+                                        </section>
+
+                                    </section>
+                                </ul> -->
+                </li>
+                <!-- Education -->
+                <li class="NavTopLevel"><a href="/blogs/education-center" class="NavTopLevelLink">EDUCATION</a>
+                  <ul class="dropdown">
+                    <section class="megaMenu">
+                      <section class="TopBar MegaFull">
+                        <h2>Education Center</h2>
+                      </section>
+                      <section class="MegaFull middleSection" style="height: 210px;">
+                        <div class="EducationNavSection">
+                          <h4 class="MegaSubheader eduSubheader"><a href="/blogs/education-center">Resource Library</a>
+                          </h4>
+                          <ul class="EducationNavList">
+                            <li class="EducationNavListItem"><a href="/pages/tuning">How To Tune</a>
+                            </li>
+                            <li class="EducationNavListItem"><a href="/pages/how-to-use-a-metronome">How
+                                to Use a Metronome</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/music-theory-basics">Music
+                                Theory Basics</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/vibrato">How to Learn
+                                Vibrato</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/instrument-care">Instrument
+                                Care</a></li>
+                          </ul>
+                        </div>
+                        <div class="EducationNavSection">
+                          <h4 class="MegaSubheader eduSubheader"><a href="/blogs/education-center">Video
+                              Library</a></h4>
+                          <ul class="EducationNavList">
+                            <li class="EducationNavListItem Red"><a href="/pages/joels-corner" style="color:red;">Joel's
+                                Corner</a></li>
+                            <li class="EducationNavListItem Red"><a href="/pages/james-corner" style="color:red;">James'
+                                Corner</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/video-comparisons">Video
+                                Comparisons</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/how-to-tutorials">Tutorials</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/history-of-kennedy-violins">History of
+                                Kennedy
+                                Violins</a></li>
+                          </ul>
+                        </div>
+                        <div class="EducationNavSection">
+                          <h4 class="MegaSubheader eduSubheader"><a href="/blogs/education-center">For
+                              Parents</a></h4>
+                          <ul class="EducationNavList">
+                            <li class="EducationNavListItem"><a href="/pages/parents-guide">Parents'
+                                Guide</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/what-is-a-vso">What is a
+                                VSO?</a></li>
+                            <li class="EducationNavListItem"><a href="/blogs/education-center">Back to
+                                School</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/practice-tips">Practice
+                                Tips</a></li>
+                          </ul>
+                        </div>
+                        <div class="EducationNavSection">
+                          <h4 class="MegaSubheader eduSubheader"><a href="/blogs/education-center">For
+                              Educators</a></h4>
+                          <ul class="EducationNavList">
+                            <li class="EducationNavListItem"><a href="/blogs/education-center">Lesson
+                                Resources</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/teacher-sign-up">Teacher
+                                Loyalty Program</a></li>
+                            <li class="EducationNavListItem"><a href="/pages/school-orders">Teacher &
+                                School Discounts</a></li>
+                          </ul>
+                        </div>
+                      </section>
+                      <section class="MegaFull">
+                        <div id="CommunityPartners">
+                          <a href="/pages/partners">
+                            <h2>Community Partners</h2>
+                          </a>
+                        </div>
+                        <div>
+                          <a href="/pages/partners"><img
+                              data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/nav-ed-partners_920x117.png?v=1519799888
+                              style="width: 960px;" class="lazyload"></a>
+                        </div>
+                      </section>
+
+                    </section>
+                  </ul>
+                </li>
+              </ul>
+              <a href="https://www.facebook.com/KennedyViolins/">
+                <img
+                  data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/facebook_icon_4efa0096-1adc-4e7d-9355-7e2a9ac4a892_30x30.png?v=1519624790
+                  style="position: relative; top: 5px; left: -7px;" class="lazyload">
+              </a>
+              <a href="https://www.instagram.com/kennedyviolins/">
+                <img
+                  data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/instagram_icon_e4b6b958-872f-4312-ac26-c662a28ab011_30x30.png?v=1519624800
+                  style="position: relative; top: 5px; left: -7px;" class="lazyload">
+              </a>
+              <a href="https://www.youtube.com/channel/UCgg2Tda7Bq_U-93lD5E4DYw">
+                <img data-src=//i0.wp.com/cdn.shopify.com//s/files/1/2994/5334/files/YT-red-icon_30x30.png?v=1560277770
+                  style="position: relative; top: 5px; left: -7px;" class="lazyload">
+              </a>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- Nav End -->
+
+
+    </div>
+    <div id="shopify-section-mobileHeader2019" class="shopify-section">
+      <section>
+        <div id="MobileNavSlider" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <div class="overlay-content">
+
+            <!-- Instruments -->
+            <div class="Header"><a>Instruments</a></div>
+            <div class="Content hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/new-violin">New Violins</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/electric-violin">Electric Violins</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/new-viola">New Violas</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/fine-violin">Fine Violins</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/kennedy-violins-fiddles">Fiddles</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/new-cello">New Cellos</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/new-bass">New Basses</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/New-Guitar">New Guitars</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/New-Ukulele">New Ukuleles</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/clearance-violin">Clearance Violins</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Accessories -->
+            <div class="Header"><a>Accessories</a></div>
+            <div class="Content hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/violin">Violin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/electric">Electric Violin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/viola">Viola</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/cello">Cello</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/bass">Bass</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/guitar">Guitar</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/ukulele">Ukulele</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/accessories/any">Any Instrument</a>
+                </li>
+              </ul>
+              <!-- <ul>
+          <li class="MobileSubItem">
+            <div class="SubHeader"><a>+ Violin Accessories</a></div>
+            <div class="SubContent hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/violin-strings">Strings</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/violin-bows">Bows</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/rosin">Rosin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/violin-cases">Cases</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/violin-shoulder-rests">Shoulder Rests</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Metronomes-Tuners">Metronomes & Tuners</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Mutes">Mutes</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Music-Stands">Music Stands</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Instrument-Care">Instrument Care</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Endpin-Anchors">Endpin Anchors</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Sheet-Music">Sheet Music</a>
+                </li>
+              </ul>
+            </div>
+            
+          </li>
+          <li class="MobileSubItem">
+            <div class="SubHeader"><a>+ Viola Accessories</a></div>
+            <div class="SubContent hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/viola-strings">Strings</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/viola-bows">Bows</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/rosin">Rosin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/viola-cases">Cases</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/viola-shoulder-rests">Shoulder Rests</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Metronomes-Tuners">Metronomes & Tuners</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Mutes">Mutes</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Music-Stands">Music Stands</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Instrument-Care">Instrument Care</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Endpin-Anchors">Endpin Anchors</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Sheet-Music">Sheet Music</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="MobileSubItem">
+            <div class="SubHeader"><a>+ Cello Accessories</a></div>
+            <div class="SubContent hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/cello-strings">Strings</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/cello-bows">Bows</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/rosin">Rosin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/cello-cases">Cases</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Metronomes-Tuners">Metronomes & Tuners</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Mutes">Mutes</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Music-Stands">Music Stands</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Instrument-Care">Instrument Care</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Endpin-Anchors">Endpin Anchors</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Sheet-Music">Sheet Music</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="MobileSubItem">
+            <div class="SubHeader"><a>+ Bass Accessories</a></div>
+            <div class="SubContent hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/bass-strings">Strings</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/bass-bows">Bows</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/rosin">Rosin</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Metronomes-Tuners">Metronomes & Tuners</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Mutes">Mutes</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Music-Stands">Music Stands</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Instrument-Care">Instrument Care</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Endpin-Anchors">Endpin Anchors</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Sheet-Music">Sheet Music</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          
+          <li class="MobileSubItem">
+            <div class="SubHeader"><a>+ Guitar Accessories</a></div>
+            <div class="SubContent hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <a href="/collections/guitar-strings">Strings</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Metronomes-Tuners">Metronomes & Tuners</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Music-Stands">Music Stands</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/collections/Instrument-Care">Instrument Care</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul> -->
+            </div>
+            <!-- FAQ -->
+            <div class="Header"><a>FAQs</a></div>
+            <div class="Content hidden">
+              <ul>
+                <li class="MobileSubItem">
+                  <div class="SubHeader"><a>+ Meet Kennedy Violins</a></div>
+                  <div class="SubContent hidden">
+                    <ul>
+                      <li class="MobileSubItem">
+                        <a href="/pages/about-us">About Us</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/contact-us">Contact us</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/events">Events</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/meet-the-staff">Meet The Staff</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="MobileSubItem">
+                  <div class="SubHeader"><a>+ First Time Buyer</a></div>
+                  <div class="SubContent hidden">
+                    <ul>
+                      <li class="MobileSubItem">
+                        <a href="/pages/violin-size-chart">Find your size</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/instrument-setup">Instrument Setup</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/violin-specifications">Violin Specifications</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/parents-guide">Parent’s Guide</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/tesimonials">Testimonials</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="MobileSubItem">
+                  <div class="SubHeader"><a>+ Your Order</a></div>
+                  <div class="SubContent hidden">
+                    <ul>
+                      <li class="MobileSubItem">
+                        <a href="/pages/shipping-returns">Shipping & Returns</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/in-home-trial">In-Home Trials</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/trade-up-program">Trade-Ups</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/customizations">Customizations</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <a href="/pages/lessons">Lessons</a>
+            <a href="/pages/rentals">Rentals</a>
+
+            <!-- Education -->
+            <div class="Header"><a>Education</a></div>
+            <div class="Content hidden">
+              <ul>
+
+                <li class="MobileSubItem">
+                  <a href="/pages/joels-corner">Joel's Corner</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/james-corner">James' Corner</a>
+                </li>
+                <li class="MobileSubItem">
+                  <a href="/pages/tutorials">How To</a>
+                </li>
+
+                <li class="MobileSubItem">
+                  <div class="SubHeader"><a>+ For Parents</a></div>
+                  <div class="SubContent hidden">
+                    <ul>
+                      <li class="MobileSubItem">
+                        <a href="/pages/parents-guide">Parent's Guide</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/pages/what-is-a-vso">What is a VSO?</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/blogs/education-center">Back to School</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="MobileSubItem">
+                  <div class="SubHeader"><a>+ For Educators</a></div>
+                  <div class="SubContent hidden">
+                    <ul>
+                      <li class="MobileSubItem">
+                        <a href="/community/app/teacher/request">Teacher Loyalty Program</a>
+                      </li>
+                      <li class="MobileSubItem">
+                        <a href="/community/app/teacher/request">Teacher & School Discounts</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+            <a href="/cart">Cart</a>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <section id="MobileNav" class="mobile">
+        <div id="MobileSearchForm">
+          <form action="/search" method="get" class="search-form" role="search">
+            <input type="text" placeholder="Search..." name="q" class="SearchBox">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <input type="hidden" name="type" value="product" />
+          </form>
+        </div>
+        <div id="MobileTopSection">
+          <a href="/">
+            <img src="https://cdn.shopify.com/s/files/1/2994/5334/files/logo_full_285x130.png?v=1519624137"
+              id="MobileNavLogo">
+          </a>
+          <div id="MobileNavIcons">
+            <div id="MobileIconContainer">
+              <a href="tel:1-800-779-0242"><i class="fa fa-phone MobileIcon"></i></a>
+              <i class="fa fa-search MobileIcon" onclick="mobileSearch()"></i>
+              <i class="fa fa-bars MobileIcon" onclick="openNav()"></i>
+            </div>
+          </div>
+        </div>
+        <div id="MobileBottomBar"></div>
+      </section>
+    </div>
+    <section class="MobilePaddingSides">
+      <!-- This is handlebars -->
+      <div id="root"></div>
+    </section>
+    <section id="footerSection">
+      <div id="shopify-section-footer" class="shopify-section">
+        <footer class="container">
+          <ul class="footerCopyright">
+            <li class="footerCopyright" id="FooterCopyright">Copyright 2020 Kennedy Violins.</li>
+            <li class="footerCopyright">508 SE 117th Avenue Vancouver, WA 98683</li>
+          </ul>
+          <ul class="footerList">
+            <li class="footerItem"><a href="/account/login" class="footerLink">My Account</a></li>
+            <li class="footerItem"><a href="/account/login" class="footerLink">Order Status</a></li>
+            <li class="footerItem"><a href="/cart" class="footerLink">View Cart</a></li>
+            <li class="footerItem"><a href="/collections/new-violin" class="footerLink">Violins</a></li>
+            <li class="footerItem"><a href="/collections/new-Viola" class="footerLink">Violas</a></li>
+            <li class="footerItem"><a href="/collections/New-Cello" class="footerLink">Cellos</a></li>
+            <li class="footerItem"><a href="/collections/clearance-violin" class="footerLink">Clearance</a></li>
+            <li class="footerItem"><a href="/collections/accessories-violin" class="footerLink">Accessories</a></li>
+            <li class="footerItem"><a href="/pages/contact-us" class="footerLink">Contact</a></li>
+            <li class="footerItem"><a href="/account/login" class="footerLink">Login</a></li>
+          </ul>
+        </footer>
+
+
+      </div>
+    </section>
+  </div>
+
+</body>
+
 </html>
