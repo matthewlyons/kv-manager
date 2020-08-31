@@ -10,6 +10,7 @@ import Select_Rental from './components/Select_Rental';
 export default function Find_Your_School() {
   const [schools, setSchools] = useState([]);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [data, setData] = useState({
     step: 0,
@@ -22,6 +23,7 @@ export default function Find_Your_School() {
   useEffect(() => {
     makeRequest('get', '/schools').then((res) => {
       setSchools(res);
+      setLoading(false);
     });
     makeRequest('get', '/rental_products').then((res) => {
       setProducts(res);
@@ -39,7 +41,13 @@ export default function Find_Your_School() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <Select_School updateData={updateData} schools={schools} />;
+        return (
+          <Select_School
+            updateData={updateData}
+            schools={schools}
+            loading={loading}
+          />
+        );
       case 1:
         return <Select_Class updateData={updateData} data={data} />;
       case 2:
