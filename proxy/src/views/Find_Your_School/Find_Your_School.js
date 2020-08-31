@@ -30,10 +30,6 @@ export default function Find_Your_School() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const updateData = (field, value) => {
     setData({ ...data, [field]: value, step: data.step + 1 });
   };

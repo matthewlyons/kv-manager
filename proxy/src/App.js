@@ -4,6 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // 404 Route
 import No_Match_Found from './views/No_Match_Found/No_Match_Found';
 
+// Teacher Routes
+// Teacher Dashboard
+import Teacher_Dashboard from './views/Teacher_Dashboard/Teacher_Dashboard';
+// School Page
+// Teacher Store
+// Product Page
+// Cart Page
+// Checkout Page
+
 // Rental Routes
 // Find Your School
 import Find_Your_School from './views/Find_Your_School/Find_Your_School';
@@ -23,6 +32,11 @@ function App() {
           exact
           path="/community/application/Rent/:Type(National|Local)/:Inst(Violin|Viola|Cello|Bass)"
           component={Inst_Rental}
+        />
+        <Route
+          exact
+          path="/community/application/Teacher/:id"
+          component={Teacher_Dashboard}
         />
         <Route component={No_Match_Found} />
       </Switch>

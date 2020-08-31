@@ -6,10 +6,6 @@ export default function Select_School(props) {
 
   const [query, setQuery] = useState('');
 
-  useEffect(() => {
-    console.log(schools);
-  }, [schools]);
-
   const handleClick = (element) => {
     updateData('school', element);
   };

@@ -1,0 +1,6 @@
+<!-- This is ejs -->
+<div id="root"></div>
+<script src="/community/application/javascript"></script>
+<script>
+    window.authToken = '{{ customer.id | hmac_sha256: "<%= process.env.APP_SECRET %>" }}';
+</script>
