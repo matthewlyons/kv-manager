@@ -45,29 +45,12 @@ const TeacherSchema = new Schema({
       ref: 'school'
     }
   ],
-  purchaseHistory: [
-    {
-      id: {
-        type: String,
-        required: true
-      },
-      points: {
-        type: Number,
-        required: true
-      },
-      item: {
-        type: String,
-        required: true
-      }
-    }
-  ],
   orders: [
     {
       type: Schema.Types.ObjectId,
       ref: 'teacherOrder'
     }
   ],
-
   date: {
     type: Date,
     default: Date.now
