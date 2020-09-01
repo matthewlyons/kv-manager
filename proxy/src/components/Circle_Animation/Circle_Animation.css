@@ -1,0 +1,18 @@
+.circle-label {
+  transform: translateY(0.25em);
+  font-family: 'helvetica';
+}
+
+.circle-percentage {
+  font-size: 0.4em;
+  line-height: 1;
+  text-anchor: middle;
+  transform: translateY(-0.25em);
+}
+
+.circle-text {
+  font-size: 0.2em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  transform: translateY(0.7em);
+}
