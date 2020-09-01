@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const hbs = require('hbs');
 
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
@@ -39,13 +38,7 @@ app.use(express.static('assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Handlebars helper to skip sections for Shopify to compile values
-// hbs.registerHelper('raw', function (options) {
-//   return options.fn();
-// });
-
 app.set('views', path.join(__dirname, './views'));
-// app.set('view engine', 'hbs');
 app.set('view engine', 'ejs');
 
 app.use('/admin', require('./routes/admin/'));
