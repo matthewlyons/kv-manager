@@ -15,7 +15,6 @@ export default function Teacher_Dashboard(props) {
   let { id } = props.match.params;
 
   useEffect(() => {
-    console.log(window.authToken);
     makeRequest('post', `/teachers/${id}`, {
       authToken: window.authToken
     }).then((res) => {
@@ -47,8 +46,6 @@ export default function Teacher_Dashboard(props) {
         event.type
       ];
     });
-    console.log('Array:');
-    console.log(result);
     if (result) {
       return result;
     } else {
@@ -81,7 +78,7 @@ export default function Teacher_Dashboard(props) {
               <Circle_Animation>
                 <g className="circle-label">
                   <text x="50%" y="50%" className="circle-percentage">
-                    1,000,000
+                    {teacher.points}
                   </text>
                   <text x="50%" y="50%" className="circle-text">
                     Points

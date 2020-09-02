@@ -83,6 +83,7 @@ router
       let teacher = await Teacher.findOne({
         shopifyID: req.params.id
       }).populate('schools');
+      console.log(teacher);
       // .populate('orders');
       if (teacher) {
         let pointEvents = await Teacher_Point_Change.find({
