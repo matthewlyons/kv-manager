@@ -81,6 +81,7 @@ router
     console.log('Auth');
     console.log(auth);
     if (auth) {
+      console.log('Auth Success');
       let teacher = await Teacher.findOne({
         shopifyID: req.params.id
       }).populate('schools');
@@ -91,13 +92,17 @@ router
           teacher: teacher._id
         });
 
-        res.json({ teacher, pointEvents });
+        return res.json({ teacher, pointEvents });
       } else {
-        res.json(false);
+        return res.status(401).json({
+          errors: [{ message: 'Something went wrong' }]
+        });
       }
     } else {
-      // TODO Error handling
-      res.status(403);
+      console.log('Error');
+      return res.status(401).json({
+        errors: [{ message: 'Unauthorized' }]
+      });
     }
   });
 

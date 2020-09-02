@@ -25,6 +25,7 @@ export default function Teacher_Dashboard(props) {
       })
       .catch((err) => {
         // TODO Error Handling
+        console.log(err);
         setLoading(false);
       });
   }, [window]);
