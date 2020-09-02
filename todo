@@ -34,5 +34,5 @@ Migration:
 -[] Shopify Webhooks
 -[] Database
 -[] Theme
--[] Heroku Github Switch to KennedyViolins Repo
--[] Add APP_SECRET to heroku env
+-[*] Heroku Github Switch to KennedyViolins Repo
+-[*] Add APP_SECRET to heroku env

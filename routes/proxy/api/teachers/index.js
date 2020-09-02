@@ -79,30 +79,24 @@ router
     let { authToken } = req.body;
     let auth = verifyProxyAuth(req.params.id, authToken);
 
-    let teacher = await Teacher.findOne({ shopifyID: req.params.id }).populate(
-      'schools'
-    );
-    // .populate('orders');
-    if (teacher) {
-      let pointEvents = await Teacher_Point_Change.find({
-        teacher: teacher._id
-      });
+    if (auth) {
+      let teacher = await Teacher.findOne({
+        shopifyID: req.params.id
+      }).populate('schools');
+      // .populate('orders');
+      if (teacher) {
+        let pointEvents = await Teacher_Point_Change.find({
+          teacher: teacher._id
+        });
 
-      res.json({ teacher, pointEvents });
+        res.json({ teacher, pointEvents });
+      } else {
+        res.json(false);
+      }
     } else {
-      res.json(false);
+      // TODO Error handling
+      res.status(403);
     }
-    // if (auth) {
-    //   let teacher = await Teacher.findOne({ shopifyID: req.params.id });
-    //   if (teacher) {
-    //     res.json(teacher);
-    //   } else {
-    //     res.json(false);
-    //   }
-    // } else {
-    //   // TODO Error handling
-    //   res.status(403);
-    // }
   });
 
 module.exports = router;
