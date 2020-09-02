@@ -17,11 +17,16 @@ export default function Teacher_Dashboard(props) {
   useEffect(() => {
     makeRequest('post', `/teachers/${id}`, {
       authToken: window.authToken
-    }).then((res) => {
-      console.log(res);
-      setData(res);
-      setLoading(false);
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        setData(res);
+        setLoading(false);
+      })
+      .catch((err) => {
+        // TODO Error Handling
+        setLoading(false);
+      });
   }, [window]);
 
   let teacher = useMemo(() => {

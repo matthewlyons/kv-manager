@@ -78,7 +78,8 @@ router
   .post(async (req, res) => {
     let { authToken } = req.body;
     let auth = verifyProxyAuth(req.params.id, authToken);
-
+    console.log('Auth');
+    console.log(auth);
     if (auth) {
       let teacher = await Teacher.findOne({
         shopifyID: req.params.id
