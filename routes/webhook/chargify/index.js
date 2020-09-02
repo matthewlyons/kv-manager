@@ -30,7 +30,8 @@ router.post('/payment', async (req, res) => {
 
   let newPayment = new Teacher_Point_Change({
     teacher: dbTeacher._id,
-    totalEarned: newPoints
+    type: 'Rental Payment',
+    points: newPoints
   });
 
   newPayment.save();
