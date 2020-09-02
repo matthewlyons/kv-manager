@@ -118,5 +118,66 @@ module.exports = {
       });
     console.log(response);
     return true;
+  },
+  // Create customer with email newsletter
+  async emailSignup(body) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/customers.json`;
+    axios
+      .post(
+        url,
+        {
+          customer: {
+            accepts_marketing: true,
+            first_name: body.firstName,
+            last_name: body.lastName,
+            email: body.email
+          }
+        },
+        { headers: accessRequestHeader }
+      )
+      .then((signup) => {
+        return signup;
+      })
+      .catch((err) => {
+        console.log('signup error');
+        console.log(err.response.data);
+        return false;
+      });
+  },
+  // Update customer to include email newsletter
+  async emailAccept(customer) {
+    shopifyCustomerId = customer[0].id;
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/customers/${shopifyCustomerId}.json`;
+    let shopifyCustomer = {
+      id: shopifyCustomerId,
+      accepts_marketing: true,
+      marketing_opt_in_level: 'confirmed_opt_in'
+    };
+    axios
+      .post(
+        url,
+        {
+          customer: shopifyCustomer
+        },
+        { headers: accessRequestHeader }
+      )
+      .then((signup) => {
+        return signup;
+      })
+      .catch((err) => {
+        console.log('accept error');
+        console.log(err.response.data);
+        return false;
+      });
   }
 };

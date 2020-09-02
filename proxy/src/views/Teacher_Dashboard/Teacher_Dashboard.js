@@ -49,7 +49,11 @@ export default function Teacher_Dashboard(props) {
     });
     console.log('Array:');
     console.log(result);
-    return result;
+    if (result) {
+      return result;
+    } else {
+      return [];
+    }
   }, [data]);
 
   return (

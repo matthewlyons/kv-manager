@@ -30,8 +30,9 @@ Theme:
     -[] Affiliate Tracking
 
 Migration:
--[] Chargify Webhooks
--[] Shopify Webhooks
+-[] Shopify Shipping
+-[*] Chargify Webhooks
+-[*] Shopify Webhooks
 -[] Database
 -[] Theme
 -[*] Heroku Github Switch to KennedyViolins Repo
