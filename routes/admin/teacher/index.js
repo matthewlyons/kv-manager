@@ -38,9 +38,8 @@ router
     let { teacher } = req.body;
 
     let { title, firstName, lastName, email, code } = teacher;
-    console.log(email);
+
     email = email.toLowerCase();
-    console.log(email);
 
     // Check if teacher email is in use
     let teacherEmail = await Teacher.findOne({ email });
