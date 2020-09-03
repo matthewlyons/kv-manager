@@ -4,10 +4,22 @@ const Schema = mongoose.Schema;
 // Create Schema
 const Shipping_Estimate_Schema = new Schema({
   destination: {
-    city: {
+    country: {
+      type: String
+    },
+    postal_code: {
       type: String
     },
     province: {
+      type: String
+    },
+    address1: {
+      type: String
+    },
+    address2: {
+      type: String
+    },
+    address3: {
       type: String
     }
   },
