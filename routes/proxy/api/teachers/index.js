@@ -14,7 +14,7 @@ const {
 router
   .route('/')
   .get(async (req, res) => {
-    res.send('Hello from Teacher Proxy Routes');
+    res.send('Hello from Teacher Proxy Routes!');
   })
   // Make Teacher Request
   .post(async (req, res) => {
@@ -58,7 +58,7 @@ router
       email: email,
       shopifyID: shopifyCustomer.id
     });
-
+    console.log(RequestDB);
     RequestDB.save().catch((err) => console.log(err));
 
     res.json(true);

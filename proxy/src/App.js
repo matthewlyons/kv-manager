@@ -7,6 +7,7 @@ import No_Match_Found from './views/No_Match_Found/No_Match_Found';
 // Teacher Routes
 // Teacher Dashboard
 import Teacher_Dashboard from './views/Teacher_Dashboard/Teacher_Dashboard';
+import Teacher_Signup from './views/Teacher_Signup/Teacher_Signup';
 // School Page
 // Teacher Store
 // Product Page
@@ -32,6 +33,11 @@ function App() {
           exact
           path="/community/application/Rent/:Type(National|Local)/:Inst(Violin|Viola|Cello|Bass)"
           component={Inst_Rental}
+        />
+        <Route
+          exact
+          path="/community/application/Teacher/Signup"
+          component={Teacher_Signup}
         />
         <Route
           exact

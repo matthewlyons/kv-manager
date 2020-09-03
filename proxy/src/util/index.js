@@ -18,7 +18,7 @@ module.exports = {
           resolve(result.data);
         })
         .catch((err) => {
-          reject(err.response.data.message);
+          reject(err.response.data);
         });
     });
   }

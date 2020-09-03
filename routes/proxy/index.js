@@ -22,15 +22,15 @@ router.use((req, res, next) => {
   // }
 });
 
+router.get('/Teacher/Signup', async function (req, res) {
+  res.render('proxy/Teacher_Signup');
+});
+
 router.get('/Teacher/:id', async function (req, res) {
   let authToken = `{{ customer.id | hmac_sha256: 'process.env.APP_SECRET' }}`;
   res.render('proxy/Teacher_Dashboard', {
     authToken
   });
-});
-
-router.get('/Teacher/Signup', async function (req, res) {
-  res.render('proxy/Teacher_Signup');
 });
 
 router.get('/*', async function (req, res) {
