@@ -10,16 +10,10 @@ const Shipping_Estimate_Schema = new Schema({
     postal_code: {
       type: String
     },
+    city: {
+      type: String
+    },
     province: {
-      type: String
-    },
-    address1: {
-      type: String
-    },
-    address2: {
-      type: String
-    },
-    address3: {
       type: String
     }
   },
