@@ -46,7 +46,6 @@ router.post('/Quote', async (req, res) => {
     rates: shippingRates,
     packages
   });
-  console.log(shippingEstimate);
   shippingEstimate.save();
 });
 
