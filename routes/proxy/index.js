@@ -29,6 +29,10 @@ router.get('/Teacher/:id', async function (req, res) {
   });
 });
 
+router.get('/Teacher/Signup', async function (req, res) {
+  res.render('proxy/Teacher_Signup');
+});
+
 router.get('/*', async function (req, res) {
   res.render('proxy');
 });
