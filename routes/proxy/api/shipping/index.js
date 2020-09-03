@@ -32,6 +32,7 @@ router.post('/Quote', async (req, res) => {
       currency: 'USD'
     });
   }
+
   let sentResponse = {
     rates: shippingRates
   };

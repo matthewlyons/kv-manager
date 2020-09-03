@@ -263,6 +263,8 @@ module.exports = {
         console.log(err.response.data.errors);
       });
 
+    console.log(finalQuote);
+
     return finalQuote;
   }
 };
