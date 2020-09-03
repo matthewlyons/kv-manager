@@ -1,29 +1,26 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { useForm } from 'react-hook-form';
-
-import * as yup from 'yup';
-
 import { makeRequest } from '../../util';
 
-let emailSchema = yup.string().email();
-
 export default function Teacher_Signup() {
-  const { register, handleSubmit, errors } = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit'
-  });
-
   const [success, setSuccess] = useState(false);
   const [responseErrors, setResponseErrors] = useState([]);
 
-  const onSubmit = (data) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let data = {
+      title: e.target[0].value,
+      firstName: e.target[1].value,
+      lastName: e.target[2].value,
+      email: e.target[3].value
+    };
     console.log(data);
     makeRequest('post', '/teachers', data)
       .then((response) => {
         setSuccess(true);
       })
       .catch((err) => {
+        console.log(err);
         setResponseErrors(err.errors);
       });
   };
@@ -42,19 +39,14 @@ export default function Teacher_Signup() {
           </div>
 
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={onSubmit}
             className="TextCenter StandardForm"
             style={{ display: 'grid', gridRowGap: '1em' }}
           >
             <div className="Grid Gap Third">
               <div>
                 <label htmlFor="title">Title</label>
-                <select
-                  className="input"
-                  id="title"
-                  name="title"
-                  ref={register}
-                >
+                <select className="input" id="title" name="title">
                   <option value="Mr">Mr</option>
                   <option value="Mrs">Mrs</option>
                   <option value="Ms">Ms</option>
@@ -68,26 +60,20 @@ export default function Teacher_Signup() {
                 <input
                   type="text"
                   name="firstName"
-                  className={errors.firstName ? 'input warning' : 'input'}
+                  className={'input'}
                   id="firstName"
-                  ref={register({ required: 'First Name is required' })}
+                  required
                 />
-                <label className="WarningLabel" htmlFor="firstName">
-                  {errors.firstName?.message}
-                </label>
               </div>
               <div>
                 <label htmlFor="lastName">Last Name</label>
                 <input
                   type="text"
                   name="lastName"
-                  className={errors.lastName ? 'input warning' : 'input'}
+                  className={'input'}
                   id="lastName"
-                  ref={register({ required: 'Last Name is required' })}
+                  required
                 />
-                <label className="WarningLabel" htmlFor="lastName">
-                  {errors.lastName?.message}
-                </label>
               </div>
             </div>
 
@@ -96,20 +82,10 @@ export default function Teacher_Signup() {
               <input
                 type="text"
                 name="email"
-                className={errors.email ? 'input warning' : 'input'}
+                className={'input'}
                 id="email"
-                ref={register({
-                  required: 'Email is required',
-                  validate: {
-                    isEmail: (value) => emailSchema.isValidSync(value)
-                  }
-                })}
+                required
               />
-              <label className="WarningLabel" htmlFor="email">
-                {errors.email?.type === 'isEmail'
-                  ? 'Invalid Email'
-                  : errors.email?.message}
-              </label>
             </div>
 
             <button type="submit" className="btn btn-primary" id="Submit">
