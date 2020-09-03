@@ -255,7 +255,7 @@ module.exports = {
       'API-Key': process.env.SHIP_ENGINE_API_KEY,
       'Content-Type': 'application/json'
     };
-
+    console.log(config);
     let finalQuote = await axios
       .post('https://api.shipengine.com/v1/rates', config, { headers })
       .catch((err) => {
