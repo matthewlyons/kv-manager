@@ -36,7 +36,6 @@ router.post('/Quote', async (req, res) => {
   let sentResponse = {
     rates: shippingRates
   };
-  console.log(sentResponse);
   res.json(sentResponse);
 
   let { destination, items } = req.body.rate;
