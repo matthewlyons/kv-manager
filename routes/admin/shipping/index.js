@@ -13,7 +13,7 @@ router
   // Get all Shipping Quotes
   .route('/Quotes')
   .get(async (req, res) => {
-    let quotes = await Shipping_Estimate.find().sort({ date: -1 });
+    let quotes = await Shipping_Estimate.find().limit(100).sort({ date: -1 });
     res.json(quotes);
   });
 
