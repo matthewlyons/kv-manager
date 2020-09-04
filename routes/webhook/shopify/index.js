@@ -9,9 +9,6 @@ const Order_Store_Affiliate = require('../../../models/Order_Store_Affiliate');
 // Shopify Order Create Webhook
 router.post('/OrderCreate', async (req, res) => {
   res.send('done');
-  console.log('Order');
-  console.log(req.body);
-
   let {
     discount_codes,
     note_attributes,

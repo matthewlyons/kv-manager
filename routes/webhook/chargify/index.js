@@ -6,11 +6,9 @@ let Teacher_Point_Change = require('../../../models/Teacher_Point_Change');
 
 // Get all Rental products
 router.post('/create', async (req, res) => {
-  console.log(req.body);
   res.send('Done');
 });
 router.post('/update', async (req, res) => {
-  console.log(req.body);
   res.send('Done');
 });
 router.post('/payment', async (req, res) => {
