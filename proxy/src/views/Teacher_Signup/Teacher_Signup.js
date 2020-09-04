@@ -18,10 +18,9 @@ export default function Teacher_Signup() {
   const [responseErrors, setResponseErrors] = useState([]);
 
   const onSubmit = (data) => {
-    console.log(data);
     makeRequest('post', '/teachers', data)
       .then((response) => {
-        setSuccess(true);
+        window.location('/community/application/Teacher/Signup/Success');
       })
       .catch((err) => {
         setResponseErrors(err.errors);
@@ -31,15 +30,20 @@ export default function Teacher_Signup() {
   return (
     <React.Fragment>
       {success ? (
-        <h1>Success</h1>
+        <div>
+          <h1>Thank you!</h1>
+          <h2>We will contact you shortly.</h2>
+        </div>
       ) : (
         <section>
           <h2 className="TextCenter">Join now!</h2>
-          <div className="FormWarning">
-            {responseErrors.map((error, i) => {
-              return <h3 key={i}>{error.message}</h3>;
-            })}
-          </div>
+          {responseErrors.length > 0 && (
+            <div className="FormWarning">
+              {responseErrors.map((error, i) => {
+                return <h3 key={i}>{error.message}</h3>;
+              })}
+            </div>
+          )}
 
           <form
             onSubmit={handleSubmit(onSubmit)}

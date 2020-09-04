@@ -26,6 +26,10 @@ router.get('/Teacher/Signup', async function (req, res) {
   res.render('proxy/Teacher_Signup');
 });
 
+router.get('/Teacher/Signup/Success', async function (req, res) {
+  res.render('proxy/Teacher_Signup_Success');
+});
+
 router.get('/Teacher/:id', async function (req, res) {
   let authToken = `{{ customer.id | hmac_sha256: 'process.env.APP_SECRET' }}`;
   res.render('proxy/Teacher_Dashboard', {
