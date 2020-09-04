@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+router.use('/affiliate', require('./affiliate'));
 router.use('/newsletter', require('./newsletter'));
 router.use('/rental_products', require('./rental_products'));
 router.use('/schools', require('./schools'));
