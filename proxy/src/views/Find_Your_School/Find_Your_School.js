@@ -30,6 +30,10 @@ export default function Find_Your_School() {
     });
   }, []);
 
+  const goBack = () => {
+    setData({ ...data, step: data.step - 1 });
+  };
+
   const updateData = (field, value) => {
     setData({ ...data, [field]: value, step: data.step + 1 });
   };
@@ -45,11 +49,21 @@ export default function Find_Your_School() {
           />
         );
       case 1:
-        return <Select_Class updateData={updateData} data={data} />;
+        return (
+          <Select_Class updateData={updateData} data={data} goBack={goBack} />
+        );
       case 2:
-        return <Select_Instrument updateData={updateData} data={data} />;
+        return (
+          <Select_Instrument
+            updateData={updateData}
+            data={data}
+            goBack={goBack}
+          />
+        );
       case 3:
-        return <Select_Rental data={data} products={products} />;
+        return (
+          <Select_Rental data={data} products={products} goBack={goBack} />
+        );
       default:
         return 'Error, Something went wrong';
     }

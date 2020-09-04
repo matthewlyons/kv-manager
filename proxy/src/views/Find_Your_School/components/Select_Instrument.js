@@ -1,7 +1,8 @@
 import React, { useMemo, useEffect } from 'react';
+import Back from './Back';
 
 export default function Select_Instrument(props) {
-  let { updateData, data } = props;
+  let { updateData, data, goBack } = props;
   let { teacher, className, book } = data.class;
 
   let teacherName = useMemo(() => {
@@ -16,6 +17,7 @@ export default function Select_Instrument(props) {
 
   return (
     <div>
+      <Back goBack={goBack} />
       <section className="PaddingTopBottom TextCenter">
         <h2 className="PaddingTopBottom Red TextBold">
           Welcome to {teacherName}'s {className} Class
