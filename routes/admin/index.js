@@ -5,7 +5,7 @@ const { verifyApiAuth } = require('../../helpers');
 
 // Authorize Api Route
 router.use((req, res, next) => {
-  if (process.env.NODE_ENV == 'development') {
+  if (process.env.NODE_ENV !== 'production') {
     return next();
   } else {
     let authHeader = req.headers['authorization'];
