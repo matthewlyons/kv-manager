@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Affiliate = require('../../../models/Affiliate');
+const Order_Store_Affiliate = require('../../../models/Order_Store_Affiliate');
 
 router
   .route('/')
@@ -35,26 +36,23 @@ router
 
 router
   .route('/:id')
-  .get((req, res) => {
-    Affiliate.findById(req.params.id)
-      .then((dbAffiliate) => {
-        if (!dbAffiliate) {
-          return res.status(404).json({
-            errors: [
-              {
-                message: 'No Affiliate Found'
-              }
-            ]
-          });
-        }
-        return res.json(dbAffiliate);
-      })
-      .catch((error) => {
-        let errors = getErrors(error);
-        return res.status(400).send({
-          errors
-        });
+  .get(async (req, res) => {
+    let dbAffiliate = await Affiliate.findById(req.params.id);
+
+    if (!dbAffiliate) {
+      return res.status(404).json({
+        errors: [
+          {
+            message: 'No Affiliate Found'
+          }
+        ]
       });
+    }
+
+    let orders = await Order_Store_Affiliate.find({
+      affiliateCode: dbAffiliate.code
+    });
+    return res.json({ dbAffiliate, orders });
   })
   .put((req, res) => {
     Affiliate.findByIdAndUpdate(req.params.id, { $set: req.body }, function (
