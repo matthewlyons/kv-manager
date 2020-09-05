@@ -1,11 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
+const { verifyApiAuth } = require('../../helpers');
+
 // Authorize Api Route
 router.use((req, res, next) => {
-  // TODO Add Auth
-  console.log('ADMIN Route');
-  next();
+  if (process.env.NODE_ENV == 'development') {
+    return next();
+  } else {
+    let authHeader = req.headers['authorization'];
+    let authToken = authHeader && authHeader.split(' ')[1];
+    if (authToken == null) {
+      return res.status(401).json({ errors: [{ message: 'Unauthorized' }] });
+    }
+    if (verifyApiAuth(authToken)) {
+      return next();
+    } else {
+      return res.status(401).json({ errors: [{ message: 'Unauthorized' }] });
+    }
+  }
 });
 
 router.use('/affiliate', require('./affiliate'));
