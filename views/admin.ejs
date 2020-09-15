@@ -13,7 +13,10 @@
     <!-- This is ejs -->
     <div id="root"></div>
     <script>
-        window.authToken = "<%=authToken%>"
+        window.authToken = "<%=authToken%>";
+        <% if (locals.installUrl) { %>
+            window.update = "<%=installUrl%>";
+        <% } %>
     </script>
     <script src="./admin.js"></script>
 </body>

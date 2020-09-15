@@ -61,8 +61,12 @@ app.get('/*', async function (req, res) {
   } else if (shopifyStore.scope !== SHOPIFY_APP_SCOPE) {
     const state = nonce();
     const installUrl = `https://${shop}/admin/oauth/authorize?client_id=${SHOPIFY_APP_KEY}&scope=${SHOPIFY_APP_SCOPE}&redirect_uri=${host}/install&state=${state}`;
-    return res.render('update', {
-      installUrl
+    const authToken = jwt.sign({}, SHOPIFY_APP_SECRET, {
+      expiresIn: '7d'
+    });
+    return res.render('admin', {
+      installUrl,
+      authToken
     });
   } else {
     const authToken = jwt.sign({}, SHOPIFY_APP_SECRET, {
