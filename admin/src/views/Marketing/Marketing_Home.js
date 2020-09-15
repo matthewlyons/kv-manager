@@ -20,13 +20,32 @@ export default function Marketing_Home() {
           <Card
             title="Affiliate Links"
             sectioned
-            primaryFooterAction={{ content: 'Manage', url: '/Marketing/Affiliate' }}
+            primaryFooterAction={{
+              content: 'Manage',
+              url: '/Marketing/Affiliate'
+            }}
           >
             <p>Manage Affiliates</p>
           </Card>
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Card title="Contact Forms" sectioned primaryFooterAction={{ content: 'Manage', url: '/Marketing/Contact' }}>
+          <Card
+            title="Page URLs"
+            sectioned
+            primaryFooterAction={{ content: 'Manage', url: '/Marketing/URL' }}
+          >
+            <p>Shorten Page URLs</p>
+          </Card>
+        </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card
+            title="Contact Forms"
+            sectioned
+            primaryFooterAction={{
+              content: 'Manage',
+              url: '/Marketing/Contact'
+            }}
+          >
             <p>Manage Contact Forms and View Submissions</p>
           </Card>
         </Layout.Section>

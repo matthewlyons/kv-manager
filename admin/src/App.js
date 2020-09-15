@@ -26,6 +26,7 @@ import Marketing_Affiliate_View from './views/Marketing/Marketing_Affiliate_View
 import Marketing_Contact from './views/Marketing/Marketing_Contact';
 import Marketing_Contact_Create from './views/Marketing/Marketing_Contact_Create';
 import Marketing_Contact_View from './views/Marketing/Marketing_Contact_View';
+import Marketing_URL from './views/Marketing/Marketing_URL';
 
 // Rental Views
 import Rental_Home from './views/Rental/Rental_Home';
@@ -100,6 +101,7 @@ function App() {
         path="/Marketing/Contact/View/:id"
         component={Marketing_Contact_View}
       />
+      <Route exact path="/Marketing/URL" component={Marketing_URL} />
 
       {/* Rental Product Routes */}
       <Route exact path="/Rental" component={Rental_Home} />

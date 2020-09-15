@@ -179,5 +179,69 @@ module.exports = {
         console.log(err.response.data);
         return false;
       });
+  },
+  async getPages() {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-07/pages.json?limit=250`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
+  },
+  async getRedirects() {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-07/redirects.json?limit=250`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
+  },
+  async createRedirect(redirect) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-07/redirects.json?limit=250`;
+    let response = await axios
+      .post(url, redirect, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
+  },
+  async deleteRedirect(id) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-07/redirects/${id}.json`;
+    let response = await axios
+      .delete(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
   }
 };
