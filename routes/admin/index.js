@@ -23,6 +23,7 @@ router.use((req, res, next) => {
 
 router.use('/affiliate', require('./affiliate'));
 router.use('/contact', require('./contact'));
+router.use('/old', require('./old'));
 router.use('/product', require('./product'));
 router.use('/rental', require('./rental'));
 router.use('/school', require('./school'));
