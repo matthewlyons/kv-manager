@@ -51,6 +51,7 @@ import Shipping_Rate from './views/Shipping/Shipping_Rate';
 
 // Asset Views
 import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
+import Visits_Home from './views/Visits/Visits_Home';
 
 function App() {
   return (
@@ -154,6 +155,9 @@ function App() {
 
       {/* Asset Routes */}
       <Route exact path="/Asset" component={Image_Assets_Home} />
+
+      {/* App Visit Routes */}
+      <Route exact path="/Visits" component={Visits_Home} />
     </Router>
   );
 }

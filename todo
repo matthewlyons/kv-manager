@@ -7,7 +7,7 @@ Webhook API:
 -[*] Shopify order endpoint
 
 Admin Client:
-    -[] View Shipping estimate
+-[*] View Shipping estimate
     -[] View / Approve / Reject Teacher Requests
 
 Admin API:
@@ -19,21 +19,21 @@ Proxy Client:
     -[] Teacher Product Page
     -[] Teacher Cart Page
     -[] Teacher Checkout Page
-    -[] Find your school back button    
+-[*] Find your school back button    
 
 Proxy API: 
 -[*] Teacher Request POST endpoint
     -[] School Endpoints
 
 Theme:
-    -[] Teacher Signup Page
-    -[] Affiliate Tracking
+-[*] Teacher Signup Page
+-[*] Affiliate Tracking
 
 Migration:
--[] Shopify Shipping
+-[*] Shopify Shipping
 -[*] Chargify Webhooks
 -[*] Shopify Webhooks
--[] Database
--[] Theme
+-[*] Database
+-[*] Theme
 -[*] Heroku Github Switch to KennedyViolins Repo
 -[*] Add APP_SECRET to heroku env
