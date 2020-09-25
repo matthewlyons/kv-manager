@@ -71,19 +71,23 @@ export default function Teacher_ViewAll() {
               const { name, title, _id } = item;
               const teacherName =
                 title != 'N/A' && title ? title + ' ' + name : name;
-              const url = '/Teacher/Teachers/View/' + _id;
-
-              return (
-                <ResourceItem
-                  url={url}
-                  id={_id}
-                  accessibilityLabel={`View details for ${name}`}
-                >
-                  <h3>
-                    <TextStyle variation="strong">{teacherName}</TextStyle>
-                  </h3>
-                </ResourceItem>
-              );
+              if (
+                query === '' ||
+                teacherName.toLowerCase().includes(query.toLowerCase())
+              ) {
+                const url = '/Teacher/Teachers/View/' + _id;
+                return (
+                  <ResourceItem
+                    url={url}
+                    id={_id}
+                    accessibilityLabel={`View details for ${name}`}
+                  >
+                    <h3>
+                      <TextStyle variation="strong">{teacherName}</TextStyle>
+                    </h3>
+                  </ResourceItem>
+                );
+              }
             }}
           />
         </Card>

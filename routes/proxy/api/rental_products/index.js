@@ -6,7 +6,6 @@ const Product_Rental = require('../../../../models/Product_Rental');
 // Get all Rental products
 router.get('/', async (req, res) => {
   let products = await Product_Rental.find();
-  console.log(products);
   res.json(products);
 });
 
