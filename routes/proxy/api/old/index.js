@@ -9,6 +9,11 @@ router.post('/', async (req, res) => {
   let { route } = req.body;
   let ipAddress =
     req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+  console.log(route);
+  console.log(typeof route);
+  console.log(ipAddress);
+  console.log(typeof ipAddress);
   let visit = new App_Visit({ route, ipAddress });
   visit.save().catch((err) => {
     console.log(err);
