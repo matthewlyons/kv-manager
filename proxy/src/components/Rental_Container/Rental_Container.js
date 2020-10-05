@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 
 export default function Rental_Container(props) {
   let { instrument } = props;
-  let [content, setContent] = useState('');
+  let content;
   if (instrument == 'Cello' || instrument == 'Bass') {
-    setContent(`Kennedy Violins offers the nation’s most convenient and
+    content = `Kennedy Violins offers the nation’s most convenient and
     affordable ${instrument} rentals with fast, easy home delivery
     and outstanding customer service. With no contracts or hidden
     fees, enjoy our highest quality, teacher-approved student and
     advanced ${instrument} outfits. Exchange or return anytime. Get
-    up to 24  months of rental payments as credit toward a ${instrument} purchase!`);
+    up to 24  months of rental payments as credit toward a ${instrument} purchase!`;
   } else {
-    setContent(`Kennedy Violins offers the nation’s most convenient and
+    content = `Kennedy Violins offers the nation’s most convenient and
     affordable ${instrument} rentals with fast, easy home delivery
     and outstanding customer service. With no contracts or hidden
     fees, enjoy our highest quality, teacher-approved student and
     advanced ${instrument} outfits. Exchange or return anytime. Get
-    up to 12  months of rental payments as credit toward a ${instrument} purchase!`);
+    up to 12  months of rental payments as credit toward a ${instrument} purchase!`;
   }
   return (
     <section className="InstrumentSelectPage">
