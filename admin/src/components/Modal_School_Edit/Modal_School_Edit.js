@@ -119,6 +119,7 @@ export default function Modal_Teacher_Edit(props) {
     }
 
     if (Object.keys(errorOBJ).length > 0) {
+      console.log(errorOBJ);
       setErrors(errorOBJ);
     } else {
       submit(school);

@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const nonce = require('nonce')();
@@ -34,6 +34,7 @@ mongoose.set('useFindAndModify', false);
 
 const app = express();
 
+app.use(cors());
 app.use(express.static('assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

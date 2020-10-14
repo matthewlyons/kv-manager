@@ -36,7 +36,6 @@ export default function School_View(props) {
   useEffect(() => {
     makeRequest('GET', `/school/${props.match.params.id}`).then((data) => {
       setSchool(data);
-      console.log(data);
       setLoading(false);
     });
   }, []);
@@ -62,6 +61,12 @@ export default function School_View(props) {
 
   const submit = (updatedSchool) => {
     console.log(updatedSchool);
+    makeRequest('PUT', `/school/${props.match.params.id}`, updatedSchool).then(
+      (data) => {
+        setSchool({ ...updatedSchool });
+        toggleModal('edit');
+      }
+    );
   };
 
   const addClass = (classData) => {
@@ -112,6 +117,12 @@ export default function School_View(props) {
       let updatedTeachers = [...school.teachers, teacher];
       setSchool({ ...school, teachers: updatedTeachers });
       toggleModal('addTeacher');
+    });
+  };
+
+  const deleteSchool = () => {
+    makeRequest('DELETE', `/school/${props.match.params.id}`).then((data) => {
+      history.push(`/Teacher`);
     });
   };
 
