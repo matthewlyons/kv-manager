@@ -305,7 +305,10 @@ export default function School_View(props) {
             }}
             title="Are you sure?"
             primaryAction={{
-              content: 'Delete'
+              content: 'Delete',
+              onAction: () => {
+                deleteSchool();
+              }
             }}
           />
           <Modal_School_Edit

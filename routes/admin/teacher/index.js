@@ -37,6 +37,8 @@ router
   .post(async (req, res) => {
     let { teacher } = req.body;
 
+    console.log(teacher);
+
     let { title, firstName, lastName, email, code } = teacher;
 
     email = email.toLowerCase();
@@ -59,19 +61,25 @@ router
       });
     }
 
-    // check if shopify customer is registered
-    let shopifyCustomer;
-    let customers = await getShopifyCustomers(email);
-    console.log(customers);
-    if (customers.length === 0) {
-      // if no customer create customer and send them an email invite
-      console.log('Creating Customer');
-      shopifyCustomer = await createShopifyCustomer({
-        data: teacher,
-        invite: true
-      });
+    if (process.env.NODE_ENV !== 'production') {
+      shopifyCustomer = {
+        id: 'a2s1df32sd1fsdf'
+      };
     } else {
-      shopifyCustomer = customers[0];
+      // check if shopify customer is registered
+      let shopifyCustomer;
+      let customers = await getShopifyCustomers(email);
+      console.log(customers);
+      if (customers.length === 0) {
+        // if no customer create customer and send them an email invite
+        console.log('Creating Customer');
+        shopifyCustomer = await createShopifyCustomer({
+          data: teacher,
+          invite: true
+        });
+      } else {
+        shopifyCustomer = customers[0];
+      }
     }
 
     // Save teacher to DB
@@ -92,6 +100,7 @@ router
       })
       .catch((error) => {
         let errors = getErrors(error);
+        console.log(errors);
         return res.status(400).send({
           errors
         });

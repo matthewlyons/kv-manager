@@ -147,7 +147,7 @@ export default function School_Create() {
     <Page
       full-width
       separator
-      title="Products"
+      title="New School"
       breadcrumbs={[
         {
           content: 'Back',
