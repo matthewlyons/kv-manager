@@ -53,9 +53,13 @@ import Shipping_Rate from './views/Shipping/Shipping_Rate';
 import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
 import Visits_Home from './views/Visits/Visits_Home';
 
+// Components
+import Alert from './components/Alert';
+
 function App() {
   return (
     <Router>
+      <Alert />
       <Route exact path="/" component={Home} />
       {/* Teacher Routes */}
       <Route exact path="/Teacher" component={Teacher_Home} />

@@ -7,11 +7,15 @@ import enTranslations from '@shopify/polaris/locales/en.json';
 
 import MemoryLink from './components/MemoryLink';
 
+import { StoreProvider } from './context/StoreContext';
+
 import App from './App';
 
 ReactDOM.render(
   <AppProvider i18n={enTranslations} linkComponent={MemoryLink}>
-    <App />
+    <StoreProvider>
+      <App />
+    </StoreProvider>
   </AppProvider>,
   document.getElementById('root')
 );

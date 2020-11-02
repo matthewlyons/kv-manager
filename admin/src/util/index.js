@@ -13,7 +13,11 @@ module.exports = {
           resolve(result.data);
         })
         .catch((err) => {
-          reject(err.response.data.message);
+          if (err.response.data?.errors[0]?.message) {
+            reject(err.response.data?.errors[0]?.message);
+          } else {
+            reject('Something Went Wrong');
+          }
         });
     });
   }
