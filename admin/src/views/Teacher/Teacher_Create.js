@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Select,
@@ -10,6 +10,8 @@ import {
   Button
 } from '@shopify/polaris';
 
+import { StoreContext } from '../../context/StoreContext';
+
 import * as yup from 'yup';
 
 import { makeRequest } from '../../util';
@@ -18,6 +20,8 @@ let emailSchema = yup.string().email();
 
 export default function Teacher_Create() {
   let history = useHistory();
+
+  const { state, setError } = useContext(StoreContext);
 
   const [teacher, setTeacher] = useState({
     title: 'Mr',
@@ -60,8 +64,7 @@ export default function Teacher_Create() {
           history.push(`/Teacher/Teachers/View/${data._id}`);
         })
         .catch((err) => {
-          // TODO Error handling
-          console.log(err);
+          setError(err);
         });
     }
   };

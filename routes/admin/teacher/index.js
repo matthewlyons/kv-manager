@@ -37,8 +37,6 @@ router
   .post(async (req, res) => {
     let { teacher } = req.body;
 
-    console.log(teacher);
-
     let { title, firstName, lastName, email, code } = teacher;
 
     email = email.toLowerCase();
@@ -47,7 +45,7 @@ router
     let teacherEmail = await Teacher.findOne({ email });
 
     if (teacherEmail) {
-      return res.status(401).json({
+      return res.status(400).send({
         errors: [{ message: 'Email Already in Use' }]
       });
     }
@@ -56,7 +54,7 @@ router
     let teacherCode = await Teacher.findOne({ code });
 
     if (teacherCode) {
-      return res.status(401).json({
+      return res.status(400).send({
         errors: [{ message: 'Code Already in Use' }]
       });
     }

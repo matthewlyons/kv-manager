@@ -47,6 +47,7 @@ export default function Teacher_Home() {
           teachers: teacherData,
           requests: requestData
         });
+        console.log(requestData);
       }
     }
 
