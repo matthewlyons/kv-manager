@@ -38,8 +38,8 @@ module.exports = {
       return [];
     }
   },
+  // Create Shopify Customer
   async createShopifyCustomer({ data, invite = false }) {
-    console.log('creating Customer');
     let accessToken = await module.exports.getAuthToken();
     let accessRequestHeader = {
       'X-Shopify-Access-Token': accessToken
@@ -60,6 +60,33 @@ module.exports = {
       });
     console.log(response);
     return response.data.customer;
+  },
+  // Register Shopfiy Discount Code for Teacher Code
+  async registerShopifyDiscountCode(teacherCode) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    console.log(accessToken);
+
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/price_rules/408923209773/discount_codes.json`;
+    let code = {
+      discount_code: {
+        code: teacherCode
+      }
+    };
+
+    axios
+      .post(url, { code }, { headers: accessRequestHeader })
+      .then((data) => {
+        console.log(data);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
   },
   async getCarrierServices() {
     let accessToken = await module.exports.getAuthToken();

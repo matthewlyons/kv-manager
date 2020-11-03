@@ -67,6 +67,41 @@ export default function Teacher_Home() {
       ]}
     >
       <Layout>
+        {/* Teacher Requests */}
+        {data.requests.length > 0 && (
+          <React.Fragment>
+            <Layout.Section secondary>
+              <Heading>Teacher Requests</Heading>
+            </Layout.Section>
+            <Layout.Section>
+              <Card>
+                <ResourceList
+                  resourceName={{ singular: 'customer', plural: 'customers' }}
+                  items={data.requests}
+                  renderItem={(item) => {
+                    const { firstName, lastName, title, _id } = item;
+                    const name =
+                      title != 'N/A'
+                        ? title + ' ' + firstName + ' ' + lastName
+                        : firstName + ' ' + lastName;
+
+                    const url = 'teacher/request/' + _id;
+
+                    return (
+                      <ResourceList.Item url={url} id={_id}>
+                        <h3>
+                          <TextStyle variation="strong">{name}</TextStyle>
+                        </h3>
+                      </ResourceList.Item>
+                    );
+                  }}
+                />
+              </Card>
+            </Layout.Section>
+          </React.Fragment>
+        )}
+
+        {/* Pinned Teachers */}
         <Layout.Section secondary>
           <Heading>Teachers</Heading>
           <ButtonGroup>

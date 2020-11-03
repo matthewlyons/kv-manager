@@ -16,7 +16,7 @@ import * as yup from 'yup';
 
 import { makeRequest } from '../../util';
 
-let emailSchema = yup.string().email();
+const emailSchema = yup.string().email();
 
 export default function Teacher_Create() {
   let history = useHistory();

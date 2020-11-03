@@ -43,12 +43,13 @@ router
       // if no customer create customer and send them an email invite
       console.log('Creating Customer');
       shopifyCustomer = await createShopifyCustomer({
-        data: teacher,
+        data: req.body,
         invite: true
       });
     } else {
       shopifyCustomer = customers[0];
     }
+    console.log(shopifyCustomer);
 
     const RequestDB = new Teacher({
       code: teacherCode,

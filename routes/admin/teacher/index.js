@@ -4,7 +4,8 @@ const router = express.Router();
 const {
   getShopifyCustomers,
   createShopifyCustomer,
-  getErrors
+  getErrors,
+  registerShopifyDiscountCode
 } = require('../../../helpers');
 
 const Teacher = require('../../../models/Teacher');
@@ -79,7 +80,7 @@ router
         shopifyCustomer = customers[0];
       }
     }
-
+    console.log(shopifyCustomer);
     // Save teacher to DB
     let dbTeacher = new Teacher({
       approved: true,
@@ -281,6 +282,62 @@ router
             errors: [
               {
                 message: "You Can't Remove a Teacher that Still Has Schools"
+              }
+            ]
+          });
+        } else {
+          teacher.remove().then(() => {
+            return res.sendStatus(200);
+          });
+        }
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  });
+
+router
+  .route('/request/:id')
+  // Get Teacher Request by ID
+  .get((req, res) => {
+    Teacher.findById(req.params.id)
+      .then((teacher) => {
+        if (teacher.approved) {
+          return res.status(400).send({
+            errors: [
+              {
+                message: 'Teacher Already Approved'
+              }
+            ]
+          });
+        }
+        return res.json(teacher);
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  })
+  // Approve Teacher Request
+  .post(async (req, res) => {
+    let teacher = await Teacher.findById(req.params.id);
+    registerShopifyDiscountCode(teacher.code);
+    res.send(teacher);
+  })
+  // Delete Teacher Request
+  .delete((req, res) => {
+    Teacher.findById(req.params.id)
+      .then((teacher) => {
+        if (teacher.approved) {
+          return res.status(400).send({
+            errors: [
+              {
+                message: 'Teacher Already Approved'
               }
             ]
           });
