@@ -51,7 +51,6 @@ import Shipping_Rate from './views/Shipping/Shipping_Rate';
 
 // Asset Views
 import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
-import Visits_Home from './views/Visits/Visits_Home';
 
 // Components
 import Alert from './components/Alert';
@@ -151,7 +150,6 @@ function App() {
         path="/Product/Schedule/View/:id"
         component={Product_Schedule_View}
       />
-
       {/* Shipping Routes */}
       <Route exact path="/Shipping" component={Shipping_Home} />
       <Route exact path="/Shipping/Services" component={Shipping_Services} />
@@ -159,9 +157,6 @@ function App() {
 
       {/* Asset Routes */}
       <Route exact path="/Asset" component={Image_Assets_Home} />
-
-      {/* App Visit Routes */}
-      <Route exact path="/Visits" component={Visits_Home} />
     </Router>
   );
 }
