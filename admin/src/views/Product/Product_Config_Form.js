@@ -3,15 +3,16 @@ import React from 'react';
 import { Page, Layout } from '@shopify/polaris';
 
 export default function Product_Config_Form() {
+  const submit = () => {};
   return (
     <Page
       full-width
       separator
-      title="Products"
+      title="Create New Product Configuration"
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product/Config'
         }
       ]}
     >

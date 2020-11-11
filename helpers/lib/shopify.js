@@ -270,5 +270,53 @@ module.exports = {
         return false;
       });
     return response;
+  },
+  // Search Shopify Products
+  async searchProducts(query) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/graphql.json`;
+    let response = axios({
+      url,
+      method: 'post',
+      headers: accessRequestHeader,
+      data: {
+        query: `
+          query {
+            products(first: 50, query: "title:*${query}*") {
+              edges {
+                node {
+                  id
+                  title
+                  description
+                }
+              }
+            }
+          }
+          `
+      }
+    }).catch((err) => {
+      console.log(err);
+      return false;
+    });
+    return response.data;
+  },
+  async getProduct(id) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${id}.json`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
   }
 };

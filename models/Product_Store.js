@@ -6,7 +6,7 @@ const Product_Store_Schema = new Schema({
   shopifyID: {
     type: String
   },
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -14,9 +14,20 @@ const Product_Store_Schema = new Schema({
     type: String,
     required: true
   },
-  price: {
-    type: Number,
-    required: true
+  regular_price: {
+    type: String,
+    required: () => {
+      return !Array.isArray(this.variants) || this.variants.length === 0;
+    }
+  },
+  sale_price: {
+    type: String
+  },
+  compare_at_price: {
+    type: String,
+    required: () => {
+      return !Array.isArray(this.variants) || this.variants.length === 0;
+    }
   },
   image: [String],
   features: [String],
@@ -37,15 +48,20 @@ const Product_Store_Schema = new Schema({
       }
     }
   ],
-  options: [
-    {
-      name: {
-        type: String,
-        required: true
-      },
-      values: [String]
+  options: {
+    type: [
+      {
+        name: {
+          type: String,
+          required: true
+        },
+        values: [String]
+      }
+    ],
+    validate: (arr) => {
+      return arr.length <= 3;
     }
-  ],
+  },
   variants: [
     {
       shopifyID: {
@@ -55,22 +71,33 @@ const Product_Store_Schema = new Schema({
         type: Number
       },
       option1: {
-        type: String
+        type: String,
+        required: () => {
+          return !Array.isArray(this.options) || this.options.length >= 1;
+        }
       },
       option2: {
-        type: String
+        type: String,
+        required: () => {
+          return !Array.isArray(this.options) || this.options.length >= 2;
+        }
       },
       option3: {
-        type: String
+        type: String,
+        required: () => {
+          return !Array.isArray(this.options) || this.options.length >= 3;
+        }
       },
       regular_price: {
-        type: String
+        type: String,
+        required: true
       },
       sale_price: {
         type: String
       },
       compare_at_price: {
-        type: String
+        type: String,
+        required: true
       }
     }
   ]

@@ -14,6 +14,7 @@ export default function Product_Schedule() {
           url: '/Product'
         }
       ]}
+      primaryAction={{ content: 'New Event', url: '/Product/Schedule/Create' }}
     >
       <Layout>
         <h1>Hello from Product_Schedule</h1>

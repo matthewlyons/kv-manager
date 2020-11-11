@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Page, Layout } from '@shopify/polaris';
+import {
+  Page,
+  Card,
+  ResourceList,
+  TextStyle,
+  Button,
+  SkeletonBodyText,
+  Filters,
+  ResourceItem,
+  Icon,
+  TextField
+} from '@shopify/polaris';
+
+import { SearchMinor } from '@shopify/polaris-icons';
+
+import { makeRequest } from '../../util';
 
 export default function Product_Schedule_Create() {
+  const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleKeyPress = (e) => {
+    console.log(e.keyCode);
+    if (e.keyCode === 13) {
+      e.target.blur();
+      //Write you validation logic here
+    } else {
+      setQuery(e);
+    }
+  };
+
+  const updateText = (e) => {
+    console.log(e);
+  };
+
   return (
     <Page
       full-width
@@ -11,13 +44,30 @@ export default function Product_Schedule_Create() {
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product/Schedule'
         }
       ]}
     >
-      <Layout>
-        <h1>Hello from Product_Schedule_Create</h1>
-      </Layout>
+      {loading ? (
+        <Card sectioned>
+          <SkeletonBodyText />
+        </Card>
+      ) : (
+        <Card>
+          <TextField
+            onChange={setQuery}
+            label="Tags"
+            inputMode="search"
+            value={query}
+            onClearButtonClick={(e) => {
+              console.log('Clear');
+              console.log(e);
+            }}
+            prefix={<Icon source={SearchMinor} color="inkLighter" />}
+            placeholder="Search"
+          />
+        </Card>
+      )}
     </Page>
   );
 }

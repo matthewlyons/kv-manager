@@ -5,7 +5,9 @@ const {
   getPages,
   getRedirects,
   createRedirect,
-  deleteRedirect
+  deleteRedirect,
+  searchProducts,
+  getProduct
 } = require('../../../helpers');
 
 router.route('/Pages').get(async (req, res) => {
@@ -33,6 +35,18 @@ router.route('/Redirects/:id').delete(async (req, res) => {
     // TODO Error handling
     res.json(false);
   }
+});
+
+// Search All Shopify Products
+router.route('/Products/Search/:query').get(async (req, res) => {
+  let response = await searchProducts(req.params.query);
+  res.json(response.data);
+});
+
+// Get Single Shopify Product
+router.route('/Products/:id').get(async (req, res) => {
+  let response = await getProduct(req.params.id);
+  res.json(response.data);
 });
 
 module.exports = router;
