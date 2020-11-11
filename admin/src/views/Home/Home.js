@@ -87,15 +87,6 @@ export default function Home() {
             <p>View and Manage Image Assets</p>
           </Card>
         </Layout.Section>
-        <Layout.Section oneHalf>
-          <Card
-            title="App Visits"
-            sectioned
-            primaryFooterAction={{ content: 'View', url: '/Visits' }}
-          >
-            <p>View Recent App Visits</p>
-          </Card>
-        </Layout.Section>
       </Layout>
     </Page>
   );
