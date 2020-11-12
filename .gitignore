@@ -8,3 +8,4 @@ package-lock.json
 Route.xlsx
 ~$Route.xlsx
 *.txt
+*.log
