@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom';
 
 import Home from './views/Home';
 
+import Location from './components/Location';
+
 // Teacher Views
 import Teacher_Home from './views/Teacher/Teacher_Home';
 import Teacher_Create from './views/Teacher/Teacher_Create';
@@ -157,6 +159,7 @@ function App() {
 
       {/* Asset Routes */}
       <Route exact path="/Asset" component={Image_Assets_Home} />
+      <Location />
     </Router>
   );
 }
