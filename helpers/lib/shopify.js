@@ -318,5 +318,21 @@ module.exports = {
         return false;
       });
     return response;
+  },
+  async getProductMetafields(id) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${id}/metafields.json`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
   }
 };

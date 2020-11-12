@@ -60,7 +60,6 @@ export default function School_View(props) {
   };
 
   const submit = (updatedSchool) => {
-    console.log(updatedSchool);
     makeRequest('PUT', `/school/${props.match.params.id}`, updatedSchool).then(
       (data) => {
         setSchool({ ...updatedSchool });
@@ -79,8 +78,8 @@ export default function School_View(props) {
       }
     );
   };
+
   const removeClass = (classIndex) => {
-    console.log(classIndex);
     let updatedClasses = [...school.classList];
     updatedClasses.splice(classIndex, 1);
     let updatedSchool = { ...school, classList: updatedClasses };

@@ -7,7 +7,8 @@ const {
   createRedirect,
   deleteRedirect,
   searchProducts,
-  getProduct
+  getProduct,
+  getProductMetafields
 } = require('../../../helpers');
 
 router.route('/Pages').get(async (req, res) => {
@@ -45,8 +46,10 @@ router.route('/Products/Search/:query').get(async (req, res) => {
 
 // Get Single Shopify Product
 router.route('/Products/:id').get(async (req, res) => {
-  let response = await getProduct(req.params.id);
-  res.json(response.data);
+  let product = await getProduct(req.params.id);
+  let metafields = await getProductMetafields(req.params.id);
+  let response = { product: product.data.product, metafields: metafields.data };
+  res.json(response);
 });
 
 module.exports = router;
