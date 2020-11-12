@@ -66,6 +66,7 @@ app.get('/*', async function (req, res) {
       expiresIn: '7d'
     });
     return res.render('admin', {
+      host,
       installUrl,
       authToken
     });
@@ -74,6 +75,7 @@ app.get('/*', async function (req, res) {
       expiresIn: '7d'
     });
     return res.render('admin', {
+      host,
       authToken
     });
   }
