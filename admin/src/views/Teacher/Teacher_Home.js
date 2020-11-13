@@ -54,6 +54,16 @@ export default function Teacher_Home() {
     fetchData();
   }, []);
 
+  const validateTeachers = () => {
+    makeRequest('post', '/shopify/validate')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Page
       full-width
@@ -65,6 +75,10 @@ export default function Teacher_Home() {
           url: '/'
         }
       ]}
+      primaryAction={{
+        content: 'Validate Teachers',
+        onAction: validateTeachers
+      }}
     >
       <Layout>
         {/* Teacher Requests */}

@@ -334,5 +334,37 @@ module.exports = {
         return false;
       });
     return response;
+  },
+  async getPriceRules() {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/price_rules.json`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
+  },
+  async getDiscountCode(pr) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/price_rules/${pr}/discount_codes.json`;
+    let response = await axios
+      .get(url, {
+        headers: accessRequestHeader
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return response;
   }
 };

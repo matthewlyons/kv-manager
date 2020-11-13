@@ -71,7 +71,10 @@ export default function Product_Schedule_View() {
   useEffect(() => {
     makeRequest('GET', `/shopify/products/${id}`).then((data) => {
       console.log(data);
-      let productOBJ = { ...data.product };
+      let regularPrice = data.metafield.filter(
+        (fields) => fields.key === 'original_price'
+      );
+      let productOBJ = { ...data.product, regularPrice: regularPrice.value };
       setProduct(productOBJ);
       setEventProduct(productOBJ);
       setLoading(false);

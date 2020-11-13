@@ -8,12 +8,18 @@ const {
   deleteRedirect,
   searchProducts,
   getProduct,
-  getProductMetafields
+  getProductMetafields,
+  getPriceRules
 } = require('../../../helpers');
 
 router.route('/Pages').get(async (req, res) => {
   let response = await getPages();
   res.json(response.data.pages);
+});
+
+router.route('/Validate').post(async (req, res) => {
+  let response = await getPriceRules();
+  res.json(response.data);
 });
 
 router
