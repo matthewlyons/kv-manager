@@ -337,6 +337,7 @@ module.exports = {
   },
   async getPriceRules() {
     let accessToken = await module.exports.getAuthToken();
+    console.log(accessToken);
     let accessRequestHeader = {
       'X-Shopify-Access-Token': accessToken
     };

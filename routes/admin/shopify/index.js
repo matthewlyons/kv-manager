@@ -9,7 +9,8 @@ const {
   searchProducts,
   getProduct,
   getProductMetafields,
-  getPriceRules
+  getPriceRules,
+  getDiscountCode
 } = require('../../../helpers');
 
 router.route('/Pages').get(async (req, res) => {
@@ -19,11 +20,12 @@ router.route('/Pages').get(async (req, res) => {
 
 router.route('/Validate').post(async (req, res) => {
   let priceRules = await getPriceRules();
-  let teacherPriceRule = priceRules.filter(
+  console.log(priceRules.data.price_rules);
+  let teacherPriceRule = priceRules.data.price_rules.filter(
     (pr) => pr.title === 'Teacher Discounts'
   )[0].id;
 
-  let discountCodes = getDiscountCode(teacherPriceRule).data;
+  let discountCodes = getDiscountCode(teacherPriceRule);
 
   res.json(discountCodes);
 });
