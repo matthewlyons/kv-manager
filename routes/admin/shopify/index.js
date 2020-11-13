@@ -18,8 +18,14 @@ router.route('/Pages').get(async (req, res) => {
 });
 
 router.route('/Validate').post(async (req, res) => {
-  let response = await getPriceRules();
-  res.json(response.data);
+  let priceRules = await getPriceRules();
+  let teacherPriceRule = priceRules.filter(
+    (pr) => pr.title === 'Teacher Discounts'
+  )[0].id;
+
+  let discountCodes = getDiscountCode(teacherPriceRule).data;
+
+  res.json(discountCodes);
 });
 
 router
