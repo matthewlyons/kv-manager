@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const Teacher = require('../../../models/Teacher');
+
 const {
   getPages,
   getRedirects,
@@ -10,8 +12,12 @@ const {
   getProduct,
   getProductMetafields,
   getPriceRules,
-  getDiscountCode
+  getDiscountCode,
+  registerShopifyDiscountCode,
+  deleteShopifyDiscountCode
 } = require('../../../helpers');
+const teacher = require('../../../helpers/lib/teacher');
+const shopify = require('../../../helpers/lib/shopify');
 
 router.route('/Pages').get(async (req, res) => {
   let response = await getPages();
@@ -19,15 +25,60 @@ router.route('/Pages').get(async (req, res) => {
 });
 
 router.route('/Validate').post(async (req, res) => {
+  res.json('Done');
   let priceRules = await getPriceRules();
-  console.log(priceRules.data.price_rules);
   let teacherPriceRule = priceRules.data.price_rules.filter(
-    (pr) => pr.title === 'Teacher Discounts'
+    (pr) => pr.title === 'Teacher Discount'
   )[0].id;
 
-  let discountCodes = getDiscountCode(teacherPriceRule);
+  let discountCodes = await getDiscountCode(teacherPriceRule);
+  let shopifyCodes = discountCodes.data.discount_codes.map((code) => {
+    return code.code;
+  });
 
-  res.json(discountCodes);
+  console.log(shopifyCodes);
+
+  console.log(`${shopifyCodes.length} Shopify Codes`);
+  let teachers = await Teacher.find();
+
+  let approvedTeachers = [];
+  let misfireTeachers = [];
+  let unapprovedTeachers = [];
+  let requestedTeachers = [];
+
+  teachers.forEach((teacher) => {
+    let codeExists = shopifyCodes.find((x) => x === teacher.code);
+
+    if (teacher.approved && codeExists) {
+      // Teachers that are approved and have a shopify discount code.
+      approvedTeachers.push(teacher);
+    } else if (codeExists) {
+      // Teachers that are not approved but have a shopify discount code.
+      unapprovedTeachers.push(teacher);
+    } else if (teacher.approved) {
+      // Teachers that are approved but have don't a shopify discount code.
+      misfireTeachers.push(teacher);
+    } else {
+      // Teachers that are not approved and don't have a shopify discount code.
+      requestedTeachers.push(teacher);
+    }
+  });
+  console.log(approvedTeachers.length, ' Approved Teachers');
+  console.log(misfireTeachers.length, ' Misfire Teachers');
+  console.log(unapprovedTeachers.length, ' Unpproved Teachers');
+  console.log(requestedTeachers.length, ' Teacher Requests');
+
+  unapprovedTeachers.forEach((teacher) => {
+    teacher.approved = true;
+    teacher.save();
+  });
+
+  deleteShopifyDiscountCode('Lyons12345');
+
+  // misfireTeachers.forEach((teacher) => {
+  //   console.log(teacher);
+  //   // registerShopifyDiscountCode(teacher.code);
+  // });
 });
 
 router
