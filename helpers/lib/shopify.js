@@ -9,6 +9,10 @@ module.exports = {
   async getAuthToken() {
     let shop = process.env.SHOPIFY_STORE;
     let store = memCache.get(shop);
+    if (process.env.authToken) {
+      return process.env.authToken;
+    }
+
     if (store) {
       return store;
     } else {
@@ -68,8 +72,6 @@ module.exports = {
       'X-Shopify-Access-Token': accessToken
     };
 
-    console.log(accessToken);
-
     let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/price_rules/408923209773/discount_codes.json`;
     let code = {
       discount_code: {
@@ -78,16 +80,16 @@ module.exports = {
     };
 
     axios
-      .post(url, { code }, { headers: accessRequestHeader })
+      .post(url, code, { headers: accessRequestHeader })
       .then((data) => {
-        console.log(data);
         return true;
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
         return false;
       });
   },
+
   async getCarrierServices() {
     let accessToken = await module.exports.getAuthToken();
     let accessRequestHeader = {
@@ -337,7 +339,7 @@ module.exports = {
   },
   async getPriceRules() {
     let accessToken = await module.exports.getAuthToken();
-    console.log(accessToken);
+
     let accessRequestHeader = {
       'X-Shopify-Access-Token': accessToken
     };
@@ -357,7 +359,9 @@ module.exports = {
     let accessRequestHeader = {
       'X-Shopify-Access-Token': accessToken
     };
-    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/price_rules/${pr}/discount_codes.json`;
+
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/price_rules/${pr}/discount_codes.json?limit=250`;
+
     let response = await axios
       .get(url, {
         headers: accessRequestHeader
@@ -367,5 +371,40 @@ module.exports = {
         return false;
       });
     return response;
+  },
+  // Delete Shopfiy Discount Code
+  async deleteShopifyDiscountCode(code) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let priceRules = await module.exports.getPriceRules();
+    let teacherPriceRule = priceRules.data.price_rules.filter(
+      (pr) => pr.title === 'Teacher Discount'
+    )[0].id;
+
+    let discountCodes = await module.exports.getDiscountCode(teacherPriceRule);
+    let codeArray = discountCodes.data.discount_codes;
+
+    let shopifyCode = codeArray.find((x) => x.code === code);
+
+    if (!shopifyCode) {
+      return false;
+    }
+
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/price_rules/${teacherPriceRule}/discount_codes/${shopifyCode.id}.json`;
+
+    axios
+      .delete(url, {
+        headers: accessRequestHeader
+      })
+      .then((data) => {
+        console.log(data);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
   }
 };
