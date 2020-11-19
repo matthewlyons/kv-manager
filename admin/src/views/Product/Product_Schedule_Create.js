@@ -114,6 +114,10 @@ export default function Product_Schedule_View() {
       case 'included_rosin':
         return 'outfit';
         break;
+      case 'sale_banner_header':
+      case 'sale_banner_paragraph':
+        return 'outfit';
+        break;
       default:
         break;
     }
@@ -126,6 +130,8 @@ export default function Product_Schedule_View() {
       setProduct(data.product);
       let requiredMetafields = [
         'original_price',
+        'sale_banner_header',
+        'sale_banner_paragraph',
         'short_description',
         'product_highlight_1',
         'product_highlight_2',

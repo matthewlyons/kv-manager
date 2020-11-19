@@ -39,6 +39,12 @@ export default function Product_Schedule_View(props) {
           url: '/Product/Schedule'
         }
       ]}
+      primaryAction={{ content: 'Push Changes Now', disabled: true }}
+      secondaryActions={[
+        {
+          content: 'Delete Event'
+        }
+      ]}
     >
       <Layout>
         {loading ? (
