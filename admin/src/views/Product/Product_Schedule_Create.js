@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 import moment from 'moment';
 
 import {
@@ -18,6 +20,7 @@ import { makeRequest } from '../../util';
 import EventForm from './components/EventForm';
 
 export default function Product_Schedule_View() {
+  let history = useHistory();
   let id = useQuery().get('id');
   const [product, setProduct] = useState({});
   const [metafields, setMetafields] = useState([]);
@@ -74,6 +77,7 @@ export default function Product_Schedule_View() {
     console.log(object);
     makeRequest('POST', `/product/event/`, object).then((data) => {
       console.log(data);
+      history.push(`/Product/Schedule/Event/${data._id}`);
     });
   };
 
