@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Teacher = require('../../../models/Teacher');
+const Product_Event = require('../../../models/Product_Event');
 
 const {
   getPages,
@@ -109,11 +110,21 @@ router.route('/Products/Search/:query').get(async (req, res) => {
   res.json(response.data);
 });
 
-// Get Single Shopify Product
+// Get Single Shopify Product and Events for that product
 router.route('/Products/:id').get(async (req, res) => {
   let product = await getProduct(req.params.id);
   let metafields = await getProductMetafields(req.params.id);
-  let response = { product: product.data.product, metafields: metafields.data };
+
+  let event = await Product_Event.findOne({
+    shopifyID: req.params.id
+  });
+
+  let response = {
+    product: product.data.product,
+    metafields: metafields.data,
+    event
+  };
+
   res.json(response);
 });
 

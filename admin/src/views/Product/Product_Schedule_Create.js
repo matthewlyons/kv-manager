@@ -22,8 +22,10 @@ import EventForm from './components/EventForm';
 export default function Product_Schedule_View() {
   let history = useHistory();
   let id = useQuery().get('id');
+  const [event, setEvent] = useState({});
   const [product, setProduct] = useState({});
   const [metafields, setMetafields] = useState([]);
+  const [dbID, setDBID] = useState('');
 
   const [{ month, year }, setDate] = useState({
     month: new Date(Date.now()).getMonth(),
@@ -75,10 +77,17 @@ export default function Product_Schedule_View() {
       event: { ...eventProduct, metafields: eventMetafields }
     };
     console.log(object);
-    makeRequest('POST', `/product/event/`, object).then((data) => {
-      console.log(data);
-      history.push(`/Product/Schedule/Event/${data._id}`);
-    });
+    if (dbID !== '') {
+      makeRequest('PUT', `/product/event/${dbID}`, object).then((data) => {
+        console.log(data);
+        history.push(`/Product/Schedule/Event/${data._id}`);
+      });
+    } else {
+      makeRequest('POST', `/product/event/`, object).then((data) => {
+        console.log(data);
+        history.push(`/Product/Schedule/Event/${data._id}`);
+      });
+    }
   };
 
   const toggleModal = (modal) => {
@@ -124,7 +133,6 @@ export default function Product_Schedule_View() {
   };
 
   useEffect(() => {
-    console.log('Requesting product');
     makeRequest('GET', `/shopify/products/${id}`).then((data) => {
       console.log(data);
       setProduct(data.product);
@@ -168,6 +176,12 @@ export default function Product_Schedule_View() {
           });
         }
       });
+      setEvent(data.event);
+      if (data.event) {
+        setDBID(data.event._id);
+        let { start, end } = data.event;
+        setSelectedDates({ start: new Date(start), end: new Date(end) });
+      }
       setMetafields(selectedMetafields);
       setLoading(false);
     });
@@ -181,7 +195,7 @@ export default function Product_Schedule_View() {
       breadcrumbs={[
         {
           content: 'Back',
-          url: '/'
+          url: '/Product/Schedule'
         }
       ]}
       primaryAction={{
@@ -203,6 +217,7 @@ export default function Product_Schedule_View() {
             ParentProduct={{ ...product }}
             ParentMetafields={metafields}
             SubmitProduct={handleSubmit}
+            Event={event}
           />
         )}
       </Layout>

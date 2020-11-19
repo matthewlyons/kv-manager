@@ -71,7 +71,10 @@ export default function Product_Schedule_View(props) {
           }
         },
         {
-          content: 'Edit Event'
+          content: 'Edit Event',
+          url: `${
+            loading ? '#' : `/Product/Schedule/View/Admin?id=${data.shopifyID}`
+          }`
         }
       ]}
     >
@@ -144,7 +147,16 @@ export default function Product_Schedule_View(props) {
                 <Layout.Section oneHalf>
                   <Card sectioned>
                     <Heading>Image</Heading>
-                    <p>{data.event?.admin.image?.url}</p>
+                    <img
+                      alt=""
+                      width="100%"
+                      height="100%"
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                      }}
+                      src={data.event?.admin.image?.url}
+                    />
                   </Card>
                 </Layout.Section>
               </React.Fragment>

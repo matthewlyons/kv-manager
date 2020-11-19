@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Layout,
@@ -10,7 +10,6 @@ import {
   Heading,
   Select
 } from '@shopify/polaris';
-import { findLastIndex } from 'underscore';
 
 export default function EventForm(props) {
   let { ParentProduct, ParentMetafields, SubmitProduct } = props;
@@ -81,9 +80,44 @@ export default function EventForm(props) {
   };
 
   useEffect(() => {
-    setProduct({ ...ParentProduct });
-    setMetafields([...ParentMetafields]);
-  }, []);
+    if (props.Event) {
+      let { event } = props.Event;
+      let variants = event.variants.map((variant) => {
+        let foundVariant = ParentProduct.variants.filter(
+          (e) => e.id == variant.shopifyID
+        )[0];
+        console.log(foundVariant);
+        return {
+          ...variant,
+          title: foundVariant.title,
+          id: foundVariant.id
+        };
+      });
+
+      let updatedMetafields = ParentMetafields.map((field) => {
+        let foundMetafield = event.metafields.find((e) => e.key === field.key);
+        if (foundMetafield) {
+          return {
+            ...field,
+            active: true,
+
+            value: foundMetafield.value
+          };
+        }
+        return { ...field };
+      });
+
+      setProduct({
+        ...ParentProduct,
+        ...event.admin,
+        variants
+      });
+      setMetafields(updatedMetafields);
+    } else {
+      setProduct({ ...ParentProduct });
+      setMetafields([...ParentMetafields]);
+    }
+  }, [props]);
 
   const options = [
     { label: 'Portland Oblong', value: 'Portland Oblong' },

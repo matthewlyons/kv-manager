@@ -258,6 +258,30 @@ router
         });
       });
   })
+  .put(async (req, res) => {
+    let { current, event } = req.body;
+    Product_Event.findOneAndReplace({ _id: req.params.id }, req.body)
+      .then((event) => {
+        if (!event) {
+          return res.status(404).json({
+            errors: [
+              {
+                message: 'No Event Found'
+              }
+            ]
+          });
+        }
+        console.log(event);
+        console.log(req.body);
+        return res.json(event);
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  })
   .delete(async (req, res) => {
     Product_Event.findById(req.params.id)
       .then((event) => {
