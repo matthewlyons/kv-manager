@@ -2,13 +2,15 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import moment from 'moment';
 
+import { useHistory } from 'react-router-dom';
+
 import {
   Page,
   Layout,
   Card,
   SkeletonBodyText,
   Heading,
-  DataTable
+  Modal
 } from '@shopify/polaris';
 
 import useQuery from '../../hooks/useQuery';
@@ -16,8 +18,20 @@ import useQuery from '../../hooks/useQuery';
 import { makeRequest } from '../../util';
 
 export default function Product_Schedule_View(props) {
+  let history = useHistory();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const toggleModal = (modal) => {
+    switch (modal) {
+      case 'delete':
+        setDeleteModal(!deleteModal);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     makeRequest('GET', `/product/event/${props.match.params.id}`).then(
@@ -27,6 +41,15 @@ export default function Product_Schedule_View(props) {
       }
     );
   }, []);
+
+  const deleteEvent = () => {
+    makeRequest('DELETE', `/product/event/${props.match.params.id}`).then(
+      (data) => {
+        console.log(data);
+        history.push(`/Product/Schedule/`);
+      }
+    );
+  };
 
   return (
     <Page
@@ -39,10 +62,16 @@ export default function Product_Schedule_View(props) {
           url: '/Product/Schedule'
         }
       ]}
-      primaryAction={{ content: 'Push Changes Now', disabled: true }}
+      primaryAction={{ content: 'Push Changes Now' }}
       secondaryActions={[
         {
-          content: 'Delete Event'
+          content: 'Delete Event',
+          onAction: () => {
+            toggleModal('delete');
+          }
+        },
+        {
+          content: 'Edit Event'
         }
       ]}
     >
@@ -79,6 +108,7 @@ export default function Product_Schedule_View(props) {
             <Layout.Section oneHalf>
               <Heading>Event</Heading>
             </Layout.Section>
+
             <Layout.Section oneHalf>
               <Card sectioned>
                 <Heading>Title</Heading>
@@ -103,6 +133,23 @@ export default function Product_Schedule_View(props) {
                 <p>{data.event?.admin.body_html}</p>
               </Card>
             </Layout.Section>
+            {data.event?.admin.image?.url && (
+              <React.Fragment>
+                <Layout.Section oneHalf>
+                  <Card sectioned>
+                    <Heading>Image</Heading>
+                    <p></p>
+                  </Card>
+                </Layout.Section>
+                <Layout.Section oneHalf>
+                  <Card sectioned>
+                    <Heading>Image</Heading>
+                    <p>{data.event?.admin.image?.url}</p>
+                  </Card>
+                </Layout.Section>
+              </React.Fragment>
+            )}
+
             {data.current?.variants.map((variant, i) => {
               let event = data.event.variants[i];
               return (
@@ -151,6 +198,17 @@ export default function Product_Schedule_View(props) {
           </React.Fragment>
         )}
       </Layout>
+      <Modal
+        open={deleteModal}
+        onClose={() => {
+          toggleModal('delete');
+        }}
+        title="Are you sure?"
+        primaryAction={{
+          content: 'Delete',
+          onAction: deleteEvent
+        }}
+      />
     </Page>
   );
 }
