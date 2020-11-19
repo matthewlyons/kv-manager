@@ -142,13 +142,13 @@ function App() {
       <Route exact path="/Product/Schedule" component={Product_Schedule} />
       <Route
         exact
-        path="/Product/Schedule/Create"
-        component={Product_Schedule_Create}
+        path="/Product/Schedule/Event/:id"
+        component={Product_Schedule_View}
       />
       <Route
         exact
         path="/Product/Schedule/View/:id"
-        component={Product_Schedule_View}
+        component={Product_Schedule_Create}
       />
       {/* Shipping Routes */}
       <Route exact path="/Shipping" component={Shipping_Home} />

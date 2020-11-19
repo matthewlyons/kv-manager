@@ -2,8 +2,20 @@ const axios = require('axios');
 
 // MongoDB Models
 const Store = require('../../models/Store');
+const Product_Event = require('../../models/Product_Event');
 
 const memCache = require('../cache').default;
+
+let updateProducts = [];
+let updateMetafields = [];
+
+let shopifyRequests = [];
+
+let example = {
+  method: 'post',
+  url: 'https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/customers.json',
+  payload: { product: 'ksjdlnjskdfn' }
+};
 
 module.exports = {
   async getAuthToken() {
@@ -337,6 +349,7 @@ module.exports = {
       });
     return response;
   },
+
   async getPriceRules() {
     let accessToken = await module.exports.getAuthToken();
 
@@ -406,5 +419,208 @@ module.exports = {
         console.log(err);
         return false;
       });
+  },
+  async startProducts(start, end) {
+    console.log(start);
+    console.log(end);
+    start.forEach((product) => {
+      let {
+        shopifyID,
+        event: {
+          admin: { title, body_html, image },
+          variants,
+          metafields
+        },
+        _id
+      } = product;
+
+      let variantArray = variants.map((variant) => {
+        let { shopifyID, price, compare_at_price } = variant;
+        return { id: shopifyID, price, compare_at_price };
+      });
+
+      shopifyRequests.push({
+        method: 'put',
+        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}.json`,
+        payload: {
+          product: {
+            id: shopifyID,
+            title,
+            body_html,
+            variants: variantArray
+          }
+        },
+        _id
+      });
+
+      shopifyRequests.push({
+        method: 'post',
+        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/images.json`,
+        payload: {
+          image: {
+            position: 1,
+            src: image.url
+          }
+        },
+        _id
+      });
+
+      metafields.forEach((field) => {
+        let { namespace, key, value, value_type } = field;
+        shopifyRequests.push({
+          method: 'post',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+          payload: {
+            metafield: {
+              namespace,
+              key,
+              value,
+              value_type
+            }
+          },
+          _id
+        });
+      });
+    });
+
+    end.forEach((product) => {
+      let {
+        shopifyID,
+        current: {
+          admin: { title, body_html },
+          variants,
+          metafields
+        },
+        event: {
+          admin: { image }
+        },
+        _id
+      } = product;
+
+      let variantArray = variants.map((variant) => {
+        let { shopifyID, price, compare_at_price } = variant;
+        return { id: shopifyID, price, compare_at_price };
+      });
+
+      shopifyRequests.push({
+        method: 'put',
+        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}.json`,
+        payload: {
+          product: {
+            id: shopifyID,
+            title,
+            body_html,
+            variants: variantArray
+          }
+        },
+        _id
+      });
+
+      metafields.forEach((field) => {
+        let { namespace, key, value, value_type } = field;
+        shopifyRequests.push({
+          method: 'post',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+          payload: {
+            metafield: {
+              namespace,
+              key,
+              value,
+              value_type
+            }
+          },
+          _id
+        });
+      });
+
+      if (image.url) {
+        // parse url to get filename
+        let filename = image.url.substring(
+          image.url.lastIndexOf('/') + 1,
+          image.url.lastIndexOf('?')
+        );
+        // Get all product images
+        shopifyRequests.push({
+          method: 'get',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/images.json`,
+          _id,
+          callback: module.exports.deleteImage,
+          arg: [filename]
+        });
+      }
+    });
+    if (shopifyRequests.length > 0) {
+      module.exports.shopifyRequest();
+    } else {
+      console.log('Nothing to report');
+    }
+  },
+  async shopifyRequest(i = 0) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    let { method, url, payload, _id, callback, arg } = shopifyRequests[i];
+
+    axios({
+      method,
+      url,
+      headers: accessRequestHeader,
+      data: payload
+    })
+      .then((response) => {
+        console.log(`Request Success`);
+        module.exports.markSuccess(_id);
+        if (callback) {
+          callback(arg, response.data);
+        }
+        if (i < shopifyRequests.length - 1) {
+          setTimeout(() => {
+            return module.exports.shopifyRequest(i + 1);
+          }, 1000);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  },
+  async markSuccess(id) {
+    console.log(`Success for id: ${id}`);
+    Product_Event.findById(id).then((event) => {
+      if (!event) return;
+      let currentDate = new Date();
+      let startDate = new Date(event.start);
+      let endDate = new Date(event.end);
+      if (currentDate > endDate) {
+        event.remove();
+        return;
+      }
+      if (startDate < currentDate && currentDate < endDate) {
+        event.active = true;
+        event.save();
+      }
+    });
+  },
+  async deleteImage(arg, imageArray) {
+    let [fileName] = arg;
+
+    let deleteImages = [];
+    imageArray.images.forEach((image) => {
+      let title = image.src.substring(
+        image.src.lastIndexOf('/') + 1,
+        image.src.lastIndexOf('?')
+      );
+      if (title === fileName) {
+        deleteImages.push(image);
+      }
+    });
+
+    deleteImages.forEach((image) => {
+      shopifyRequests.push({
+        method: 'delete',
+        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${image.product_id}/images/${image.id}.json`
+      });
+    });
   }
 };

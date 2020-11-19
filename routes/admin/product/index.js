@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const cron = require('node-cron');
+
+const Product_Event = require('../../../models/Product_Event');
 const Product_Store = require('../../../models/Product_Store');
 const Product_Config = require('../../../models/Product_Config');
 const Customizer_Group = require('../../../models/Customizer_Group');
+
+const { startProducts, getErrors } = require('../../../helpers');
 
 router
   .route('/')
@@ -202,6 +207,110 @@ router
         });
       });
   });
+
+router
+  .route('/Event/')
+  .get(async (req, res) => {
+    let events = await Product_Event.find();
+    res.json(events);
+  })
+  .post(async (req, res) => {
+    let { shopifyID } = req.body;
+
+    // Check if Event exists for this product
+    let existingEvents = await Product_Event.find({ shopifyID });
+    if (existingEvents.length > 0) {
+      return res.status(400).json({
+        errors: [
+          {
+            message: 'One Event Per Product'
+          }
+        ]
+      });
+    }
+
+    let event = new Product_Event(req.body);
+    event.save().then((event) => {
+      return res.json(event);
+    });
+  });
+
+router
+  .route('/Event/:id')
+  .get(async (req, res) => {
+    Product_Event.findById(req.params.id)
+      .then((event) => {
+        if (!event) {
+          return res.status(404).json({
+            errors: [
+              {
+                message: 'No Event Found'
+              }
+            ]
+          });
+        }
+        return res.json(event);
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  })
+  .delete(async (req, res) => {
+    Product_Event.findById(req.params.id)
+      .then((event) => {
+        if (!event) {
+          return res.status(404).json({
+            errors: [
+              {
+                message: 'No Event Found'
+              }
+            ]
+          });
+        }
+        event.remove().then(() => {
+          return res.sendStatus(200);
+        });
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  });
+
+cron.schedule('00 00 */1 * * * *', async () => {
+  // cron.schedule(' * * * * *', async () => {
+  let newEvents = [];
+  let oldEvents = [];
+  // Find all inactive Events that need to go live
+  Product_Event.find({
+    active: false,
+    start: {
+      $lte: Date.now()
+    }
+  }).then((events) => {
+    newEvents = events;
+    // find all active events that need to be removed
+    Product_Event.find({
+      active: true,
+      end: {
+        $lte: Date.now()
+      }
+    }).then((events) => {
+      oldEvents = events;
+      console.log(newEvents, oldEvents);
+      if (oldEvents.length > 0 || newEvents.length > 0) {
+        startProducts(newEvents, oldEvents);
+      } else {
+        console.log('Nothing to report');
+      }
+    });
+  });
+});
 
 router
   .route('/:id')
