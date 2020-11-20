@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 const cron = require('node-cron');
 
@@ -371,7 +372,7 @@ cron.schedule('00 00 */1 * * * *', async () => {
     Product_Event.find({
       active: true,
       end: {
-        $lte: Date.now()
+        $lte: new Date(moment().add(30, 'minutes'))
       }
     }).then((events) => {
       oldEvents = events;
