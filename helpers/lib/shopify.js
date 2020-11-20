@@ -475,7 +475,7 @@ module.exports = {
               namespace,
               key,
               value,
-              value_type
+              value_type: 'string'
             }
           },
           _id
@@ -518,6 +518,7 @@ module.exports = {
 
       metafields.forEach((field) => {
         let { namespace, key, value, value_type } = field;
+
         shopifyRequests.push({
           method: 'post',
           url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
@@ -526,7 +527,7 @@ module.exports = {
               namespace,
               key,
               value,
-              value_type
+              value_type: 'string'
             }
           },
           _id
@@ -586,6 +587,11 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err.response.data);
+        if (i < shopifyRequests.length - 1) {
+          setTimeout(() => {
+            return module.exports.shopifyRequest(i + 1);
+          }, 1000);
+        }
       });
   },
   async markSuccess(id) {
