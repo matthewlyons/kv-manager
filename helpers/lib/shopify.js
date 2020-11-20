@@ -421,8 +421,6 @@ module.exports = {
       });
   },
   async startProducts(start, end) {
-    console.log(start);
-    console.log(end);
     start.forEach((product) => {
       let {
         shopifyID,
@@ -453,17 +451,19 @@ module.exports = {
         _id
       });
 
-      shopifyRequests.push({
-        method: 'post',
-        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/images.json`,
-        payload: {
-          image: {
-            position: 1,
-            src: image.url
-          }
-        },
-        _id
-      });
+      if (image.url) {
+        shopifyRequests.push({
+          method: 'post',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/images.json`,
+          payload: {
+            image: {
+              position: 1,
+              src: image.url
+            }
+          },
+          _id
+        });
+      }
 
       metafields.forEach((field) => {
         let { namespace, key, value, value_type } = field;
@@ -539,6 +539,7 @@ module.exports = {
           image.url.lastIndexOf('/') + 1,
           image.url.lastIndexOf('?')
         );
+        console.log('Uploading Image');
         // Get all product images
         shopifyRequests.push({
           method: 'get',
@@ -579,6 +580,8 @@ module.exports = {
           setTimeout(() => {
             return module.exports.shopifyRequest(i + 1);
           }, 1000);
+        } else {
+          shopifyRequests = [];
         }
       })
       .catch((err) => {

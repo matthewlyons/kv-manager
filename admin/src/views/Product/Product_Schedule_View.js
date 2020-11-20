@@ -51,6 +51,21 @@ export default function Product_Schedule_View(props) {
     );
   };
 
+  const activateEvent = () => {
+    console.log('Activating');
+    let method = data.active ? 'DELETE' : 'POST';
+    makeRequest(
+      method,
+      `/product/event/override/${props.match.params.id}`
+    ).then((response) => {
+      if (data.active) {
+        history.push(`/Product/Schedule/`);
+      } else {
+        history.go(0);
+      }
+    });
+  };
+
   return (
     <Page
       full-width
@@ -62,7 +77,10 @@ export default function Product_Schedule_View(props) {
           url: '/Product/Schedule'
         }
       ]}
-      primaryAction={{ content: 'Push Changes Now' }}
+      primaryAction={{
+        content: data.active ? 'Revert Event' : 'Push Changes Live',
+        onAction: activateEvent
+      }}
       secondaryActions={[
         {
           content: 'Delete Event',

@@ -236,6 +236,56 @@ router
   });
 
 router
+  .route('/Event/Override/:id')
+  .post(async (req, res) => {
+    Product_Event.findById(req.params.id)
+      .then(async (event) => {
+        if (!event) {
+          return res.status(404).json({
+            errors: [
+              {
+                message: 'No Event Found'
+              }
+            ]
+          });
+        }
+        await startProducts([event], []);
+        event.active = true;
+        event.save();
+        return res.json('Done');
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  })
+  .delete(async (req, res) => {
+    Product_Event.findById(req.params.id)
+      .then(async (event) => {
+        if (!event) {
+          return res.status(404).json({
+            errors: [
+              {
+                message: 'No Event Found'
+              }
+            ]
+          });
+        }
+        event.remove();
+        await startProducts([], [event]);
+        return res.json('Done');
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  });
+
+router
   .route('/Event/:id')
   .get(async (req, res) => {
     Product_Event.findById(req.params.id)
@@ -307,7 +357,6 @@ router
   });
 
 cron.schedule('00 00 */1 * * * *', async () => {
-  // cron.schedule(' * * * * *', async () => {
   let newEvents = [];
   let oldEvents = [];
   // Find all inactive Events that need to go live
