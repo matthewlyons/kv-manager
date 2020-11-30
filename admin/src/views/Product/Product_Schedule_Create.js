@@ -28,8 +28,11 @@ export default function Product_Schedule_View() {
   const [dbID, setDBID] = useState('');
 
   const [{ month, year }, setDate] = useState({
-    month: new Date(Date.now()).getMonth(),
-    year: new Date(Date.now()).getFullYear()
+    month:
+      moment().date() === moment().daysInMonth()
+        ? moment().add(1, 'month').month()
+        : moment().month(),
+    year: moment().year()
   });
 
   const [selectedDates, setSelectedDates] = useState({
@@ -235,7 +238,7 @@ export default function Product_Schedule_View() {
               onMonthChange={handleMonthChange}
               selected={selectedDates}
               allowRange={true}
-              disableDatesBefore={new Date(Date.now())}
+              // disableDatesBefore={new Date(Date.now())}
             />
           </FormLayout>
         </Modal.Section>

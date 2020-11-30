@@ -53,16 +53,20 @@ export default function Product_Schedule_View(props) {
 
   const activateEvent = () => {
     console.log('Activating');
-    let method = data.active ? 'DELETE' : 'POST';
     makeRequest(
-      method,
+      'POST',
       `/product/event/override/${props.match.params.id}`
     ).then((response) => {
-      if (data.active) {
-        history.push(`/Product/Schedule/`);
-      } else {
-        history.go(0);
-      }
+      history.go(0);
+    });
+  };
+
+  const revertEvent = () => {
+    makeRequest(
+      'DELETE',
+      `/product/event/override/${props.match.params.id}`
+    ).then((response) => {
+      history.push(`/Product/Schedule/`);
     });
   };
 
@@ -79,7 +83,7 @@ export default function Product_Schedule_View(props) {
       ]}
       primaryAction={{
         content: data.active ? 'Revert Event' : 'Push Changes Live',
-        onAction: activateEvent
+        onAction: data.active ? revertEvent : activateEvent
       }}
       secondaryActions={[
         {
@@ -88,11 +92,16 @@ export default function Product_Schedule_View(props) {
             toggleModal('delete');
           }
         },
+
         {
           content: 'Edit Event',
           url: `${
             loading ? '#' : `/Product/Schedule/View/Admin?id=${data.shopifyID}`
           }`
+        },
+        {
+          content: 'Resubmit Event',
+          onAction: activateEvent
         }
       ]}
     >

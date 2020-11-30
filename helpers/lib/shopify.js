@@ -420,7 +420,7 @@ module.exports = {
         return false;
       });
   },
-  async startProducts(start, end) {
+  async startProducts(start, end, ignoreImages = false) {
     start.forEach((product) => {
       let {
         shopifyID,
@@ -451,7 +451,7 @@ module.exports = {
         _id
       });
 
-      if (image.url) {
+      if (image.url && !ignoreImages) {
         shopifyRequests.push({
           method: 'post',
           url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/images.json`,
@@ -519,19 +519,33 @@ module.exports = {
       metafields.forEach((field) => {
         let { namespace, key, value, value_type } = field;
 
-        shopifyRequests.push({
-          method: 'post',
-          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
-          payload: {
-            metafield: {
-              namespace,
-              key,
-              value,
-              value_type: 'string'
-            }
-          },
-          _id
-        });
+        // check value
+        if (value !== '') {
+          shopifyRequests.push({
+            method: 'post',
+            url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+            payload: {
+              metafield: {
+                namespace,
+                key,
+                value,
+                value_type: 'string'
+              }
+            },
+            _id
+          });
+        } else {
+          shopifyRequests.push({
+            method: 'get',
+            url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+            _id,
+            callback: module.exports.deleteMetafield,
+            arg: [key, namespace]
+          });
+        }
+        // if blank
+        // add request with callback to delete matching metafield
+        // else
       });
 
       if (image.url) {
@@ -551,6 +565,7 @@ module.exports = {
         });
       }
     });
+    console.log(shopifyRequests);
     if (shopifyRequests.length > 0) {
       module.exports.shopifyRequest();
     } else {
@@ -586,6 +601,7 @@ module.exports = {
         }
       })
       .catch((err) => {
+        console.log(err);
         console.log(err.response.data);
         if (i < shopifyRequests.length - 1) {
           setTimeout(() => {
@@ -606,12 +622,34 @@ module.exports = {
         return;
       }
       if (startDate < currentDate && currentDate < endDate) {
+        console.log('Success');
         event.active = true;
         event.save();
       }
     });
   },
   async deleteImage(arg, imageArray) {
+    let [fileName] = arg;
+
+    let deleteImages = [];
+    imageArray.images.forEach((image) => {
+      let title = image.src.substring(
+        image.src.lastIndexOf('/') + 1,
+        image.src.lastIndexOf('?')
+      );
+      if (title === fileName) {
+        deleteImages.push(image);
+      }
+    });
+
+    deleteImages.forEach((image) => {
+      shopifyRequests.push({
+        method: 'delete',
+        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${image.product_id}/images/${image.id}.json`
+      });
+    });
+  },
+  async deleteMetafield(arg, metafieldArray) {
     let [fileName] = arg;
 
     let deleteImages = [];

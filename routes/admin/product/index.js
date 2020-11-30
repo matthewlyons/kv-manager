@@ -7,6 +7,7 @@ const cron = require('node-cron');
 const Product_Event = require('../../../models/Product_Event');
 const Product_Store = require('../../../models/Product_Store');
 const Product_Config = require('../../../models/Product_Config');
+const Instrument_Class = require('../../../models/Instrument_Class');
 const Customizer_Group = require('../../../models/Customizer_Group');
 
 const { startProducts, getErrors } = require('../../../helpers');
@@ -42,9 +43,41 @@ router
   });
 
 router
+  .route('/instrument-class')
+  .get((req, res) => {
+    Instrument_Class.find()
+      .then((classes) => {
+        res.json(classes);
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  })
+  .post((req, res) => {
+    let { instrumentClass } = req.body;
+
+    let newClass = new Instrument_Class(instrumentClass);
+    newClass
+      .save()
+      .then((dbClass) => {
+        res.json(dbClass);
+      })
+      .catch((error) => {
+        let errors = getErrors(error);
+        return res.status(400).send({
+          errors
+        });
+      });
+  });
+
+router
   .route('/config')
   .get((req, res) => {
     Product_Config.find()
+      .populate('constraint')
       .then((configs) => {
         res.json(configs);
       })
@@ -75,6 +108,7 @@ router
   .route('/config/:id')
   .get((req, res) => {
     Product_Config.findById(req.params.id)
+      .populate('constraint')
       .then((config) => {
         res.json(config);
       })
@@ -250,9 +284,7 @@ router
             ]
           });
         }
-        await startProducts([event], []);
-        event.active = true;
-        event.save();
+        await startProducts([event], [], event.active);
         return res.json('Done');
       })
       .catch((error) => {

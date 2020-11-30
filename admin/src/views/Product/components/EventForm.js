@@ -118,6 +118,10 @@ export default function EventForm(props) {
       setMetafields([...ParentMetafields]);
     }
   }, [props]);
+  useEffect(() => {
+    console.log('Component Change');
+  }, [props]);
+  console.log('Component Rerender');
 
   const options = [
     { label: 'Portland Oblong', value: 'Portland Oblong' },
