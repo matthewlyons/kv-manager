@@ -20,22 +20,26 @@ router.post('/payment', async (req, res) => {
   console.log(teacherCode);
   console.log(newPoints);
 
-  let dbTeacher = await Teacher.findOne({ code: teacherCode });
-  if (!dbTeacher) {
-    console.log('No Teacher Found');
-    return;
-  }
+  Teacher.findOne({ code: teacherCode })
+    .then((dbTeacher) => {
+      if (!dbTeacher) {
+        return;
+      }
+      let newPayment = new Teacher_Point_Change({
+        teacher: dbTeacher._id,
+        type: 'Rental Payment',
+        points: newPoints
+      });
 
-  let newPayment = new Teacher_Point_Change({
-    teacher: dbTeacher._id,
-    type: 'Rental Payment',
-    points: newPoints
-  });
-
-  newPayment.save();
-  dbTeacher.points = dbTeacher.points + newPoints;
-  dbTeacher.save();
-  return;
+      newPayment.save();
+      dbTeacher.points = dbTeacher.points + newPoints;
+      dbTeacher.save();
+      return;
+    })
+    .catch((err) => {
+      console.log('No Teacher Found');
+      return;
+    });
 });
 
 module.exports = router;
