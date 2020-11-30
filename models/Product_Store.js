@@ -29,25 +29,33 @@ const Product_Store_Schema = new Schema({
       return !Array.isArray(this.variants) || this.variants.length === 0;
     }
   },
-  image: [String],
-  features: [String],
-  config: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'productConfig'
+  in_stock: {
+    type: Boolean,
+    default: () => {
+      if (!Array.isArray(this.variants) || this.variants.length === 0) {
+        return true;
+      }
+    }
   },
-  fields: [
+  images: [
     {
-      metafield: {
-        type: Number
+      shopifyID: {
+        type: String,
+        required: true
       },
-      key: {
-        type: String
+      position: {
+        type: Number,
+        required: true
       },
-      value: {
+      src: {
         type: String
       }
     }
   ],
+  config: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'productConfig'
+  },
   options: {
     type: [
       {
@@ -64,6 +72,10 @@ const Product_Store_Schema = new Schema({
   },
   variants: [
     {
+      in_stock: {
+        type: Boolean,
+        default: true
+      },
       shopifyID: {
         type: Number
       },
@@ -92,13 +104,28 @@ const Product_Store_Schema = new Schema({
         type: String,
         required: true
       },
-      sale_price: {
-        type: String
-      },
       compare_at_price: {
         type: String,
         required: true
       }
+    }
+  ],
+  data: [
+    {
+      field: {
+        type: String,
+        required: true
+      },
+      value: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  followers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'productFollower'
     }
   ]
 });

@@ -49,6 +49,11 @@ const Product_Rental_Schema = new Schema({
   }
 });
 
+Product_Rental_Schema.pre('save', (next, done) => {
+  throw { name: 'Pre', errors: ['one', 'two'] };
+  next();
+});
+
 module.exports = Product_Rental = mongoose.model(
   'productRental',
   Product_Rental_Schema

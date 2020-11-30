@@ -1,6 +1,13 @@
 module.exports = {
   getErrors(error) {
     let errArray = [];
+    if (error.name == 'Pre') {
+      for (field of error.errors) {
+        errArray.push({
+          message: field
+        });
+      }
+    }
     if (error.name == 'ValidationError') {
       for (field in error.errors) {
         errArray.push({
