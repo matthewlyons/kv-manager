@@ -285,6 +285,8 @@ router
           });
         }
         await startProducts([event], [], event.active);
+        event.active = true;
+        event.save();
         return res.json('Done');
       })
       .catch((error) => {
@@ -389,34 +391,34 @@ router
       });
   });
 
-cron.schedule('00 00 */1 * * * *', async () => {
-  let newEvents = [];
-  let oldEvents = [];
-  // Find all inactive Events that need to go live
-  Product_Event.find({
-    active: false,
-    start: {
-      $lte: Date.now()
-    }
-  }).then((events) => {
-    newEvents = events;
-    // find all active events that need to be removed
-    Product_Event.find({
-      active: true,
-      end: {
-        $lte: new Date(moment().add(30, 'minutes'))
-      }
-    }).then((events) => {
-      oldEvents = events;
-      console.log(newEvents, oldEvents);
-      if (oldEvents.length > 0 || newEvents.length > 0) {
-        startProducts(newEvents, oldEvents);
-      } else {
-        console.log('Nothing to report');
-      }
-    });
-  });
-});
+// cron.schedule('00 00 */1 * * * *', async () => {
+//   let newEvents = [];
+//   let oldEvents = [];
+//   // Find all inactive Events that need to go live
+//   Product_Event.find({
+//     active: false,
+//     start: {
+//       $lte: Date.now()
+//     }
+//   }).then((events) => {
+//     newEvents = events;
+//     // find all active events that need to be removed
+//     Product_Event.find({
+//       active: true,
+//       end: {
+//         $lte: new Date(moment().add(30, 'minutes'))
+//       }
+//     }).then((events) => {
+//       oldEvents = events;
+//       console.log(newEvents, oldEvents);
+//       if (oldEvents.length > 0 || newEvents.length > 0) {
+//         startProducts(newEvents, oldEvents);
+//       } else {
+//         console.log('Nothing to report');
+//       }
+//     });
+//   });
+// });
 
 router
   .route('/:id')

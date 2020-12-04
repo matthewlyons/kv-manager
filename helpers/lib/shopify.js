@@ -10,6 +10,7 @@ let updateProducts = [];
 let updateMetafields = [];
 
 let shopifyRequests = [];
+let makingRequest = false;
 
 let example = {
   method: 'post',
@@ -467,19 +468,31 @@ module.exports = {
 
       metafields.forEach((field) => {
         let { namespace, key, value, value_type } = field;
-        shopifyRequests.push({
-          method: 'post',
-          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
-          payload: {
-            metafield: {
-              namespace,
-              key,
-              value,
-              value_type: 'string'
-            }
-          },
-          _id
-        });
+
+        // check value
+        if (value !== '') {
+          shopifyRequests.push({
+            method: 'post',
+            url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+            payload: {
+              metafield: {
+                namespace,
+                key,
+                value,
+                value_type: 'string'
+              }
+            },
+            _id
+          });
+        } else {
+          shopifyRequests.push({
+            method: 'get',
+            url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${shopifyID}/metafields.json`,
+            _id,
+            callback: module.exports.deleteMetafield,
+            arg: [key, namespace]
+          });
+        }
       });
     });
 
@@ -516,6 +529,8 @@ module.exports = {
         _id
       });
 
+      console.log(metafields);
+
       metafields.forEach((field) => {
         let { namespace, key, value, value_type } = field;
 
@@ -543,9 +558,6 @@ module.exports = {
             arg: [key, namespace]
           });
         }
-        // if blank
-        // add request with callback to delete matching metafield
-        // else
       });
 
       if (image.url) {
@@ -597,7 +609,11 @@ module.exports = {
             return module.exports.shopifyRequest(i + 1);
           }, 1000);
         } else {
-          shopifyRequests = [];
+          setTimeout(() => {
+            console.log('Returning');
+            shopifyRequests = [];
+            return;
+          }, 100000);
         }
       })
       .catch((err) => {
@@ -606,7 +622,11 @@ module.exports = {
         if (i < shopifyRequests.length - 1) {
           setTimeout(() => {
             return module.exports.shopifyRequest(i + 1);
-          }, 1000);
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            shopifyRequests = [];
+          }, 100000);
         }
       });
   },
@@ -642,32 +662,39 @@ module.exports = {
       }
     });
 
-    deleteImages.forEach((image) => {
-      shopifyRequests.push({
-        method: 'delete',
-        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${image.product_id}/images/${image.id}.json`
+    if (deleteImages.length > 0) {
+      deleteImages.forEach((image) => {
+        shopifyRequests.push({
+          method: 'delete',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${image.product_id}/images/${image.id}.json`
+        });
       });
-    });
+    }
   },
   async deleteMetafield(arg, metafieldArray) {
-    let [fileName] = arg;
+    let [key, namespace] = arg;
+    console.log('DELETEING METAFIELD');
+    console.log(key + ' ' + namespace);
 
-    let deleteImages = [];
-    imageArray.images.forEach((image) => {
-      let title = image.src.substring(
-        image.src.lastIndexOf('/') + 1,
-        image.src.lastIndexOf('?')
-      );
-      if (title === fileName) {
-        deleteImages.push(image);
+    let deleteMetafields = [];
+
+    metafieldArray.metafields.forEach((field) => {
+      let fieldKey = field.key;
+      let fieldName = field.namespace;
+      if (fieldKey === key && fieldName === namespace) {
+        console.log('Found!');
+        deleteMetafields.push(field);
       }
     });
 
-    deleteImages.forEach((image) => {
-      shopifyRequests.push({
-        method: 'delete',
-        url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${image.product_id}/images/${image.id}.json`
+    if (deleteMetafields.length > 0) {
+      deleteMetafields.forEach((field) => {
+        shopifyRequests.push({
+          method: 'delete',
+          url: `https://${process.env.SHOPIFY_STORE}/admin/api/2020-10/products/${field.owner_id}/metafields/${field.id}.json`
+        });
       });
-    });
+      console.log(shopifyRequests);
+    }
   }
 };
