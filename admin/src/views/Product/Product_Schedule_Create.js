@@ -238,7 +238,7 @@ export default function Product_Schedule_View() {
               onMonthChange={handleMonthChange}
               selected={selectedDates}
               allowRange={true}
-              // disableDatesBefore={new Date(Date.now())}
+              disableDatesBefore={new Date(Date.now())}
             />
           </FormLayout>
         </Modal.Section>
