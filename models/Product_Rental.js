@@ -50,7 +50,7 @@ const Product_Rental_Schema = new Schema({
 });
 
 Product_Rental_Schema.pre('save', (next, done) => {
-  throw { name: 'Pre', errors: ['one', 'two'] };
+  // throw { name: 'Pre', errors: ['one', 'two'] };
   next();
 });
 
