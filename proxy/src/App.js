@@ -19,6 +19,8 @@ import Teacher_Signup from './views/Teacher_Signup/Teacher_Signup';
 import Find_Your_School from './views/Find_Your_School/Find_Your_School';
 // Local and National Rental Products
 import Inst_Rental from './views/Inst_Rental/Inst_Rental';
+// Customizer
+import Customizer from './views/Customizer/Customizer';
 
 function App() {
   return (
@@ -43,6 +45,11 @@ function App() {
           exact
           path="/community/application/Teacher/:id"
           component={Teacher_Dashboard}
+        />
+        <Route
+          exact
+          path="/community/application/Customizer/:id"
+          component={Customizer}
         />
         <Route component={No_Match_Found} />
       </Switch>

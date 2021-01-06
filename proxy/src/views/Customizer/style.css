@@ -1,0 +1,55 @@
+/* .Customizer__Frame {
+  transition: ease 0.5s;
+}
+.Customizer__Frame--Next {
+  display: none;
+  opacity: 0;
+}
+.Customizer__Frame--Active {
+  opacity: 1;
+}
+.Customizer__Frame--Previous {
+  display: none;
+  opacity: 0; 
+} */
+
+.Customizer__Option {
+  border: 1px solid lightgray;
+  text-align: center;
+  cursor: pointer;
+}
+.Customizer__Option--Active {
+  border: 1px solid blue;
+}
+.Customizer__Product {
+  text-align: center;
+  padding: 1em 0;
+}
+.Customizer__OptionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.Customizer__Option img {
+  width: 100%;
+}
+
+.ProgressBar__Container {
+  background-color: black;
+  border-radius: 13px;
+  padding: 3px;
+  margin: 10px;
+}
+.ProgressBar__Inner {
+  background-color: #5b8499;
+  height: 20px;
+  border-radius: 10px;
+}
+.ButtonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.btn {
+  margin: auto;
+}
