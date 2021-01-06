@@ -47,12 +47,6 @@ app.use('/install', require('./routes/install/'));
 app.use('/proxy', require('./routes/proxy/'));
 app.use('/webhook', require('./routes/webhook/'));
 
-app.use((req, res, next) => {
-  console.log(req.url);
-  console.log(req.body);
-  console.log(req.method);
-  next();
-});
 app.get('/*', async function (req, res) {
   let { shop } = req.query;
   if (!shop) {
