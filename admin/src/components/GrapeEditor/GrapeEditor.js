@@ -26,7 +26,8 @@ export default function GrapeEditor() {
         urlStore: `/admin/pages/${id}`,
         urlLoad: `/admin/pages/${id}`,
         autosave: false, // Store data automatically
-        autoload: true // Autoload stored data on init
+        autoload: true, // Autoload stored data on init
+        headers: { Authorization: 'Bearer ' + window.authToken }
       },
       blockManager: {
         appendTo: '#blocks',
