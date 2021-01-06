@@ -7,7 +7,6 @@ router
   .route('/:id')
   .get(async (req, res) => {
     const template = await Page_Template.findOne({ shopifyID: req.params.id });
-    console.log(template);
     if (template) {
       res.json(template);
     }

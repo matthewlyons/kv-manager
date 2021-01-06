@@ -258,7 +258,6 @@ module.exports = {
         }
       )
       .then((response) => {
-        console.log(response);
         return response;
       })
       .catch((err) => {

@@ -27,43 +27,52 @@ router.post('/OrderCreate', async (req, res) => {
   });
 
   console.log(affiliateCode);
+  console.log(teacherCode);
 
   // Check for Teacher account with discount code
-  let teacher = await Teacher.findOne({ code: teacherCode });
+  Teacher.findOne({ code: teacherCode })
+    .then((teacher) => {
+      const paymentMade = total_line_items_price;
+      const newPoints = Math.round(paymentMade / 10);
 
-  const paymentMade = total_line_items_price;
-  const newPoints = Math.round(paymentMade / 10);
-
-  if (teacher) {
-    // Create Point Change Event For Teacher
-    let newPayment = new Teacher_Point_Change({
-      teacher: teacher._id,
-      type: 'Store Order',
-      points: newPoints
+      if (teacher) {
+        // Create Point Change Event For Teacher
+        let newPayment = new Teacher_Point_Change({
+          teacher: teacher._id,
+          type: 'Store Order',
+          points: newPoints
+        });
+        newPayment.save();
+        // Update Teacher Points
+        teacher.points = teacher.points + newPoints;
+        teacher.save();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    newPayment.save();
-    // Update Teacher Points
-    teacher.points = teacher.points + newPoints;
-    teacher.save();
-  }
 
   // Check for Refferal code using order.ref
-  let affiliate = await Affiliate.findOne({ code: affiliateCode });
+  Affiliate.findOne({ code: affiliateCode })
+    .then((affiliate) => {
+      if (affiliate) {
+        let { percent } = affiliate;
 
-  if (affiliate) {
-    let { percent } = affiliate;
+        let totalEarned = Math.round(paymentMade / percent);
 
-    let totalEarned = Math.round(paymentMade / percent);
-
-    // Create order for affiliate
-    let newOrder = new Order_Store_Affiliate({
-      orderNumber: id,
-      affiliateCode,
-      totalEarned
+        // Create order for affiliate
+        let newOrder = new Order_Store_Affiliate({
+          orderNumber: id,
+          affiliateCode,
+          totalEarned
+        });
+        console.log(newOrder);
+        newOrder.save();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    console.log(newOrder);
-    newOrder.save();
-  }
 });
 
 module.exports = router;
