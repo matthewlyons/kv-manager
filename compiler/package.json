@@ -27,5 +27,8 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }
