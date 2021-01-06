@@ -238,6 +238,34 @@ module.exports = {
       });
     return response;
   },
+  async updatePage(id, html) {
+    let accessToken = await module.exports.getAuthToken();
+    let accessRequestHeader = {
+      'X-Shopify-Access-Token': accessToken
+    };
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2021-01/pages/${id}.json`;
+    axios
+      .put(
+        url,
+        {
+          page: {
+            id,
+            body_html: html
+          }
+        },
+        {
+          headers: accessRequestHeader
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+  },
   async getRedirects() {
     let accessToken = await module.exports.getAuthToken();
     let accessRequestHeader = {

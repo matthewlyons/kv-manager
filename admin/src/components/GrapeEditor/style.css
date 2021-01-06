@@ -1,0 +1,27 @@
+/* We can remove the border we've set at the beginnig */
+#gjs {
+  border: none;
+}
+/* Theming */
+
+/* Primary color for the background */
+.gjs-one-bg {
+  background-color: #004f6b;
+}
+
+/* Secondary color for the text color */
+.gjs-two-color {
+  color: white;
+}
+
+/* Tertiary color for the background */
+.gjs-three-bg {
+  background-color: lightgray;
+  color: white;
+}
+
+/* Quaternary color for the text color */
+.gjs-four-color,
+.gjs-four-color-h:hover {
+  color: lightgray;
+}

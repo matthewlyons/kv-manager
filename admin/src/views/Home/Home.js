@@ -87,6 +87,15 @@ export default function Home() {
             <p>View and Manage Image Assets</p>
           </Card>
         </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card
+            title="Manage Pages"
+            sectioned
+            primaryFooterAction={{ content: 'Edit', url: '/Page' }}
+          >
+            <p>Edit Shopify Pages</p>
+          </Card>
+        </Layout.Section>
       </Layout>
     </Page>
   );

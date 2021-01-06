@@ -6,6 +6,7 @@ const Product_Event = require('../../../models/Product_Event');
 
 const {
   getPages,
+  updatePage,
   getRedirects,
   createRedirect,
   deleteRedirect,
@@ -23,6 +24,14 @@ const shopify = require('../../../helpers/lib/shopify');
 router.route('/Pages').get(async (req, res) => {
   let response = await getPages();
   res.json(response.data.pages);
+});
+
+router.route('/Page/:id').post(async (req, res) => {
+  console.log('REQ');
+
+  let response = updatePage(req.params.id, req.body.html);
+  console.log(response);
+  res.json({ success: true });
 });
 
 router.route('/Validate').post(async (req, res) => {

@@ -54,6 +54,8 @@ import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
 
 // Components
 import Alert from './components/Alert';
+import PageEditor from './views/PageEditor/PageEditor';
+import Pages_Home from './views/PageEditor/Pages_Home';
 
 function App() {
   return (
@@ -157,6 +159,9 @@ function App() {
 
       {/* Asset Routes */}
       <Route exact path="/Asset" component={Image_Assets_Home} />
+
+      <Route exact path="/Page" component={Pages_Home} />
+      <Route exact path="/Page/:id" component={PageEditor} />
     </Router>
   );
 }
