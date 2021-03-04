@@ -5,13 +5,16 @@ const Schema = mongoose.Schema;
 const Teacher_Point_Change_Schema = new Schema({
   teacher: {
     type: Schema.Types.ObjectId,
-    ref: 'teacher'
+    ref: 'teacher',
+    required: true
   },
   points: {
-    type: Number
+    type: Number,
+    required: true
   },
-  type: {
-    type: String
+  message: {
+    type: String,
+    required: true
   },
   orderNumber: {
     type: String
