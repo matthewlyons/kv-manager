@@ -54,16 +54,6 @@ export default function Teacher_Home() {
     fetchData();
   }, []);
 
-  const validateTeachers = () => {
-    makeRequest('post', '/shopify/validate')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <Page
       full-width
@@ -75,12 +65,32 @@ export default function Teacher_Home() {
           url: '/'
         }
       ]}
-      primaryAction={{
-        content: 'Validate Teachers',
-        onAction: validateTeachers
-      }}
     >
       <Layout>
+        <Layout.Section oneHalf>
+          <Card
+            title="Teacher Store Products"
+            sectioned
+            primaryFooterAction={{
+              content: 'Manage',
+              url: '/Teacher/Products'
+            }}
+          >
+            <p>Manage Teacher Store Products</p>
+          </Card>
+        </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card
+            title="Teacher Store Orders"
+            sectioned
+            primaryFooterAction={{
+              content: 'View',
+              url: '/Teacher/Products'
+            }}
+          >
+            <p>View Recent Techer Store Orders</p>
+          </Card>
+        </Layout.Section>
         {/* Teacher Requests */}
         {data.requests.length > 0 && (
           <React.Fragment>

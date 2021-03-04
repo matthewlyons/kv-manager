@@ -5,13 +5,19 @@ import { Route } from 'react-router-dom';
 import Home from './views/Home';
 
 // Teacher Views
+import Teacher_Index from './views/Teacher/Teacher_Index';
 import Teacher_Home from './views/Teacher/Teacher_Home';
 import Teacher_Create from './views/Teacher/Teacher_Create';
 import Teacher_View from './views/Teacher/Teacher_View';
 import Teacher_ViewAll from './views/Teacher/Teacher_ViewAll';
 import Teacher_Request from './views/Teacher/Teacher_Request';
+
+// Teacher Loyalty Shop
 import Teacher_Order from './views/Teacher/Teacher_Order';
 import Teacher_Order_View from './views/Teacher/Teacher_Order_View';
+import Teacher_Products from './views/Teacher/Teacher_Products';
+import Teacher_Product_Create from './views/Teacher/Teacher_Product_Create';
+import Teacher_Order_Create from './views/Teacher/Teacher_Order_Create';
 
 // School Views
 import School_Create from './views/School/School_Create';
@@ -63,16 +69,33 @@ function App() {
       <Alert />
       <Route exact path="/" component={Home} />
       {/* Teacher Routes */}
+      <Route exact path="/LoyaltyProgram" component={Teacher_Index} />
       <Route exact path="/Teacher" component={Teacher_Home} />
       <Route exact path="/Teacher/Teachers" component={Teacher_ViewAll} />
       <Route exact path="/Teacher/Teachers/Create" component={Teacher_Create} />
       <Route exact path="/Teacher/Teachers/View/:id" component={Teacher_View} />
-      <Route exact path="/Teacher/Request/:id" component={Teacher_Request} />
-      <Route exact path="/Teacher/Orders" component={Teacher_Order} />
+      <Route
+        exact
+        path="/Teacher/Orders/Create/:id"
+        component={Teacher_Order_Create}
+      />
       <Route
         exact
         path="/Teacher/Orders/View/:id"
         component={Teacher_Order_View}
+      />
+      <Route exact path="/Teacher/Request/:id" component={Teacher_Request} />
+      <Route exact path="/Teacher/Orders" component={Teacher_Order} />
+      <Route exact path="/Teacher/Products" component={Teacher_Products} />
+      <Route
+        exact
+        path="/Teacher/Products/Create"
+        component={Teacher_Product_Create}
+      />
+      <Route
+        exact
+        path="/Teacher/Products/View/:id"
+        component={Teacher_Product_Create}
       />
 
       {/* School Routes */}

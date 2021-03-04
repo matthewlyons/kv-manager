@@ -12,11 +12,19 @@ import {
   SkeletonPage,
   SkeletonBodyText,
   SkeletonDisplayText,
-  TextContainer
+  TextContainer,
+  Button,
+  TextField
 } from '@shopify/polaris';
+
+import moment from 'moment';
+
+import * as yup from 'yup';
 
 import { makeRequest } from '../../util';
 import Modal_Teacher_Edit from '../../components/Modal_Teacher_Edit';
+
+const emailSchema = yup.string().email();
 
 export default function Teacher_View(props) {
   let history = useHistory();
@@ -25,18 +33,24 @@ export default function Teacher_View(props) {
 
   const [teacher, setTeacher] = useState({});
   const [payments, setPayments] = useState([]);
+
+  const [errors, setErrors] = useState({});
   const [orders, setOrders] = useState([]);
+  const [email, setEmail] = useState('');
 
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [accountModal, setAccountModal] = useState(false);
 
   useEffect(() => {
     makeRequest('GET', `/teacher/${props.match.params.id}`).then((data) => {
       setTeacher(data);
+      console.log(data);
       setLoading(false);
     });
     makeRequest('GET', `/teacher/points/${props.match.params.id}`).then(
       (data) => {
+        console.log(data);
         setPayments(data);
       }
     );
@@ -49,9 +63,35 @@ export default function Teacher_View(props) {
         break;
       case 'edit':
         setEditModal(!editModal);
+      case 'account':
+        setAccountModal(!accountModal);
         break;
       default:
         break;
+    }
+  };
+
+  const submitEmail = () => {
+    setErrors({});
+    let errorOBJ = {};
+    if (email === undefined || email === '') {
+      errorOBJ.email = 'Required';
+    } else if (!emailSchema.isValidSync(email)) {
+      errorOBJ.email = 'Not Valid';
+    }
+    if (Object.keys(errorOBJ).length > 0) {
+      setErrors(errorOBJ);
+    } else {
+      makeRequest('POST', `/teacher/account/${props.match.params.id}`, {
+        email
+      })
+        .then((data) => {
+          console.log(data);
+          toggleModal('account');
+        })
+        .catch((err) => {
+          setErrors({ email: err });
+        });
     }
   };
 
@@ -122,6 +162,14 @@ export default function Teacher_View(props) {
               toggleModal('delete');
             }
           }}
+          secondaryActions={[
+            {
+              content: 'Change Shopify Account',
+              onAction: () => {
+                toggleModal('account');
+              }
+            }
+          ]}
         >
           <Layout>
             <Layout.Section secondary>
@@ -171,22 +219,45 @@ export default function Teacher_View(props) {
               </React.Fragment>
             )}
             <Layout.Section secondary>
-              <Heading>Recent Point History</Heading>
+              <Heading>Orders</Heading>
+              <Button url={`/Teacher/Orders/Create/${props.match.params.id}`}>
+                Add New
+              </Button>
             </Layout.Section>
             <Layout.Section>
               <Card>
                 <ResourceList
-                  resourceName={{ singular: 'payment', plural: 'payments' }}
-                  items={payments}
+                  resourceName={{ singular: 'order', plural: 'orders' }}
+                  items={teacher.orders}
                   renderItem={(item) => {
-                    const { _id, points, date, type, orderNumber } = item;
+                    const { _id, total, date, products } = item;
+
+                    let items;
+
+                    if (products.length > 1) {
+                      items = products.reduce((total, current) => {
+                        return `${current.quantity}x ${current.title} | ${total}`;
+                      }, '');
+                    } else {
+                      items = `${products[0].quantity}x ${products[0].title} | `;
+                    }
+                    // Truncate Items list after 200 characters
+                    items =
+                      items.length > 200
+                        ? items.substring(0, 200) + '...'
+                        : items;
                     return (
-                      <ResourceList.Item id={_id}>
+                      <ResourceList.Item
+                        id={_id}
+                        url={`/Teacher/Orders/View/${_id}`}
+                      >
                         <h3>
                           <TextStyle variation="strong">
-                            {points} Points
+                            {items}
+                            {total} Points
                           </TextStyle>
                         </h3>
+                        <div>{moment(date).format('MM/DD/YYYY')}</div>
                       </ResourceList.Item>
                     );
                   }}
@@ -211,6 +282,27 @@ export default function Teacher_View(props) {
             submit={submit}
             hydrate={teacher}
           />
+          <Modal
+            open={accountModal}
+            onClose={() => {
+              toggleModal('account');
+            }}
+            title="Change Shopify Account for Teacher"
+            primaryAction={{
+              content: 'Submit',
+              onAction: submitEmail
+            }}
+          >
+            <Modal.Section>
+              <TextField
+                label="New Email"
+                error={errors.email}
+                value={email}
+                onChange={setEmail}
+                type="text"
+              />
+            </Modal.Section>
+          </Modal>
         </Page>
       )}
     </React.Fragment>
