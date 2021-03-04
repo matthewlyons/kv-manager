@@ -106,11 +106,94 @@ router
       });
   });
 
-router.route('/points/:id').get(async (req, res) => {
-  let rentalPayments = await Teacher_Point_Change.find({
-    teacher: req.params.id
+// Teacher Points Route
+router
+  .route('/points/:teacher')
+  // Get points for teacher
+  .get(async (req, res) => {
+    let rentalPayments = await Teacher_Point_Change.find({
+      teacher: req.params.teacher
+    });
+    res.json(rentalPayments);
+  })
+  // Create Point Adjust
+  .post((req, res) => {
+    let { points, message } = req.body;
+    let dbPointAdjust = new Teacher_Point_Change({
+      teacher: req.params.teacher,
+      points,
+      message
+    });
+    dbPointAdjust.save((response) => {
+      res.json(response);
+    });
   });
-  res.json(rentalPayments);
+
+router
+  .route('/points/:teacher/:id')
+  // Detele point adjust
+  .delete(async (req, res) => {
+    let teacher = Teacher.findById(req.params.teacher);
+    if (!teacher) {
+      return res.status(404).json({
+        errors: [{ message: 'No Teacher Found' }]
+      });
+    }
+    // Find Teacher_Point_Change
+    let adjustment = await Teacher_Point_Change.find({
+      teacher: req.params.teacher,
+      _id: req.params._id
+    });
+
+    if (!adjustment) {
+      return res.status(404).json({
+        errors: [{ message: 'No Point Adjustment Found' }]
+      });
+    }
+
+    // Get value of points adjust
+    // adjust teacher points equal to current minus adjust
+    // delete adjustment
+    // Save teacher with new object
+    // Send teacher
+    res.send('Hello From DELETE Route');
+  });
+
+router.route('/account/:id').post(async (req, res) => {
+  let { email } = req.body;
+
+  let teacher = await Teacher.findById(req.params.id);
+  if (!teacher) {
+    return res.status(404).json({
+      errors: [{ message: 'No Teacher Found' }]
+    });
+  }
+
+  let shopifyAccount = await getShopifyCustomers(email);
+
+  if (shopifyAccount.length === 0) {
+    return res.status(404).json({
+      errors: [{ message: 'No Account Found With That Email' }]
+    });
+  }
+
+  if (
+    teacher.email == shopifyAccount[0].email &&
+    teacher.shopifyID == shopifyAccount[0].id
+  ) {
+    return res.status(400).json({
+      errors: [
+        { message: 'This Email is Already Associated with this Account' }
+      ]
+    });
+  }
+
+  teacher.email = shopifyAccount[0].email;
+  teacher.shopifyID = shopifyAccount[0].id;
+
+  teacher.save();
+
+  res.send('Success');
 });
 
 router
@@ -241,6 +324,7 @@ router
   .get(async (req, res) => {
     Teacher.findById(req.params.id)
       .populate('schools')
+      .populate('orders')
       .then((teacher) => {
         return res.json(teacher);
       })
@@ -252,18 +336,19 @@ router
       });
   })
   .put((req, res) => {
-    Teacher.findByIdAndUpdate(req.params.id, { $set: req.body }, function (
-      error,
-      result
-    ) {
-      if (error) {
-        let errors = getErrors(error);
-        return res.status(400).send({
-          errors
-        });
+    Teacher.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      function (error, result) {
+        if (error) {
+          let errors = getErrors(error);
+          return res.status(400).send({
+            errors
+          });
+        }
+        return res.sendStatus(200);
       }
-      return res.sendStatus(200);
-    });
+    );
   })
   .delete((req, res) => {
     Teacher.findById(req.params.id)

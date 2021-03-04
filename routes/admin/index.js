@@ -29,6 +29,7 @@ router.use('/rental', require('./rental'));
 router.use('/school', require('./school'));
 router.use('/shipping', require('./shipping'));
 router.use('/shopify', require('./shopify'));
+router.use('/teacher-store', require('./teacher-store'));
 router.use('/teacher', require('./teacher'));
 
 router.get('*', async function (req, res) {
