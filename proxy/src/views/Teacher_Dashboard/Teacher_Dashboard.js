@@ -10,6 +10,7 @@ import Table from '../../components/Table';
 
 export default function Teacher_Dashboard(props) {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [data, setData] = useState({});
 
   let { id } = props.match.params;
@@ -26,12 +27,13 @@ export default function Teacher_Dashboard(props) {
       .catch((err) => {
         // TODO Error Handling
         console.log(err);
+        setError(err);
         setLoading(false);
       });
   }, [window]);
 
   let teacher = useMemo(() => {
-    return data.teacher;
+    return data;
   }, [data]);
 
   let properName = useMemo(() => {
@@ -45,11 +47,11 @@ export default function Teacher_Dashboard(props) {
   }, [teacher]);
 
   let pointEvents = useMemo(() => {
-    let result = data.pointEvents?.map((event) => {
+    let result = data?.orders?.map((event) => {
       return [
         moment(event.date).format('MM/DD/YYYY'),
-        `${event.points} Points`,
-        event.type
+        `${event.total} Points`,
+        event.status
       ];
     });
     if (result) {
@@ -66,42 +68,53 @@ export default function Teacher_Dashboard(props) {
           <Loading_Spinner title="Loading Teacher Info" />
         </section>
       ) : (
-        <section className="PaddingTopBottom">
-          <div
-            className="PaddingTopBottom"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <h3>Welcome {properName}.</h3>
-            {/* <button className="btn">View Teacher Store</button> */}
-          </div>
-          <div className="divider"></div>
-          <div className="PaddingTopBottom TeacherPoints">
-            <div style={{ width: '250px', margin: 'auto' }}>
-              <Circle_Animation>
-                <g className="circle-label">
-                  <text x="50%" y="50%" className="circle-percentage">
-                    {teacher.points}
-                  </text>
-                  <text x="50%" y="50%" className="circle-text">
-                    Points
-                  </text>
-                </g>
-              </Circle_Animation>
-            </div>
-            <div>
-              <h3 className="TextCenter">Recent Transactions</h3>
-              <Table
-                headers={['Date', 'Points', 'Event']}
-                values={pointEvents}
-              />
-            </div>
-          </div>
-          <div className="divider"></div>
-        </section>
+        <React.Fragment>
+          {error ? (
+            <section className="PaddingTopBottom TextCenter">
+              <h2>Whoops!</h2>
+              <h2>{error.errors[0].message}</h2>
+            </section>
+          ) : (
+            <section className="PaddingTopBottom">
+              <div
+                className="PaddingTopBottom"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+              >
+                <h3>Welcome {properName}.</h3>
+                <button className="btn" style={{ margin: 0 }}>
+                  View Teacher Store
+                </button>
+              </div>
+              <div className="divider"></div>
+              <div className="PaddingTopBottom TeacherPoints">
+                <div style={{ width: '250px', margin: 'auto' }}>
+                  <Circle_Animation>
+                    <g className="circle-label">
+                      <text x="50%" y="50%" className="circle-percentage">
+                        {teacher.points}
+                      </text>
+                      <text x="50%" y="50%" className="circle-text">
+                        Points
+                      </text>
+                    </g>
+                  </Circle_Animation>
+                </div>
+                <div>
+                  <h3 className="TextCenter">Recent Transactions</h3>
+                  <Table
+                    headers={['Date', 'Points', 'Status']}
+                    values={pointEvents}
+                  />
+                </div>
+              </div>
+              <div className="divider"></div>
+            </section>
+          )}
+        </React.Fragment>
       )}
     </React.Fragment>
   );

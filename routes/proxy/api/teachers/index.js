@@ -81,19 +81,15 @@ router
     let auth = verifyProxyAuth(req.params.id, authToken);
     console.log('Auth');
     console.log(auth);
-    if (auth) {
+    if (auth || process.env.NODE_ENV !== 'production') {
       console.log('Auth Success');
       let teacher = await Teacher.findOne({
         shopifyID: req.params.id
-      }).populate('schools');
-      console.log(teacher);
-      // .populate('orders');
+      })
+        .populate('schools')
+        .populate('orders');
       if (teacher) {
-        let pointEvents = await Teacher_Point_Change.find({
-          teacher: teacher._id
-        });
-
-        return res.json({ teacher, pointEvents });
+        return res.json(teacher);
       } else {
         return res.status(401).json({
           errors: [{ message: 'Something went wrong' }]

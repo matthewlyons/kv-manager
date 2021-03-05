@@ -13,6 +13,7 @@ import Teacher_Signup from './views/Teacher_Signup/Teacher_Signup';
 // Product Page
 // Cart Page
 // Checkout Page
+import Teacher_Store from './views/Teacher_Store/Teacher_Store';
 
 // Rental Routes
 // Find Your School
@@ -40,6 +41,11 @@ function App() {
           exact
           path="/community/application/Teacher/Signup"
           component={Teacher_Signup}
+        />
+        <Route
+          exact
+          path="/community/application/Teacher/Store/"
+          component={Teacher_Store}
         />
         <Route
           exact
