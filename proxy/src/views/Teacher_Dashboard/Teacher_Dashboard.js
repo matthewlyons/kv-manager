@@ -85,9 +85,9 @@ export default function Teacher_Dashboard(props) {
                 }}
               >
                 <h3>Welcome {properName}.</h3>
-                <button className="btn" style={{ margin: 0 }}>
+                {/* <button className="btn" style={{ margin: 0 }}>
                   View Teacher Store
-                </button>
+                </button> */}
               </div>
               <div className="divider"></div>
               <div className="PaddingTopBottom TeacherPoints">
@@ -103,13 +103,15 @@ export default function Teacher_Dashboard(props) {
                     </g>
                   </Circle_Animation>
                 </div>
-                <div>
-                  <h3 className="TextCenter">Recent Transactions</h3>
-                  <Table
-                    headers={['Date', 'Points', 'Status']}
-                    values={pointEvents}
-                  />
-                </div>
+                {pointEvents.length > 0 && (
+                  <div>
+                    <h3 className="TextCenter">Recent Transactions</h3>
+                    <Table
+                      headers={['Date', 'Points', 'Status']}
+                      values={pointEvents}
+                    />
+                  </div>
+                )}
               </div>
               <div className="divider"></div>
             </section>
