@@ -26,9 +26,11 @@ module.exports = {
       }
     });
 
-    let totalPrice = items.reduce((total, item) => {
-      return total + item.price;
-    }, 0);
+    let totalPrice = items
+      .reduce((total, item) => {
+        return total + item.price * item.quantity * 0.01;
+      }, 0)
+      .toFixed(2);
 
     console.log(totalPrice);
 
