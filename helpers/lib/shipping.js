@@ -26,7 +26,7 @@ module.exports = {
       }
     });
 
-    let totalPrice = array.reduce((total, item) => {
+    let totalPrice = items.reduce((total, item) => {
       return total + item.price;
     }, 0);
 
