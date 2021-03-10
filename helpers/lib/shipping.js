@@ -25,6 +25,17 @@ module.exports = {
         i++;
       }
     });
+
+    let totalPrice = array.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+
+    console.log(totalPrice);
+
+    if (totalPrice >= 100) {
+      freeShipping = true;
+    }
+
     products.forEach((element) => {
       if (element.includes('outfit') || element.includes('bundle')) {
         if (element.includes('Viola') || element.includes('Violin')) {
