@@ -26,17 +26,17 @@ module.exports = {
       }
     });
 
-    let totalPrice = items
-      .reduce((total, item) => {
-        return total + item.price * item.quantity * 0.01;
-      }, 0)
-      .toFixed(2);
+    // let totalPrice = items
+    //   .reduce((total, item) => {
+    //     return total + item.price * item.quantity * 0.01;
+    //   }, 0)
+    //   .toFixed(2);
 
-    console.log(totalPrice);
+    // console.log(totalPrice);
 
-    if (totalPrice >= 100) {
-      freeShipping = true;
-    }
+    // if (totalPrice >= 100) {
+    //   freeShipping = true;
+    // }
 
     products.forEach((element) => {
       if (element.includes('outfit') || element.includes('bundle')) {
