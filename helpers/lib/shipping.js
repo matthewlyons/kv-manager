@@ -58,9 +58,6 @@ module.exports = {
           accessories.push(element);
         }
       }
-      if (element.includes('bow') && products.length == 1) {
-        freeShipping = true;
-      }
     });
     if (outfits.length > 0) {
       if (PriorityMail) {
