@@ -13,8 +13,7 @@ const Teacher_Point_Change_Schema = new Schema({
     required: true
   },
   message: {
-    type: String,
-    required: true
+    type: String
   },
   orderNumber: {
     type: String

@@ -9,6 +9,7 @@ router.get('/javascript', (req, res) => {
 router.use('/api', require('./api'));
 
 router.get('/google-feed', function (req, res) {
+  console.log('Hello');
   const file = `${__dirname}/inventory.txt`;
   res.download(file); // Set disposition and send it.
 });
