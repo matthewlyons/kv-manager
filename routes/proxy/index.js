@@ -8,6 +8,11 @@ router.get('/javascript', (req, res) => {
 
 router.use('/api', require('./api'));
 
+router.get('/google-feed', function (req, res) {
+  const file = `${__dirname}/inventory.txt`;
+  res.download(file); // Set disposition and send it.
+});
+
 // Authorize Api Route
 // Send everything from this route back as liquid.
 router.use((req, res, next) => {
