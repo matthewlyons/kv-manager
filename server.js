@@ -5,32 +5,23 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const nonce = require('nonce')();
+
+const { connectDB } = require('./helpers');
 
 const Store = require('./models/Store');
 
 const {
   SHOPIFY_APP_SECRET,
   PORT,
-  MONGO_URI,
   SHOPIFY_APP_KEY,
   SHOPIFY_APP_SCOPE,
   host
 } = process.env;
 
-// DB Config
-const db = MONGO_URI;
-mongoose
-  .connect(db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log('MongoDB Connected'))
-  .catch((err) => console.log(err));
-
-mongoose.set('useFindAndModify', false);
+connectDB().then((message) => {
+  console.log(message);
+});
 
 const app = express();
 
@@ -84,3 +75,5 @@ app.get('/*', async function (req, res) {
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
 });
+
+module.exports = app;

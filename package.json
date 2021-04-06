@@ -8,7 +8,7 @@
     "npm": "6.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive --exit",
     "start": "node server.js",
     "heroku-prebuild": "cd compiler && npm install && cd ../admin && npm install && cd ../proxy && npm install",
     "heroku-postbuild": "npm run build --prefix compiler",
@@ -38,5 +38,11 @@
     "nonce": "^1.0.4",
     "qs": "^6.9.4",
     "underscore": "^1.10.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "mongodb-memory-server": "^6.9.6",
+    "supertest": "^6.1.3"
   }
 }
