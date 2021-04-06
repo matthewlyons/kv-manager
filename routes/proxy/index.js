@@ -10,7 +10,7 @@ router.use('/api', require('./api'));
 
 router.get('/google-feed', function (req, res) {
   console.log('Hello');
-  const file = `${__dirname}/inventory.txt`;
+  const file = path.resolve(__dirname + '/../../inventory.txt');
   res.download(file); // Set disposition and send it.
 });
 
