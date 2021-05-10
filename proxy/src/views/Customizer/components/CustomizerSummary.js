@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function CustomizerSummary({
   step,
   setStep,
   groups,
   basket,
-  submitBasket
+  submitBasket,
+  setWindow
 }) {
   return (
     <section>
       <ul>
-        {Object.keys(basket).map((key) => {
+        {Object.keys(basket).map((key, i) => {
           let obj = basket[key];
-
           return (
-            <li>
+            <li key={i}>
               {key}: {obj.product}
               {obj.variant.option && (
                 <React.Fragment> | {obj.variant.option}</React.Fragment>
               )}
+              {obj.upgrade ? ` $${obj.price}` : ' Included'}
             </li>
           );
         })}
       </ul>
       <div className="ButtonContainer">
-        {step >= groups - 1 ? (
+        {step > 0 ? (
           <button
             className="btn"
             onClick={() => {
@@ -35,14 +36,14 @@ export default function CustomizerSummary({
             Previous
           </button>
         ) : (
-          <div />
+          <div className="Hello World!" />
         )}
 
         <button className="btn" onClick={submitBasket}>
           Finish and Add To Cart
         </button>
 
-        {step <= 0 ? (
+        {step < groups - 1 ? (
           <button
             className="btn"
             onClick={() => {
