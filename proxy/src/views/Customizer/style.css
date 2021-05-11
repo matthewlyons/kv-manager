@@ -18,9 +18,7 @@
   text-align: center;
   cursor: pointer;
 }
-.Customizer__Option--Active {
-  border: 1px solid blue;
-}
+
 .Customizer__Product {
   text-align: center;
   padding: 1em 0;
@@ -35,6 +33,12 @@
   width: 100%;
 }
 
+.Customizer__View {
+}
+
+.Product__Header {
+  padding: 10px 0;
+}
 .ProgressBar__Container {
   background-color: black;
   border-radius: 13px;
@@ -46,9 +50,10 @@
   height: 20px;
   border-radius: 10px;
 }
-.ButtonContainer {
+.Customizer__Controls {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  padding: 1em 0;
 }
 .btn {
   margin: auto;
@@ -108,4 +113,49 @@ h4 {
 
 .Customizer__Frame--Inactive {
   display: none;
+}
+
+.GroupContainer {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.Customizer__Option {
+  transform: none;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 1em;
+  border: 1px solid lightgray;
+  padding: 1em;
+}
+
+.Customizer__Option--Active {
+  border: 1px solid #5b8499;
+}
+.GroupItem__Image {
+  width: 100%;
+}
+.GroupItem__Title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h3,
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.Customizer__VariantsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+.Icon__Title {
+  padding: 0.5em 0;
 }

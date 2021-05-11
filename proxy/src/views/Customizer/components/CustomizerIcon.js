@@ -47,7 +47,7 @@ export default function CustomizerIcon({
               />
             )}
           </div>
-          <h4>{title}</h4>
+          <h4 className="Icon__Title">{title}</h4>
         </div>
       ) : (
         <div
@@ -70,7 +70,7 @@ export default function CustomizerIcon({
               )}
             </div>
           </div>
-          <h4>{title}</h4>
+          <h4 className="Icon__Title">{title}</h4>
         </div>
       )}
     </React.Fragment>

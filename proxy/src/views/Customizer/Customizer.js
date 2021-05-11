@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import CustomizerControls from './components/CustomizerControls';
 import CustomizerFrame from './components/CustomizerFrame';
 import CustomizerIcons from './components/CustomizerIcons';
 import CustomizerSummary from './components/CustomizerSummary';
@@ -104,23 +105,51 @@ export default function Customizer() {
           {
             title: 'Giuliani Brazilwood Violin Bow',
             image:
-              'https://cdn.shopify.com/s/files/1/2994/5334/products/Brazilwood_full_large.jpg?v=1545848890',
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/Premier_Full_small.jpg?v=1527788437',
             variants: [{ id: 124441524 }],
             price: 42.76
           },
           {
             title: 'Giuliani Carbon Fiber Violin Bow',
             image:
-              'https://cdn.shopify.com/s/files/1/2994/5334/products/41hxo7asKTL_1200x1200.jpg?v=1545848958',
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/41hxo7asKTL_a716303a-07be-485b-ad99-c83577baab5b_small.jpg?v=1534463439',
             variants: [{ id: 124331524 }],
             price: 65.89
+          }
+        ],
+        complete: false
+      },
+      {
+        title: 'Strings',
+        section: 'String',
+        upgradeProducts: [
+          {
+            title: 'Thomastik Alphayue Violin String Set',
+            image:
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/Thomastik-Alphayue_1080x1080__19363.1462299160.1280.1280_a3ee00ed-2538-49d6-80ef-509165e7d36b_small.png?v=1551900727',
+            variants: [{ id: 1 }],
+            price: 24.98
           },
           {
-            title: 'Giuliani Premier Violin Bow',
+            title: 'Thomastik-Infeld Dominant Violin String Set ',
             image:
-              'https://cdn.shopify.com/s/files/1/2994/5334/products/Premier_Full_943de323-bdf1-4012-ad26-7c2a02329ae6_1200x1200.jpg?v=1545848993',
-            variants: [{ id: 124551524 }],
-            price: 78.45
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/Dominant_Strings1__35831.1309389769.444.444_aaa8fbd5-7b09-4423-9603-3d7e39e1e85f_small.jpg?v=1551902921',
+            variants: [{ id: 2 }],
+            price: 61.16
+          },
+          {
+            title: "D'Addario Zyex Violin Strings Cart Upgrade",
+            image:
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/810mUDSPUZL._SX425_7b755816-f079-4b94-8a26-c804d4b4a2c3_small.jpg?v=1551905710',
+            variants: [{ id: 3 }],
+            price: 39.78
+          },
+          {
+            title: "D'Addario Helicore Violin String Set",
+            image:
+              'https://cdn.shopify.com/s/files/1/2994/5334/products/71vJgcGpqBL._SL1500_cadf8be4-bcec-46fa-9952-de9780761664_small.jpg?v=1551905976',
+            variants: [{ id: 4 }],
+            price: 41.13
           }
         ],
         complete: false
@@ -153,9 +182,14 @@ export default function Customizer() {
   const [basket, setBasket] = useState({});
 
   const addToBasket = (section, product, variant, price, upgrade = false) => {
+    console.log(section, product, variant, price, upgrade);
     if (basket[section]?.variant.id === variant.id) {
       let updatedBasket = { ...basket };
-      updatedBasket[section] = defaults[section];
+      if (defaults[section]) {
+        updatedBasket[section] = defaults[section];
+      } else {
+        delete updatedBasket[section];
+      }
       setBasket(updatedBasket);
       let updatedGroups = groups.map((group) => {
         if (group.section === section) {
@@ -202,6 +236,13 @@ export default function Customizer() {
     <div>
       <CustomizerIcons groups={groups} step={step} setStep={setStep} />
       <section className="Customizer__View">
+        <CustomizerSummary
+          step={step}
+          groups={groups.length}
+          setStep={setStep}
+          basket={basket}
+          submitBasket={submitBasket}
+        />
         <section className="Customizer__FrameContainer">
           {groups.map((group, i) => {
             return (
@@ -217,7 +258,7 @@ export default function Customizer() {
           })}
         </section>
       </section>
-      <CustomizerSummary
+      <CustomizerControls
         step={step}
         groups={groups.length}
         setStep={setStep}
