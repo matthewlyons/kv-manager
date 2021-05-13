@@ -79,28 +79,31 @@ module.exports = {
     return response.data.customer;
   },
   // Register Shopfiy Discount Code for Teacher Code
-  async registerShopifyDiscountCode(teacherCode) {
-    let accessToken = await module.exports.getAuthToken();
-    let accessRequestHeader = {
-      'X-Shopify-Access-Token': accessToken
-    };
+  registerShopifyDiscountCode(teacherCode) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
 
-    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/price_rules/408923209773/discount_codes.json`;
-    let code = {
-      discount_code: {
-        code: teacherCode
-      }
-    };
+      console.log(teacherCode);
 
-    axios
-      .post(url, code, { headers: accessRequestHeader })
-      .then((data) => {
-        return true;
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        return false;
-      });
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/price_rules/408923209773/discount_codes.json`;
+      let code = {
+        discount_code: {
+          code: teacherCode
+        }
+      };
+
+      axios
+        .post(url, code, { headers: accessRequestHeader })
+        .then((data) => {
+          resolve(true);
+        })
+        .catch((err) => {
+          reject(err.response.data);
+        });
+    });
   },
 
   async getCarrierServices() {

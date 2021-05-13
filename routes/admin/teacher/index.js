@@ -410,9 +410,32 @@ router
   })
   // Approve Teacher Request
   .post(async (req, res) => {
+    console.log(req.body);
+    let { firstName, lastName, email, code } = req.body;
+
+    console.log('Testing');
     let teacher = await Teacher.findById(req.params.id);
-    registerShopifyDiscountCode(teacher.code);
-    res.send(teacher);
+
+    registerShopifyDiscountCode(code)
+      .then((response) => {
+        teacher.approved = true;
+        teacher.firstName = firstName;
+        teacher.lastName = lastName;
+        teacher.email = email;
+        teacher.code = code;
+        teacher.save();
+        res.send(teacher);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(400).send({
+          errors: [
+            {
+              message: 'Teacher Code Already in Use'
+            }
+          ]
+        });
+      });
   })
   // Delete Teacher Request
   .delete((req, res) => {

@@ -39,12 +39,14 @@ export default function Teacher_Request() {
   };
 
   const acceptRequest = () => {
-    makeRequest('post', `/teacher/request/${id}`)
+    makeRequest('post', `/teacher/request/${id}`, teacher)
       .then((data) => {
+        console.log('Data');
         console.log(data);
+        history.push(`/Teacher/Teachers/View/${data._id}`);
       })
       .catch((err) => {
-        console.log(err);
+        setErrors({ code: 'Already in Use' });
       });
   };
 

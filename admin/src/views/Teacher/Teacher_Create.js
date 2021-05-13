@@ -65,6 +65,7 @@ export default function Teacher_Create() {
         })
         .catch((err) => {
           setError(err);
+          console.log(err);
         });
     }
   };
