@@ -19,6 +19,11 @@ let example = {
 };
 
 module.exports = {
+  /**
+   * Gets current authtoken from env, cache, or database
+   *
+   * @return {number} Authtoken.
+   */
   async getAuthToken() {
     let shop = process.env.SHOPIFY_STORE;
     let store = memCache.get(shop);
@@ -34,7 +39,14 @@ module.exports = {
       return shopifyStore.authToken;
     }
   },
-  // Search Shopify customers by email
+
+  /**
+   * Search Shopify customers by email
+   *
+   * @param {string} Customer email
+   *
+   * @return {array} array of customer objects.
+   */
   async getShopifyCustomers(email) {
     let accessToken = await module.exports.getAuthToken();
     let accessRequestHeader = {
@@ -55,7 +67,17 @@ module.exports = {
       return [];
     }
   },
-  // Create Shopify Customer
+
+  /**
+   * Create Shopify Customer
+   *
+   * @param {string} data.firstName Customers first name
+   * @param {string} data.lastName Customers last name
+   * @param {string} data.email Customers email
+   * @param {boolean} invite send invite email to customer
+   *
+   * @return {object} Shopify Customer
+   */
   async createShopifyCustomer({ data, invite = false }) {
     let accessToken = await module.exports.getAuthToken();
     let accessRequestHeader = {
@@ -75,9 +97,44 @@ module.exports = {
       .catch((err) => {
         console.log(err);
       });
-    console.log(response);
+
     return response.data.customer;
   },
+  /**
+   * Create Shopify Discount Code
+   *
+   * @param {string} code Discount Code
+   *
+   * @return {boolean} Success or error
+   */
+  createShopifyDiscountCode(discountCode, price_rule) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+
+      console.log(discountCode);
+
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/price_rules/${price_rule}/discount_codes.json`;
+      let code = {
+        discount_code: {
+          code: discountCode
+        }
+      };
+
+      axios
+        .post(url, code, { headers: accessRequestHeader })
+        .then((data) => {
+          resolve(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err.response.data);
+        });
+    });
+  },
+
   // Register Shopfiy Discount Code for Teacher Code
   registerShopifyDiscountCode(teacherCode) {
     return new Promise(async (resolve, reject) => {

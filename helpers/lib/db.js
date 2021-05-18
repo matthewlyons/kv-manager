@@ -4,6 +4,11 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const { MONGO_URI } = process.env;
 
 module.exports = {
+  /**
+   * Connect to MongoDB Database
+   *
+   * @return {String} Connected Or Err
+   */
   async connectDB() {
     let db;
     // DB Config

@@ -83,8 +83,6 @@ router.route('/Validate').post(async (req, res) => {
     teacher.save();
   });
 
-  deleteShopifyDiscountCode('Lyons12345');
-
   // misfireTeachers.forEach((teacher) => {
   //   console.log(teacher);
   //   // registerShopifyDiscountCode(teacher.code);
