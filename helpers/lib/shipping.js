@@ -207,7 +207,9 @@ module.exports = {
     if (destination.country !== 'US') {
       freeShipping = false;
     }
-    console.log(destination);
+    if (destination.province == 'HI' || destination.province == 'AK') {
+      freeShipping = false;
+    }
     return { origin, destination, methods, packages, freeShipping };
   },
   async getQuote(result) {
