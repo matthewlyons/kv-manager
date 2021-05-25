@@ -207,6 +207,7 @@ module.exports = {
     if (destination.country !== 'US') {
       freeShipping = false;
     }
+    console.log(destination);
     return { origin, destination, methods, packages, freeShipping };
   },
   async getQuote(result) {
