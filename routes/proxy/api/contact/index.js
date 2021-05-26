@@ -42,7 +42,7 @@ router.route('/activate-submission').post((req, res) => {
                   });
               }
             );
-            return res.json({ code });
+            return res.json({ _id: submission._id, code });
           })
           .catch((err) => {
             return res.status(401).json({
