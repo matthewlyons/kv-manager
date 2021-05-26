@@ -51,6 +51,9 @@ const ActivateSubmissionSchema = new Schema({
     type: String,
     required: true
   },
+  rating: {
+    type: Number
+  },
   date: {
     type: Date,
     default: Date.now

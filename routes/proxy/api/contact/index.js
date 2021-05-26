@@ -13,6 +13,7 @@ const Activate_Submission = require('../../../../models/Activate_Submission');
 const DiscountCode = require('../../../../models/DiscountCode');
 
 router.route('/activate-submission').post((req, res) => {
+  console.log(req.body);
   let { firstName, lastName, email } = req.body;
   generateDiscountCode(firstName, lastName).then(async (code) => {
     const submission = new Activate_Submission(req.body);
