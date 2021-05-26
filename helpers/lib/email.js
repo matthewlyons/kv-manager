@@ -19,7 +19,7 @@ module.exports = {
     let mailOptions = {
       from: 'Kennedy Violins <rewards@kennedyviolins.com>',
       to,
-      subject: 'Thank you for your order!',
+      subject: 'Thank you for Activating!',
       html
     };
 
