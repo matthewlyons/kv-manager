@@ -58,6 +58,16 @@ router.route('/activate-submission').post((req, res) => {
   });
 });
 
+router.route('/rate-submission').post(async (req, res) => {
+  console.log(req.body);
+  let { _id, rating } = req.body;
+  let submission = await Activate_Submission.findById(_id);
+  submission.rating = Number(rating);
+  console.log(submission);
+  submission.save();
+  return res.send('Thank You');
+});
+
 router.get('/', (req, res, next) => {
   ejs.renderFile(
     path.join(__dirname, '../../../../views/email.ejs'),
