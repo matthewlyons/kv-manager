@@ -6,7 +6,8 @@ const router = express.Router();
 const {
   generateDiscountCode,
   createShopifyDiscountCode,
-  sendEmail
+  sendEmail,
+  emailSignup
 } = require('../../../../helpers');
 
 const Activate_Submission = require('../../../../models/Activate_Submission');
@@ -14,7 +15,18 @@ const DiscountCode = require('../../../../models/DiscountCode');
 
 router.route('/activate-submission').post((req, res) => {
   console.log(req.body);
-  let { firstName, lastName, email } = req.body;
+  let { firstName, lastName, email, marketing } = req.body;
+
+  if (marketing) {
+    emailSignup(req.body)
+      .then((response) => {
+        console.log(success);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   generateDiscountCode(firstName, lastName).then(async (code) => {
     const submission = new Activate_Submission(req.body);
     let codeDB = new DiscountCode({ code });
