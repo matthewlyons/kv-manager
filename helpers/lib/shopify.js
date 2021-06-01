@@ -228,7 +228,7 @@ module.exports = {
       'X-Shopify-Access-Token': accessToken
     };
 
-    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2019-07/customers.json`;
+    let url = `https://${process.env.SHOPIFY_STORE}/admin/api/2020-04/customers.json`;
     axios
       .post(
         url,
@@ -237,7 +237,8 @@ module.exports = {
             accepts_marketing: true,
             first_name: body.firstName,
             last_name: body.lastName,
-            email: body.email
+            email: body.email,
+            marketing_opt_in_level: 'confirmed_opt_in'
           }
         },
         { headers: accessRequestHeader }
