@@ -18,13 +18,8 @@ router.route('/activate-submission').post((req, res) => {
   let { firstName, lastName, email, marketing } = req.body;
 
   if (marketing) {
-    emailSignup(req.body)
-      .then((response) => {
-        console.log(success);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    let emailMarketing = await emailSignup(req.body);
+    console.log(emailMarketing);
   }
 
   generateDiscountCode(firstName, lastName).then(async (code) => {
