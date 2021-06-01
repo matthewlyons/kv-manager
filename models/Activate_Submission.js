@@ -7,10 +7,6 @@ const ActivateSubmissionSchema = new Schema({
     type: String,
     required: true
   },
-  gift: {
-    type: String,
-    required: true
-  },
   orderNumber: {
     type: String,
     required: true
@@ -34,22 +30,6 @@ const ActivateSubmissionSchema = new Schema({
   phone: {
     type: String,
     required: false
-  },
-  street: {
-    type: String,
-    required: true
-  },
-  city: {
-    type: String,
-    required: true
-  },
-  state: {
-    type: String,
-    required: true
-  },
-  zip: {
-    type: String,
-    required: true
   },
   rating: {
     type: Number
