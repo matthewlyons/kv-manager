@@ -15,17 +15,29 @@ const DiscountCode = require('../../../../models/DiscountCode');
 
 router.route('/activate-submission').post(async (req, res) => {
   console.log(req.body);
-  let { firstName, lastName, email, marketing } = req.body;
+  let { firstName, lastName, email, marketing, type } = req.body;
 
   if (marketing) {
     let emailMarketing = await emailSignup(req.body);
     console.log(emailMarketing);
   }
+  const submission = new Activate_Submission(req.body);
+
+  if (type === 'Accessory') {
+    submission
+      .save()
+      .then((obj) => {
+        return res.json({ _id: submission._id });
+      })
+      .catch((err) => {
+        return res.status(401).json({
+          errors: [{ message: 'Something went wrong' }]
+        });
+      });
+  }
 
   generateDiscountCode(firstName, lastName).then(async (code) => {
-    const submission = new Activate_Submission(req.body);
     let codeDB = new DiscountCode({ code });
-
     submission
       .save()
       .then((obj) => {
