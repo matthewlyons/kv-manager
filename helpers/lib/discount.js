@@ -19,7 +19,9 @@ module.exports = {
        * Attempt one
        * @result GWashi
        */
-      let test1 = part_1.substring(0, 1) + part_2.substring(0, 5);
+      let test1 =
+        part_1.substring(0, 1).toUpperCase() +
+        part_2.substring(0, 5).toUpperCase();
       let result1 = await DiscountCode.findOne({ code: test1 });
       if (!result1) {
         resolve(test1);
@@ -29,7 +31,7 @@ module.exports = {
        * Attempt two
        * @result GWashington
        */
-      let test2 = part_1.substring(0, 1) + part_2.substring(0, part_2.length);
+      let test2 = part_1.substring(0, 1).toUpperCase() + part_2.toUpperCase();
       let result2 = await DiscountCode.findOne({ code: test2 });
       if (!result2) {
         resolve(test2);
@@ -39,8 +41,7 @@ module.exports = {
        * Attempt three
        * @result GeorgeWashington
        */
-      let test3 =
-        part_1.substring(0, part_1.length) + part_2.substring(0, part_2.length);
+      let test3 = part_1.toUpperCase() + part_2.toUpperCase();
       let result3 = await DiscountCode.findOne({ code: test3 });
       if (!result3) {
         resolve(test3);
