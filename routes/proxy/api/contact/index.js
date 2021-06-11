@@ -19,11 +19,11 @@ router.route('/activate-submission').post(async (req, res) => {
   console.log(req.body);
   console.log(marketing);
 
-  if (marketing) {
+  if (marketing == 'true') {
     console.log('Marketing is True');
     emailSignup(req.body);
   } else {
-    console.log('Marketing is True');
+    console.log('Marketing is false');
   }
   const submission = new Activate_Submission(req.body);
 
