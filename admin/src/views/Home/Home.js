@@ -89,11 +89,11 @@ export default function Home() {
         </Layout.Section>
         <Layout.Section oneHalf>
           <Card
-            title="Manage Pages"
+            title="Activate"
             sectioned
-            primaryFooterAction={{ content: 'Edit', url: '/Page' }}
+            primaryFooterAction={{ content: 'View', url: '/Activate' }}
           >
-            <p>Edit Shopify Pages</p>
+            <p>View Activate Submissions</p>
           </Card>
         </Layout.Section>
       </Layout>

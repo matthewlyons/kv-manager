@@ -21,6 +21,7 @@ router.use((req, res, next) => {
   }
 });
 
+router.use('/activate', require('./activate'));
 router.use('/affiliate', require('./affiliate'));
 router.use('/contact', require('./contact'));
 router.use('/pages', require('./pages'));

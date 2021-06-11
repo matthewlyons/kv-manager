@@ -58,6 +58,8 @@ import Shipping_Rate from './views/Shipping/Shipping_Rate';
 // Asset Views
 import Image_Assets_Home from './views/Image_Assets/Image_Assets_Home';
 
+import Activate from './views/Activate';
+
 // Components
 import Alert from './components/Alert';
 import PageEditor from './views/PageEditor/PageEditor';
@@ -68,6 +70,8 @@ function App() {
     <Router>
       <Alert />
       <Route exact path="/" component={Home} />
+      {/* Activate Route */}
+      <Route exact path="/Activate" component={Activate} />
       {/* Teacher Routes */}
       <Route exact path="/LoyaltyProgram" component={Teacher_Index} />
       <Route exact path="/Teacher" component={Teacher_Home} />

@@ -14,12 +14,10 @@ const Activate_Submission = require('../../../../models/Activate_Submission');
 const DiscountCode = require('../../../../models/DiscountCode');
 
 router.route('/activate-submission').post(async (req, res) => {
-  console.log(req.body);
   let { firstName, lastName, email, marketing, type } = req.body;
 
   if (marketing) {
     let emailMarketing = await emailSignup(req.body);
-    console.log(emailMarketing);
   }
   const submission = new Activate_Submission(req.body);
 
@@ -52,7 +50,7 @@ router.route('/activate-submission').post(async (req, res) => {
                 code
               },
               function (err, str) {
-                sendEmail(email, str)
+                sendEmail(email, str, 'Thank you for Activating!')
                   .then((response) => {
                     console.log(response);
                   })
@@ -61,6 +59,17 @@ router.route('/activate-submission').post(async (req, res) => {
                   });
               }
             );
+            // sendEmail(
+            //   'support@kennedyviolins.com',
+            //   '<p>New Activate Submission. Please check the KV Manager App in Shopify.</p>',
+            //   'New Activate Submission.'
+            // )
+            //   .then((response) => {
+            //     console.log(response);
+            //   })
+            //   .catch((err) => {
+            //     console.log(err);
+            //   });
             return res.json({ _id: submission._id, code });
           })
           .catch((err) => {
@@ -78,35 +87,11 @@ router.route('/activate-submission').post(async (req, res) => {
 });
 
 router.route('/rate-submission').post(async (req, res) => {
-  console.log(req.body);
   let { _id, rating } = req.body;
   let submission = await Activate_Submission.findById(_id);
   submission.rating = Number(rating);
-  console.log(submission);
   submission.save();
   return res.send('Thank You');
-});
-
-router.get('/', (req, res, next) => {
-  ejs.renderFile(
-    path.join(__dirname, '../../../../views/email.ejs'),
-    {
-      firstName: 'Matthew',
-      lastName: 'Lyons',
-      code: 'MLyons'
-    },
-    function (err, str) {
-      sendEmail('lyonsmatt001@gmail.com', str)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  );
-
-  res.send('Hello from public contact');
 });
 
 module.exports = router;

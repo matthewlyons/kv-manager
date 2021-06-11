@@ -13,23 +13,20 @@ const mailerConfig = {
 };
 
 module.exports = {
-  async sendEmail(to, html) {
-    console.log('Sending Email');
+  async sendEmail(to, html, subject) {
     let transporter = nodemailer.createTransport(mailerConfig);
     let mailOptions = {
       from: 'Kennedy Violins <rewards@kennedyviolins.com>',
       to,
-      subject: 'Thank you for Activating!',
+      subject,
       html
     };
 
     return new Promise((resolve, reject) => {
       transporter.sendMail(mailOptions, function (error) {
         if (error) {
-          console.log(error);
           reject(error);
         } else {
-          console.log('Success');
           resolve('Success');
         }
       });
