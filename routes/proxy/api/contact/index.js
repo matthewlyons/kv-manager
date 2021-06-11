@@ -16,6 +16,9 @@ const DiscountCode = require('../../../../models/DiscountCode');
 router.route('/activate-submission').post(async (req, res) => {
   let { firstName, lastName, email, marketing, type } = req.body;
 
+  console.log(req.body);
+  console.log(marketing);
+
   if (marketing) {
     let emailMarketing = await emailSignup(req.body);
   }
