@@ -41,7 +41,12 @@ router.route('/activate-submission').post(async (req, res) => {
       .then((obj) => {
         createShopifyDiscountCode(code, 936086667420)
           .then((success) => {
-            codeDB.save();
+            codeDB.save().catch((err) => {
+              console.log(err);
+              return res.status(401).json({
+                errors: [{ message: 'Something went wrong' }]
+              });
+            });
             ejs.renderFile(
               path.join(__dirname, '../../../../views/email.ejs'),
               {
@@ -59,26 +64,17 @@ router.route('/activate-submission').post(async (req, res) => {
                   });
               }
             );
-            // sendEmail(
-            //   'support@kennedyviolins.com',
-            //   '<p>New Activate Submission. Please check the KV Manager App in Shopify.</p>',
-            //   'New Activate Submission.'
-            // )
-            //   .then((response) => {
-            //     console.log(response);
-            //   })
-            //   .catch((err) => {
-            //     console.log(err);
-            //   });
             return res.json({ _id: submission._id, code });
           })
           .catch((err) => {
+            console.log(err);
             return res.status(401).json({
               errors: [{ message: 'Something went wrong' }]
             });
           });
       })
       .catch((err) => {
+        console.log(err);
         return res.status(401).json({
           errors: [{ message: 'Something went wrong' }]
         });
