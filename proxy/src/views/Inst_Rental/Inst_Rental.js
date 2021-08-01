@@ -55,7 +55,7 @@ export default function Inst_Rental(props) {
   }, [props.match.params]);
 
   return (
-    <Rental_Container instrument={instrument}>
+    <Rental_Container instrument={instrument} location="Instrument">
       {loading ? (
         <Loading_Spinner title="Loading Products" />
       ) : (

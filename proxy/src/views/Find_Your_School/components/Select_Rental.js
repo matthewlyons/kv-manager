@@ -18,7 +18,7 @@ export default function Select_Rental(props) {
   return (
     <section>
       <Back goBack={goBack} />
-      <Rental_Container instrument={data.instrument}>
+      <Rental_Container instrument={data.instrument} location="School">
         {data.instrument && (
           <div>
             {rentalProducts.map((element, i) => {
