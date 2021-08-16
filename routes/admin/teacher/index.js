@@ -59,14 +59,13 @@ router
         errors: [{ message: 'Code Already in Use' }]
       });
     }
-
+    let shopifyCustomer;
     if (process.env.NODE_ENV !== 'production') {
       shopifyCustomer = {
         id: 'a2s1df32sd1fsdf'
       };
     } else {
       // check if shopify customer is registered
-      let shopifyCustomer;
       let customers = await getShopifyCustomers(email);
       console.log(customers);
       if (customers.length === 0) {
