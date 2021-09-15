@@ -2,7 +2,17 @@ import React from 'react';
 
 import { Page, Layout, Card } from '@shopify/polaris';
 
+import { makeRequest } from '../../util';
+
 export default function Product_Home() {
+  const updateDatabase = () => {
+    alert('Starting');
+    makeRequest('GET', `/shopify-products`).then((data) => {
+      console.log(data);
+      alert('Done');
+    });
+  };
+
   return (
     <Page
       full-width
@@ -14,6 +24,12 @@ export default function Product_Home() {
           url: '/'
         }
       ]}
+      primaryAction={{
+        content: 'Update Database',
+        onAction: () => {
+          updateDatabase();
+        }
+      }}
     >
       <Layout>
         <Layout.Section oneHalf>
