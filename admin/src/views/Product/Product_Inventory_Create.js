@@ -69,20 +69,16 @@ export default function Product_Inventory_Create() {
             <React.Fragment>
               {submitted ? (
                 <Card sectioned>
-                  <Button
-                    onClick={() => {
-                      window.location.href = `https://kennedy-violins.myshopify.com/admin/products/${follower}`;
-                    }}
+                  <a
+                    href={`https://kennedy-violins.myshopify.com/admin/products/${follower}`}
                   >
-                    View Follower Product
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      window.location.href = `https://kennedy-violins.myshopify.com/admin/products/${id}`;
-                    }}
+                    <Button>View Follower</Button>
+                  </a>
+                  <a
+                    href={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
                   >
-                    View Leader Product
-                  </Button>
+                    <Button>View Leader</Button>
+                  </a>
                 </Card>
               ) : (
                 <Card sectioned>
@@ -98,6 +94,11 @@ export default function Product_Inventory_Create() {
                     <FormLayout.Group>
                       <Button submit>Submit</Button>
                     </FormLayout.Group>
+                    <a
+                      href={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
+                    >
+                      <Button>View Leader</Button>
+                    </a>
                   </Form>
                 </Card>
               )}
