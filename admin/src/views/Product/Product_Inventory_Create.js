@@ -68,12 +68,16 @@ export default function Product_Inventory_Create() {
               {submitted ? (
                 <Card sectioned>
                   <Button
-                    url={`https://kennedy-violins.myshopify.com/admin/products/${follower}`}
+                    onClick={() => {
+                      window.location.href = `https://kennedy-violins.myshopify.com/admin/products/${follower}`;
+                    }}
                   >
                     View Follower Product
                   </Button>
                   <Button
-                    url={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
+                    onClick={() => {
+                      window.location.href = `https://kennedy-violins.myshopify.com/admin/products/${id}`;
+                    }}
                   >
                     View Leader Product
                   </Button>
