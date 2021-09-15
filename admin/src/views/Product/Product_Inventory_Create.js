@@ -26,8 +26,6 @@ export default function Product_Inventory_Create() {
   const [follower, setFollower] = useState('');
 
   useEffect(() => {
-    console.log('id');
-    console.log(id);
     makeRequest('GET', `/shopify-products/product/${id}`).then((data) => {
       setLoading(false);
       setTitle(data.data.title + ' Follower');
@@ -35,9 +33,7 @@ export default function Product_Inventory_Create() {
   }, [id]);
 
   const submit = () => {
-    console.log('Submitting');
     setLoading(true);
-    console.log(title);
     setSubmitted(true);
     makeRequest('POST', '/inventory/create', { title, id }).then((response) => {
       setFollower(response.data.id);
