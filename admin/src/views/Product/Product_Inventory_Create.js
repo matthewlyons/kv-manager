@@ -15,14 +15,15 @@ import useQuery from '../../hooks/useQuery';
 import { makeRequest } from '../../util';
 
 export default function Product_Inventory_Create() {
-  let history = useHistory();
   let id = useQuery().get('id');
   const [title, setTitle] = useState('');
 
   useEffect(() => {
+    console.log('id');
     console.log(id);
-    makeRequest('GET', `/shopify-products/product/:${id}`).then((data) => {
+    makeRequest('GET', `/shopify-products/product/${id}`).then((data) => {
       console.log(data);
+      setTitle(data.data.title);
     });
   }, [id]);
 

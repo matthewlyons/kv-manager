@@ -154,7 +154,7 @@ function App() {
       />
       <Route
         exact
-        path="/Product/Inventory/Create/:id"
+        path="/Product/Inventory/Create"
         component={Product_Inventory_Create}
       />
       <Route exact path="/Product/Schedule" component={Product_Schedule} />

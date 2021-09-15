@@ -10,3 +10,5 @@ Route.xlsx
 *.txt
 !inventory.txt
 *.log
+test.js
+nodemon.json
