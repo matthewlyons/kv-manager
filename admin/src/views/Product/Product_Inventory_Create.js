@@ -36,10 +36,12 @@ export default function Product_Inventory_Create() {
 
   const submit = () => {
     console.log('Submitting');
+    setLoading(true);
     console.log(title);
     setSubmitted(true);
     makeRequest('POST', '/inventory/create', { title, id }).then((response) => {
       setFollower(response.data.id);
+      setLoading(false);
     });
   };
 
