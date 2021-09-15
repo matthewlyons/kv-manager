@@ -71,11 +71,13 @@ export default function Product_Inventory_Create() {
                 <Card sectioned>
                   <a
                     href={`https://kennedy-violins.myshopify.com/admin/products/${follower}`}
+                    target="_blank"
                   >
                     <Button>View Follower</Button>
                   </a>
                   <a
                     href={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
+                    target="_blank"
                   >
                     <Button>View Leader</Button>
                   </a>
@@ -94,11 +96,6 @@ export default function Product_Inventory_Create() {
                     <FormLayout.Group>
                       <Button submit>Submit</Button>
                     </FormLayout.Group>
-                    <a
-                      href={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
-                    >
-                      <Button>View Leader</Button>
-                    </a>
                   </Form>
                 </Card>
               )}
