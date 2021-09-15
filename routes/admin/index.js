@@ -24,12 +24,15 @@ router.use((req, res, next) => {
 router.use('/activate', require('./activate'));
 router.use('/affiliate', require('./affiliate'));
 router.use('/contact', require('./contact'));
+router.use('/customizer', require('./customizer'));
+router.use('/inventory', require('./inventory'));
 router.use('/pages', require('./pages'));
 router.use('/product', require('./product'));
 router.use('/rental', require('./rental'));
 router.use('/school', require('./school'));
 router.use('/shipping', require('./shipping'));
 router.use('/shopify', require('./shopify'));
+router.use('/shopify-products', require('./shopify-products'));
 router.use('/teacher-store', require('./teacher-store'));
 router.use('/teacher', require('./teacher'));
 

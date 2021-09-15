@@ -40,15 +40,12 @@ import Rental_Form from './views/Rental/Rental_Form';
 
 // Product Views
 import Product_Home from './views/Product/Product_Home';
-import Product_Search from './views/Product/Product_Search';
-import Product_Form from './views/Product/Product_Form';
 import Product_Schedule from './views/Product/Product_Schedule';
 import Product_Schedule_Create from './views/Product/Product_Schedule_Create';
 import Product_Schedule_View from './views/Product/Product_Schedule_View';
-import Product_Config from './views/Product/Product_Config';
-import Product_Config_Form from './views/Product/Product_Config_Form';
 import Product_Customizer from './views/Product/Product_Customizer';
 import Product_Customizer_Form from './views/Product/Product_Customizer_Form';
+import Product_Inventory_Create from './views/Product/Product_Inventory_Create';
 
 // Shipping Views
 import Shipping_Home from './views/Shipping/Shipping_Home';
@@ -143,20 +140,7 @@ function App() {
 
       {/* Store Product Routes */}
       <Route exact path="/Product" component={Product_Home} />
-      <Route exact path="/Product/Search" component={Product_Search} />
-      <Route exact path="/Product/Create" component={Product_Form} />
-      <Route exact path="/Product/View/:id" component={Product_Form} />
-      <Route exact path="/Product/Config" component={Product_Config} />
-      <Route
-        exact
-        path="/Product/Config/Create"
-        component={Product_Config_Form}
-      />
-      <Route
-        exact
-        path="/Product/Config/View/:id"
-        component={Product_Config_Form}
-      />
+
       <Route exact path="/Product/Customizer" component={Product_Customizer} />
       <Route
         exact
@@ -167,6 +151,11 @@ function App() {
         exact
         path="/Product/Customizer/View/:id"
         component={Product_Customizer_Form}
+      />
+      <Route
+        exact
+        path="/Product/Inventory/Create/:id"
+        component={Product_Inventory_Create}
       />
       <Route exact path="/Product/Schedule" component={Product_Schedule} />
       <Route

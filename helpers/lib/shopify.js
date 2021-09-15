@@ -784,5 +784,336 @@ module.exports = {
       });
       console.log(shopifyRequests);
     }
+  },
+  /**
+   * Get Shopify Product By ID
+   *
+   * @param {string} id Shopify Product ID
+   *
+   * @return {object} Product Object
+   */
+  getProductByID(id) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${id}.json`;
+      axios
+        .get(url, { headers: accessRequestHeader })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err.response.data);
+        });
+    });
+  },
+  /**
+   * Get Shopify Product Metafields By ID
+   *
+   * @param {string} id Shopify Product ID
+   *
+   * @return {array} Array of Metafields Product Object
+   */
+  getProductMetafieldsByID(id) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${id}/metafields.json`;
+      axios
+        .get(url, { headers: accessRequestHeader })
+        .then((response) => {
+          resolve(response.data.metafields);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err.response.data);
+        });
+    });
+  },
+  /**
+   * Create Shopify Product
+   *
+   * @param {object} obj Shopify Product Object
+   *
+   * @return {array} Array of Metafields Product Object
+   */
+  createNewShopifyProduct(obj) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products.json`;
+      axios
+        .post(url, { product: obj }, { headers: accessRequestHeader })
+        .then((response) => {
+          resolve(response.data.product);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err.response.data);
+        });
+    });
+  },
+  /**
+   * Get Shopify Locations
+   *
+   * @return {array} Array of Metafields Product Object
+   */
+  getShopifyLocations() {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/locations.json`;
+      axios
+        .get(url, { headers: accessRequestHeader })
+        .then((response) => {
+          resolve(response.data.locations);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err.response.data);
+        });
+    });
+  },
+  /**
+   * Adjust Inventory Levels
+   *
+   * @return {array} Array of Metafields Product Object
+   */
+  adjustShopifyInventoryLevels(variant, location, level) {
+    return new Promise(async (resolve, reject) => {
+      console.log('Adjusting');
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let data = {
+        location_id: location.id,
+        inventory_item_id: variant.inventory_item_id,
+        available: level
+      };
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/inventory_levels/set.json`;
+      axios
+        .post(url, data, { headers: accessRequestHeader })
+        .then((response) => {
+          console.log(response.data);
+          resolve(response);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          reject(err.response.data);
+        });
+    });
+  },
+  /**
+   * Get All Shopify Products
+   *
+   * @return {array} Array of Metafields Product Object
+   */
+  getAllShopifyProducts() {
+    return new Promise(async (resolve, reject) => {
+      console.log('Running');
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let baseUrl = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products.json?limit=250`;
+
+      let products = [];
+
+      let i = 0;
+
+      function parseString(link) {
+        if (link.indexOf('rel="next"') === -1) {
+          return false;
+        }
+        if (link.indexOf(`rel="previous"`) > -1) {
+          link = link.substr(link.indexOf(',') + 2, link.length);
+        }
+        link = link.substr(1, link.indexOf('>') - 1).split('&');
+        let pageinfo = `&${link[link.length - 1]}`;
+        return pageinfo;
+      }
+
+      function getProducts(url) {
+        i++;
+        console.log(`Getting page ${i}`);
+        axios.get(url, { headers: accessRequestHeader }).then((response) => {
+          console.log('Got Response');
+          let nextPage = parseString(response.headers.link);
+          response.data.products.forEach((product) => {
+            let sku = product.variants[0].sku;
+            product.sku = sku;
+            products.push(product);
+          });
+          if (nextPage) {
+            let newUrl = baseUrl + nextPage;
+            setTimeout(() => {
+              return getProducts(newUrl);
+            }, 2000);
+          } else {
+            resolve(products);
+          }
+        });
+      }
+      getProducts(baseUrl);
+    });
+  },
+  /**
+   * Delete Shopify Products
+   *
+   * @return {boolean} Success or Error
+   */
+  deleteShopifyProduct(id) {
+    return new Promise(async (resolve, reject) => {
+      console.log(`Deleting Product: ${id}`);
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${id}.json`;
+
+      axios
+        .delete(url, {
+          headers: accessRequestHeader
+        })
+        .then((data) => {
+          resolve({ success: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          reject({ success: false });
+        });
+    });
+  },
+  /**
+   * Replace Shopify Product Images
+   *
+   * @return {boolean} Success or Error
+   */
+  replaceShopifyProductImages(id, images) {
+    return new Promise(async (resolve, reject) => {
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${id}.json`;
+
+      let data = {
+        product: {
+          id,
+          images
+        }
+      };
+
+      axios
+        .put(url, data, {
+          headers: accessRequestHeader
+        })
+        .then((data) => {
+          resolve({ success: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          reject({ success: false });
+        });
+    });
+  },
+  /**
+   * Create New Shopify Variant
+   *
+   * @return {boolean} Success or Error
+   */
+  newShopifyProductVariant(id, variant) {
+    return new Promise(async (resolve, reject) => {
+      let { price, option1, option2, option3 } = variant;
+      console.log(variant);
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${id}/variants.json`;
+
+      let data = {
+        variant: {
+          price,
+          option1,
+          option2,
+          option3
+        }
+      };
+
+      axios
+        .post(url, data, {
+          headers: accessRequestHeader
+        })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          reject({ success: false });
+        });
+    });
+  },
+  /**
+   * Delete Shopify Variant
+   *
+   * @return {boolean} Success or Error
+   */
+  deleteShopifyProductVariant(variant) {
+    return new Promise(async (resolve, reject) => {
+      let { product, shopify_id } = variant;
+      console.log(`Deleting Variant ${shopify_id} from product ${product}`);
+      let accessToken = await module.exports.getAuthToken();
+      let accessRequestHeader = {
+        'X-Shopify-Access-Token': accessToken
+      };
+      let url = `https://${process.env.SHOPIFY_STORE}/admin/api/${process.env.SHOPIFY_API_VERSION}/products/${product}/variants/${shopify_id}.json`;
+
+      axios
+        .delete(url, {
+          headers: accessRequestHeader
+        })
+        .then((data) => {
+          resolve({ success: true });
+        })
+        .catch((err) => {
+          reject({ success: false });
+        });
+    });
+  },
+  /**
+   * Check for Image Change
+   *
+   * @return {boolean} Success or Error
+   */
+  checkForImageChange(arr1, arr2) {
+    let imageChange = false;
+    arr1.forEach((image) => {
+      let existing = arr2.filter((x) => x.src === image.src);
+      if (existing.length === 0) {
+        imageChange = true;
+      }
+    });
+    arr2.forEach((image) => {
+      let existing = arr1.filter((x) => x.src === image.src);
+      if (existing.length === 0) {
+        imageChange = true;
+      }
+    });
+    return imageChange;
   }
 };

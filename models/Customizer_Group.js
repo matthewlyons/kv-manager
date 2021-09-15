@@ -10,10 +10,10 @@ const Customizer_Group_Schema = new Schema({
   instruments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'productStore'
+      ref: 'shopifyProduct'
     }
   ],
-  components: [
+  sections: [
     {
       name: {
         type: String,
@@ -22,7 +22,7 @@ const Customizer_Group_Schema = new Schema({
       products: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'productStore'
+          ref: 'shopifyProduct'
         }
       ]
     }
