@@ -174,7 +174,7 @@ router.route('/create/').post(async (req, res) => {
     });
   }
 
-  res.json({ success: true });
+  res.json({ success: true, data: newProduct });
 });
 
 router.route('/single/:id').get(async (req, res) => {

@@ -7,7 +7,10 @@ import {
   FormLayout,
   TextField,
   Button,
-  Card
+  Card,
+  TextContainer,
+  SkeletonBodyText,
+  SkeletonDisplayText
 } from '@shopify/polaris';
 
 import useQuery from '../../hooks/useQuery';
@@ -16,20 +19,28 @@ import { makeRequest } from '../../util';
 
 export default function Product_Inventory_Create() {
   let id = useQuery().get('id');
+
+  const [loading, setLoading] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   const [title, setTitle] = useState('');
+  const [follower, setFollower] = useState('');
 
   useEffect(() => {
     console.log('id');
     console.log(id);
     makeRequest('GET', `/shopify-products/product/${id}`).then((data) => {
-      console.log(data);
-      setTitle(data.data.title);
+      setLoading(false);
+      setTitle(data.data.title + ' Follower');
     });
   }, [id]);
 
   const submit = () => {
     console.log('Submitting');
     console.log(title);
+    setSubmitted(true);
+    makeRequest('POST', '/inventory/create', { title, id }).then((response) => {
+      setFollower(response.data.id);
+    });
   };
 
   return (
@@ -45,21 +56,47 @@ export default function Product_Inventory_Create() {
     >
       <Layout>
         <Layout.Section>
-          <Card sectioned>
-            <Form onSubmit={submit}>
-              <FormLayout.Group>
-                <TextField
-                  value={title}
-                  onChange={setTitle}
-                  label="Product Title"
-                  type="text"
-                />
-              </FormLayout.Group>
-              <FormLayout.Group>
-                <Button submit>Submit</Button>
-              </FormLayout.Group>
-            </Form>
-          </Card>
+          {loading ? (
+            <Card sectioned>
+              <TextContainer>
+                <SkeletonDisplayText size="small" />
+                <SkeletonBodyText />
+              </TextContainer>
+            </Card>
+          ) : (
+            <React.Fragment>
+              {submitted ? (
+                <Card sectioned>
+                  <Button
+                    url={`https://kennedy-violins.myshopify.com/admin/products/${follower}`}
+                  >
+                    View Follower Product
+                  </Button>
+                  <Button
+                    url={`https://kennedy-violins.myshopify.com/admin/products/${id}`}
+                  >
+                    View Leader Product
+                  </Button>
+                </Card>
+              ) : (
+                <Card sectioned>
+                  <Form onSubmit={submit}>
+                    <FormLayout.Group>
+                      <TextField
+                        value={title}
+                        onChange={setTitle}
+                        label="Product Title"
+                        type="text"
+                      />
+                    </FormLayout.Group>
+                    <FormLayout.Group>
+                      <Button submit>Submit</Button>
+                    </FormLayout.Group>
+                  </Form>
+                </Card>
+              )}
+            </React.Fragment>
+          )}
         </Layout.Section>
       </Layout>
     </Page>
