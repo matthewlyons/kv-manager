@@ -10,12 +10,21 @@ import {
   Card
 } from '@shopify/polaris';
 
-export default function Product_Inventory_Create(props) {
+import useQuery from '../../hooks/useQuery';
+
+import { makeRequest } from '../../util';
+
+export default function Product_Inventory_Create() {
+  let history = useHistory();
+  let id = useQuery().get('id');
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    console.log(props.match.params.id);
-  }, []);
+    console.log(id);
+    makeRequest('GET', `/shopify-products/product/:${id}`).then((data) => {
+      console.log(data);
+    });
+  }, [id]);
 
   const submit = () => {
     console.log('Submitting');
