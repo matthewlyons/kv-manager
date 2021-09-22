@@ -44,7 +44,7 @@ export default function Product_Inventory_Create() {
   return (
     <Page
       full-width
-      title="Cerate New Follower"
+      title="Create New Follower"
       breadcrumbs={[
         {
           content: 'Back',
