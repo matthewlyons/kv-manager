@@ -13,16 +13,24 @@ const Customizer_Group_Schema = new Schema({
       ref: 'shopifyProduct'
     }
   ],
-  sections: [
+  tabs: [
     {
       name: {
         type: String,
         required: true
       },
-      products: [
+      sections: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'shopifyProduct'
+          name: {
+            type: String,
+            required: true
+          },
+          products: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'shopifyProduct'
+            }
+          ]
         }
       ]
     }

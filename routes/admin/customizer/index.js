@@ -9,7 +9,7 @@ router
   .get(async (req, res) => {
     let customizerGroups = await Customizer_Group.find()
       .populate('instruments')
-      .populate('sections.products');
+      .populate('tabs.sections.products');
 
     res.send(customizerGroups);
   })
@@ -23,7 +23,9 @@ router
   .route('/single/:id')
   // Get Single Customizer Group
   .get(async (req, res) => {
-    let customizerGroup = await Customizer_Group.findById(req.params.id);
+    let customizerGroup = await Customizer_Group.findById(req.params.id)
+      .populate('instruments')
+      .populate('tabs.sections.products');
 
     if (!customizerGroup) {
       return res
@@ -37,7 +39,28 @@ router
     res.send('Hello From POST Route');
   })
   // Edit Single Customizer Group
-  .put((req, res) => {
+  .put(async (req, res) => {
+    console.log('Got Request');
+    let instruments = req.body.instruments;
+    let exisiting = await Customizer_Group.find({ instruments });
+    if (exisiting.length > 1) {
+      let customizerArray = exisiting
+        .map((x) => {
+          return x.name;
+        })
+        .join(', and ');
+
+      return res.status(500).json({
+        errors: [{ message: customizerArray + ' share an instrument.' }]
+      });
+    } else if (exisiting.length == 1) {
+      if (exisiting[0]._id != req.params.id) {
+        return res.status(500).json({
+          errors: [{ message: 'Instrument Already in Another Customizer' }]
+        });
+      }
+    }
+
     Customizer_Group.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -51,14 +74,25 @@ router
         if (err) {
           return res.send(err);
         }
-        console.log(result);
         res.json(result);
+        console.log('Success');
       }
     );
   })
   // Delete Single Customizer Group
-  .delete((req, res) => {
-    res.send('Hello From DELETE Route');
+  .delete(async (req, res) => {
+    let customizerGroup = await Customizer_Group.findOne({
+      _id: req.params.id
+    });
+
+    if (customizerGroup) {
+      customizerGroup.remove();
+      res.json({ success: true });
+    } else {
+      return res
+        .status(404)
+        .json({ errors: [{ message: 'No Customizer Group Found' }] });
+    }
   });
 
 module.exports = router;

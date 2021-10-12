@@ -45,36 +45,41 @@ router
       instruments: shopifyProduct._id
     })
       .populate('instruments')
-      .populate('sections.products');
+      .populate('tabs.sections.products');
 
     let results = [];
-
-    customizerGroup.sections.forEach((section) => {
-      let { name, products } = section;
-      let productResult = [];
-      products.forEach((product) => {
-        let { options, variants } = product.data;
-        let productionOptionSizePosition = options.filter((x) => {
-          return x.name === 'Size' || x.name === 'size';
-        })[0]?.position;
-        let variantResult = [];
-        if (productionOptionSizePosition) {
-          variants.forEach((variant) => {
-            let innerVariantSize =
-              variant['option' + productionOptionSizePosition];
-            if (innerVariantSize == variantSize) {
-              variantResult.push(variant);
-            }
-          });
-        } else {
-          variantResult.push(...variants);
-        }
-        if (variantResult.length > 0) {
-          product.data.variants = variantResult;
-          productResult.push(product);
-        }
+    customizerGroup.tabs.forEach((tab) => {
+      let tabName = tab.name;
+      let { sections } = tab;
+      let sectionResults = [];
+      sections.forEach((section) => {
+        let { name, products } = section;
+        let productResult = [];
+        products.forEach((product) => {
+          let { options, variants } = product.data;
+          let productionOptionSizePosition = options.filter((x) => {
+            return x.name === 'Size' || x.name === 'size';
+          })[0]?.position;
+          let variantResult = [];
+          if (productionOptionSizePosition) {
+            variants.forEach((variant) => {
+              let innerVariantSize =
+                variant['option' + productionOptionSizePosition];
+              if (innerVariantSize == variantSize) {
+                variantResult.push(variant);
+              }
+            });
+          } else {
+            variantResult.push(...variants);
+          }
+          if (variantResult.length > 0) {
+            product.data.variants = variantResult;
+            productResult.push(product);
+          }
+        });
+        sectionResults.push({ name, products: productResult });
       });
-      results.push({ name, products: productResult });
+      results.push({ name: tabName, sections: sectionResults });
     });
 
     return res.send(results);

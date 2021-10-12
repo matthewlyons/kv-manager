@@ -45,6 +45,7 @@ import Product_Schedule_Create from './views/Product/Product_Schedule_Create';
 import Product_Schedule_View from './views/Product/Product_Schedule_View';
 import Product_Customizer from './views/Product/Product_Customizer';
 import Product_Customizer_Form from './views/Product/Product_Customizer_Form';
+import Product_Customizer_View from './views/Product/Product_Customizer_View';
 import Product_Inventory_Create from './views/Product/Product_Inventory_Create';
 
 // Shipping Views
@@ -150,7 +151,7 @@ function App() {
       <Route
         exact
         path="/Product/Customizer/View/:id"
-        component={Product_Customizer_Form}
+        component={Product_Customizer_View}
       />
       <Route
         exact

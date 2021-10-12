@@ -80,6 +80,21 @@ router.route('/').get(async (req, res) => {
   res.json({ success: true });
 });
 
+router.route('/product').get(async (req, res) => {
+  let products = await Shopify_Product.find();
+
+  res.json(products);
+});
+
+router.route('/product/search').post(async (req, res) => {
+  let { query } = req.body;
+  let products = await Shopify_Product.find({
+    'data.title': { $regex: new RegExp(query, 'i') }
+  }).limit(100);
+
+  res.json(products);
+});
+
 router.route('/product/:shopify').get(async (req, res) => {
   let product = await Shopify_Product.findOne({
     shopifyId: req.params.shopify
