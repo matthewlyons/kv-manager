@@ -236,19 +236,19 @@ export default function Product_Customizer_View(props) {
       ]}
     >
       <Layout>
-        {group.instruments?.length > 0 && (
-          <React.Fragment>
-            <Layout.Section secondary>
-              <Heading>Instruments</Heading>
-              <Button
-                primary
-                onClick={() => {
-                  toggleModal('instrument');
-                }}
-              >
-                Add Instrument
-              </Button>
-            </Layout.Section>
+        <React.Fragment>
+          <Layout.Section secondary>
+            <Heading>Instruments</Heading>
+            <Button
+              primary
+              onClick={() => {
+                toggleModal('instrument');
+              }}
+            >
+              Add Instrument
+            </Button>
+          </Layout.Section>
+          {group.instruments?.length > 0 ? (
             <Layout.Section>
               <Card>
                 <ResourceList
@@ -276,8 +276,10 @@ export default function Product_Customizer_View(props) {
                 />
               </Card>
             </Layout.Section>
-          </React.Fragment>
-        )}
+          ) : (
+            <Layout.Section></Layout.Section>
+          )}
+        </React.Fragment>
         <Layout.Section secondary>
           <Heading>Tabs</Heading>
           <Button
