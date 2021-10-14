@@ -42,22 +42,25 @@ router
   .put(async (req, res) => {
     console.log('Got Request');
     let instruments = req.body.instruments;
-    let exisiting = await Customizer_Group.find({ instruments });
-    if (exisiting.length > 1) {
-      let customizerArray = exisiting
-        .map((x) => {
-          return x.name;
-        })
-        .join(', and ');
 
-      return res.status(500).json({
-        errors: [{ message: customizerArray + ' share an instrument.' }]
-      });
-    } else if (exisiting.length == 1) {
-      if (exisiting[0]._id != req.params.id) {
+    if (instruments.legnth > 0) {
+      let exisiting = await Customizer_Group.find({ instruments });
+      if (exisiting.length > 1) {
+        let customizerArray = exisiting
+          .map((x) => {
+            return x.name;
+          })
+          .join(', and ');
+
         return res.status(500).json({
-          errors: [{ message: 'Instrument Already in Another Customizer' }]
+          errors: [{ message: customizerArray + ' share an instrument.' }]
         });
+      } else if (exisiting.length == 1) {
+        if (exisiting[0]._id != req.params.id) {
+          return res.status(500).json({
+            errors: [{ message: 'Instrument Already in Another Customizer' }]
+          });
+        }
       }
     }
 
