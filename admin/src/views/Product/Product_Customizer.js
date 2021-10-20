@@ -21,10 +21,14 @@ import {
 
 import SlideModal from '../../components/SlideModal';
 
+import Loading from '../../components/Loading';
+
 export default function Product_Customizer() {
   let history = useHistory();
 
   const [groups, setGroups] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   const [createModal, setCreateModal] = useState(false);
   const [name, setName] = useState('');
@@ -40,8 +44,10 @@ export default function Product_Customizer() {
   };
 
   useEffect(() => {
+    setLoading(true);
     makeRequest('GET', `/customizer`).then((data) => {
       setGroups(data);
+      setLoading(false);
     });
   }, []);
 
@@ -70,6 +76,7 @@ export default function Product_Customizer() {
         }
       }}
     >
+      {loading && <Loading />}
       <Layout>
         {groups.length > 0 && (
           <React.Fragment>

@@ -65,7 +65,14 @@ router.route('/create/').post(async (req, res) => {
       ]);
     });
 
-    return { ...productData, variants: variantData, metafields: metafieldData };
+    return {
+      ...productData,
+      variants: variantData,
+      metafields: [
+        ...metafieldData,
+        { namepsace: 'global', key: 'title_tag', value: title }
+      ]
+    };
   }
 
   let newProductObject = getShopifyProductObject(existingShopifyProduct);
@@ -74,7 +81,7 @@ router.route('/create/').post(async (req, res) => {
   let newProduct = await createNewShopifyProduct({
     ...newProductObject,
     published_scope: 'web',
-    tags: 'Hidden, Follower',
+    tags: 'Hidden, Follower reverbsync:off',
     status: 'active',
     title
   });

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { useParams } from 'react-router-dom';
 
 import SlideModal from '../../components/SlideModal';
+
+import { StoreContext } from '../../context/StoreContext';
 
 import { makeRequest } from '../../util';
 import {
@@ -23,9 +25,11 @@ import {
   ResourceItem,
   Avatar
 } from '@shopify/polaris';
-import { select } from 'underscore';
+
+import Loading from '../../components/Loading';
 
 export default function Product_Customizer_View(props) {
+  const { state, setError } = useContext(StoreContext);
   let { id } = useParams();
   const [group, setGroup] = useState({});
 
@@ -34,10 +38,13 @@ export default function Product_Customizer_View(props) {
     section: null
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [tabModal, setTabModal] = useState(false);
   const [sectionModal, setSectionModal] = useState(false);
   const [itemModal, setItemModal] = useState(false);
   const [instrumentModal, setInstrumentModal] = useState(false);
+  const [editGroupModal, setEditGroupModal] = useState(false);
 
   const [tabName, setTabName] = useState('');
   const [sectionName, setSectionName] = useState('');
@@ -59,20 +66,21 @@ export default function Product_Customizer_View(props) {
       case 'instrument':
         setInstrumentModal(!instrumentModal);
         break;
+      case 'edit':
+        setEditGroupModal(!editGroupModal);
+        break;
       default:
         break;
     }
   };
 
   const addTab = (name) => {
-    console.log('Adding Tab');
     let updatedTabs = [...group.tabs, { name: name, sections: [] }];
     let updatedGroup = { ...group, tabs: updatedTabs };
     setGroup(updatedGroup);
   };
 
   const addSection = (index, name) => {
-    console.log('Adding Section');
     let updatedTabs = group.tabs.map((tab, i) => {
       if (i == index) {
         let updatedSections = [...tab.sections, { name, products: [] }];
@@ -86,8 +94,11 @@ export default function Product_Customizer_View(props) {
   };
 
   const itemSearch = (query) => {
+    setLoading(true);
     makeRequest('POST', `/shopify-products/product/search`, { query }).then(
       (data) => {
+        console.log(data);
+        setLoading(false);
         setProductList(data);
       }
     );
@@ -100,7 +111,6 @@ export default function Product_Customizer_View(props) {
   };
 
   const removeInstrument = (instrumentIndex) => {
-    console.log('Removing: ' + instrumentIndex);
     let updatedInstruments = group.instruments.filter((_, i) => {
       return i != instrumentIndex;
     });
@@ -175,8 +185,8 @@ export default function Product_Customizer_View(props) {
   };
 
   const saveGroup = () => {
+    setLoading(true);
     let { name, _id } = group;
-    console.log(group);
     let instruments = group.instruments.map((x) => {
       return x._id;
     });
@@ -194,17 +204,105 @@ export default function Product_Customizer_View(props) {
     let payload = { _id, name, instruments, tabs };
     makeRequest('PUT', `/customizer/single/${id}`, payload)
       .then((data) => {
-        console.log('Victory');
-        console.log(data);
+        setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setLoading(false);
+
+        setError(err);
       });
+  };
+
+  const changeTabName = (tabIndex, name) => {
+    let updatedTabs = group.tabs.map((tab, i) => {
+      if (i == tabIndex) {
+        return { ...tab, name };
+      } else {
+        return tab;
+      }
+    });
+    setGroup({ ...group, tabs: updatedTabs });
+  };
+
+  const changeSectionName = (tabIndex, sectionIndex, name) => {
+    let updatedTabs = group.tabs.map((tab, i) => {
+      if (i == tabIndex) {
+        let updatedSections = tab.sections.map((section, j) => {
+          if (j == sectionIndex) {
+            return { ...section, name };
+          } else {
+            return section;
+          }
+        });
+        return { ...tab, sections: updatedSections };
+      } else {
+        return tab;
+      }
+    });
+    setGroup({ ...group, tabs: updatedTabs });
+  };
+
+  Array.prototype.move = function (from, to) {
+    this.splice(to, 0, this.splice(from, 1)[0]);
+  };
+
+  const movePosition = (type, direction, tab, section, item) => {
+    let old, updated;
+    if (type === 'tab') {
+      // Move Tab
+      old = tab;
+      updated = direction === 'up' ? old - 1 : old + 1;
+      if (updated < 0 || updated >= group.tabs.length) {
+        return;
+      } else {
+        let updatedTabs = [...group.tabs];
+        updatedTabs.move(old, updated);
+
+        let updatedGroup = { ...group, tabs: updatedTabs };
+        setGroup(updatedGroup);
+      }
+    } else if (type === 'section') {
+      // Move Section
+
+      old = section;
+      updated = direction === 'up' ? old - 1 : old + 1;
+
+      if (updated < 0 || updated >= group.tabs[tab].sections.length) {
+        return;
+      } else {
+        let updatedTabs = group.tabs.map((x, i) => {
+          if (i == tab) {
+            let updatedSections = [...x.sections];
+            updatedSections.move(old, updated);
+            return { ...x, sections: updatedSections };
+          } else {
+            return x;
+          }
+        });
+        let updatedGroup = { ...group, tabs: updatedTabs };
+        setGroup(updatedGroup);
+      }
+    } else if (type === 'item') {
+      // Move Item
+      old = item;
+      updated = direction === 'up' ? old - 1 : old + 1;
+      if (
+        updated < 0 ||
+        updated >= group.tabs[tab].sections[section].products.length
+      ) {
+        return;
+      } else {
+        let updatedTabs = [...group.tabs];
+        updatedTabs.move(old, updated);
+
+        let updatedGroup = { ...group, tabs: updatedTabs };
+        setGroup(updatedGroup);
+      }
+    }
   };
 
   useEffect(() => {
     makeRequest('GET', `/customizer/single/${id}`).then((data) => {
-      console.log(data);
       setGroup(data);
     });
   }, [id]);
@@ -232,9 +330,16 @@ export default function Product_Customizer_View(props) {
           onAction: () => {
             console.log('Hello');
           }
+        },
+        {
+          content: 'Edit Group',
+          onAction: () => {
+            toggleModal('edit');
+          }
         }
       ]}
     >
+      {loading && <Loading />}
       <Layout>
         <React.Fragment>
           <Layout.Section secondary>
@@ -295,46 +400,86 @@ export default function Product_Customizer_View(props) {
           {group.tabs?.length > 0 && (
             <React.Fragment>
               {group.tabs.map((tab, i) => {
+                let actions = [
+                  {
+                    content: 'Add Section',
+                    onClick: () => {
+                      setSelected({ tab: i, section: null });
+                      toggleModal('section');
+                    }
+                  },
+                  {
+                    content: 'Remove Tab',
+                    onClick: () => {
+                      removeTab(i);
+                    }
+                  }
+                ];
+
+                if (i < group.tabs.length - 1) {
+                  actions.unshift({
+                    content: 'Move Down',
+                    onClick: () => {
+                      movePosition('tab', 'down', i);
+                    }
+                  });
+                }
+
+                if (i > 0) {
+                  actions.unshift({
+                    content: 'Move Up',
+                    onClick: () => {
+                      movePosition('tab', 'up', i);
+                    }
+                  });
+                }
+
                 return (
-                  <Card key={i} primaryFooterAction={{ content: 'Delete Tab' }}>
+                  <Card key={i}>
                     <Card.Section
                       title={tab.name}
-                      actions={[
+                      actions={actions}
+                    ></Card.Section>
+                    {tab.sections?.map((section, j) => {
+                      let actions = [
                         {
-                          content: 'Add Section',
+                          content: 'Add Item',
                           onClick: () => {
-                            setSelected({ tab: i, section: null });
-                            toggleModal('section');
+                            setSelected({ tab: i, section: j });
+                            toggleModal('item');
                           }
                         },
                         {
-                          content: 'Remove Tab',
+                          content: 'Remove Section',
                           onClick: () => {
-                            removeTab(i);
+                            removeSection(i, j);
                           }
                         }
-                      ]}
-                    ></Card.Section>
-                    {tab.sections?.map((section, j) => {
+                      ];
+
+                      if (j < tab.sections.length - 1) {
+                        actions.unshift({
+                          content: 'Move Down',
+                          onClick: () => {
+                            movePosition('section', 'down', i, j);
+                          }
+                        });
+                      }
+
+                      if (j > 0) {
+                        actions.unshift({
+                          content: 'Move Up',
+                          onClick: () => {
+                            movePosition('section', 'up', i, j);
+                          }
+                        });
+                      }
+
                       return (
                         <Card.Section
                           key={j}
                           title={section.name}
-                          actions={[
-                            {
-                              content: 'Add Item',
-                              onClick: () => {
-                                setSelected({ tab: i, section: j });
-                                toggleModal('item');
-                              }
-                            },
-                            {
-                              content: 'Remove Section',
-                              onClick: () => {
-                                removeSection(i, j);
-                              }
-                            }
-                          ]}
+                          actions={actions}
                         >
                           {section.products?.length > 0 && (
                             <ResourceList
@@ -450,6 +595,13 @@ export default function Product_Customizer_View(props) {
             <ButtonGroup>
               <Button
                 onClick={() => {
+                  addSection(selected.tab, 'Staff Picks');
+                }}
+              >
+                Staff Picks
+              </Button>
+              <Button
+                onClick={() => {
                   addSection(selected.tab, 'Case');
                 }}
               >
@@ -464,18 +616,19 @@ export default function Product_Customizer_View(props) {
               </Button>
               <Button
                 onClick={() => {
-                  addSection(selected.tab, 'Rosin');
-                }}
-              >
-                Rosin
-              </Button>
-              <Button
-                onClick={() => {
                   addSection(selected.tab, 'Strings');
                 }}
               >
                 Strings
               </Button>
+              <Button
+                onClick={() => {
+                  addSection(selected.tab, 'Rosin');
+                }}
+              >
+                Rosin
+              </Button>
+
               <Button
                 onClick={() => {
                   addSection(selected.tab, 'Shoulder Rest');
@@ -592,7 +745,7 @@ export default function Product_Customizer_View(props) {
               items={productList}
               renderItem={(item, i) => {
                 let { data, shopifyId } = item;
-                let { title } = data;
+                let { title, variants } = data;
                 let media = null;
                 if (data.image) {
                   media = (
@@ -618,10 +771,65 @@ export default function Product_Customizer_View(props) {
                     <h3>
                       <TextStyle variation="strong">{title}</TextStyle>
                     </h3>
+                    <p>${variants[0]?.price}</p>
                   </ResourceItem>
                 );
               }}
             />
+          )}
+        </Form>
+      </SlideModal>
+      <SlideModal
+        title="Edit Group"
+        open={editGroupModal}
+        toggleModal={() => {
+          toggleModal('edit');
+        }}
+      >
+        <Form>
+          <FormLayout.Group>
+            <TextField
+              type="text"
+              label="Group Name"
+              value={group.name}
+              onChange={(e) => {
+                setGroup({ ...group, name: e });
+              }}
+            />
+          </FormLayout.Group>
+          {group.tabs?.length > 0 && (
+            <React.Fragment>
+              {group.tabs.map((tab, tabIndex) => {
+                return (
+                  <React.Fragment key={tabIndex}>
+                    <FormLayout.Group>
+                      <TextField
+                        type="text"
+                        label="Tab Name"
+                        value={tab.name}
+                        onChange={(e) => {
+                          changeTabName(tabIndex, e);
+                        }}
+                      />
+                    </FormLayout.Group>
+                    {tab?.sections?.map((section, sectionIndex) => {
+                      return (
+                        <FormLayout.Group key={sectionIndex + 'Section'}>
+                          <TextField
+                            type="text"
+                            label="Section Name"
+                            value={section.name}
+                            onChange={(e) => {
+                              changeSectionName(tabIndex, sectionIndex, e);
+                            }}
+                          />
+                        </FormLayout.Group>
+                      );
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </React.Fragment>
           )}
         </Form>
       </SlideModal>
