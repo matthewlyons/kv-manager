@@ -82,7 +82,7 @@ router
       results.push({ name: tabName, sections: sectionResults });
     });
 
-    return res.send(results);
+    return res.send({ instrument: shopifyProduct, tabs: results });
   });
 
 module.exports = router;

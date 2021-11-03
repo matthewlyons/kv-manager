@@ -304,6 +304,7 @@ export default function Product_Customizer_View(props) {
   useEffect(() => {
     makeRequest('GET', `/customizer/single/${id}`).then((data) => {
       setGroup(data);
+      console.log(data);
     });
   }, [id]);
 
