@@ -23,6 +23,10 @@ import Inst_Rental from './views/Inst_Rental/Inst_Rental';
 // Customizer
 import Customizer from './views/Customizer/Customizer';
 
+// Customizer Routes
+// Live Cart
+import Cart from './views/Cart/Cart';
+
 function App() {
   return (
     <Router>
@@ -57,6 +61,7 @@ function App() {
           path="/community/application/Customizer/:id"
           component={Customizer}
         />
+        <Route exact path="/community/application/Cart" component={Cart} />
         <Route component={No_Match_Found} />
       </Switch>
     </Router>
