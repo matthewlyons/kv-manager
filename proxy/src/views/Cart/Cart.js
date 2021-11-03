@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import axios from 'axios';
+
 export default function Cart() {
   useEffect(() => {
     axios({
@@ -10,7 +12,17 @@ export default function Cart() {
         console.log(response);
       })
       .catch((err) => {
-        reject(err);
+        console.log(err);
+      });
+    axios({
+      method: 'get',
+      url: 'https://kennedyviolins.com/cart.js'
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
