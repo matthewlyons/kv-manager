@@ -26,10 +26,9 @@
     "file-loader": "^6.2.0",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.2.1",
+    "svg-url-loader": "^7.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
-  "devDependencies": {
-    "svg-url-loader": "^7.1.1"
-  }
+  "devDependencies": {}
 }
