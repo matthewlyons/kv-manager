@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { ReactComponent as Minus } from '../../../assets/minus.svg';
-import { ReactComponent as Plus } from '../../../assets/plus.svg';
 import GroupProduct from './GroupProduct';
 
 export default function CustomizerGroup({ tabs, active, onChange }) {
@@ -53,7 +51,7 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
                         setActiveAccordian(index);
                       }}
                     >
-                      {index == activeAccordian ? <Minus /> : <Plus />}
+                      <h3> {index == activeAccordian ? ' - ' : ' + '} </h3>
                       <h3>{section.name}</h3>
                     </div>
                     <div className={sectionContainerClass}>
