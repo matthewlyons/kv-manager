@@ -5,9 +5,17 @@ import GroupProduct from './GroupProduct';
 export default function CustomizerGroup({ tabs, active, onChange }) {
   const [activeAccordian, setActiveAccordian] = useState(0);
 
+  const [activeProduct, setActiveProduct] = useState({});
+  const [quickLook, setQuickLook] = useState(false);
+
   useEffect(() => {
     setActiveAccordian(0);
   }, [active]);
+
+  const openQuickLook = (e) => {
+    setActiveProduct(e);
+    setQuickLook(true);
+  };
 
   return (
     <div className="CustomizerGroup">
@@ -57,7 +65,11 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
                     <div className={sectionContainerClass}>
                       {section.products.map((product, productIndex) => {
                         return (
-                          <GroupProduct product={product} key={productIndex} />
+                          <GroupProduct
+                            product={product}
+                            key={productIndex}
+                            openModal={openQuickLook}
+                          />
                         );
                       })}
                     </div>
@@ -68,6 +80,28 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
           );
         })}
       </div>
+      {quickLook && (
+        <div
+          className="QuickLookModal"
+          onClick={() => {
+            setQuickLook(false);
+          }}
+        >
+          <div></div>
+          <div className="QuickLook__Container">
+            <img
+              src={activeProduct.data?.image.src}
+              className="QuickLook__Image"
+            />
+            <div className="QuickLook__Text">
+              <h3 className="QuickLook__Title">{activeProduct.data?.title}</h3>
+              <p className="QuickLook__Description">
+                {activeProduct.data?.body_html}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -59,7 +59,50 @@ Accordian HEader: f4f4f2
 }
 .Tab__SectionContainer {
   display: none;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1em;
 }
 .Tab__SectionContainer--Active {
-  display: block;
+  display: grid;
+}
+
+.GroupProduct__Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+}
+.GroupProduct__Image {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.QuickLookModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 25vh;
+  max-width: 586px;
+  max-height: 500px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.QuickLook__Image {
+  width: 100%;
+}
+
+.QuickLook__Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.Button {
+  border-radius: 20px;
+  color: white;
+  background: #a84242;
+  outline: none;
+  border: none;
+  padding: 4px 10px;
 }

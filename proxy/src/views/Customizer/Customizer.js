@@ -5,6 +5,7 @@ import { makeRequest } from '../../util';
 import SelectedProductDisplay from './components/SelectedProductDisplay';
 import CustomizerGroup from './components/CustomizerGroup';
 import './style.css';
+import Button from './components/Button';
 
 export default function Customizer() {
   let { id } = useParams();
@@ -51,10 +52,16 @@ export default function Customizer() {
           </div>
         </div>
         <div>
-          <div style={{ display: 'flex' }}>
+          <div style={{ textAlign: 'center' }}>
             <p>Quantity:</p>
-            <input type="text" />
+            <input type="number" min="1" max="10" value={1} />
             <p>at $669.99 ea</p>
+            <br />
+            <h3>
+              Total: <span>$699.99</span>
+            </h3>
+            <p>It's Perfect</p>
+            <Button text="Add To Cart" />
           </div>
         </div>
       </div>
