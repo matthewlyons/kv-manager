@@ -187,6 +187,7 @@ export default function Cart() {
   });
 
   useEffect(() => {
+    console.log('Running');
     axios({
       method: 'get',
       url: '/cart.js'
