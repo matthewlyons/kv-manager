@@ -18,6 +18,16 @@ export default function Cart() {
     })
       .then((response) => {
         console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios({
+      method: 'get',
+      url: 'https://kennedyviolins.com/cart.js'
+    })
+      .then((response) => {
+        console.log(response);
         setCart(response.data);
       })
       .catch((err) => {
