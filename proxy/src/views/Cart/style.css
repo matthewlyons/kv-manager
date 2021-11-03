@@ -1,0 +1,34 @@
+.Cart__Container {
+  background-color: #d7e5e6;
+  padding: 2em;
+  margin: 2em 0;
+  display: grid;
+  grid-gap: 1em;
+}
+.Cart__Divider {
+  border-top: 2px solid #5b8499;
+}
+.CartProduct__Image {
+  width: 100%;
+  max-width: 100px;
+  border: 1px solid #5b8499;
+}
+.CartProduct__Container {
+  display: grid;
+  grid-template-columns: auto 1fr 150px;
+  grid-gap: 1em;
+}
+.CartProduct__Quantity {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+
+.Cart__Summary {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+}
+.Cart__Totals {
+  width: 150px;
+  text-align: center;
+}
