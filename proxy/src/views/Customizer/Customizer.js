@@ -33,7 +33,7 @@ export default function Customizer() {
       <div className="Selections__Container">
         <div className="SelectedProducts">
           <SelectedProductDisplay
-            image="https://cdn.shopify.com/s/files/1/2994/5334/products/Oblong_DkBlue_Angle_1200x1200.jpg?v=1604718959"
+            image={instrument.data?.image.src}
             title={instrument.data?.title}
             subheading={variant.price ? '$' + variant.price : ''}
           />
