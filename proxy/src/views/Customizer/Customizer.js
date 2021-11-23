@@ -17,7 +17,7 @@ export default function Customizer() {
 
   useEffect(() => {
     makeRequest('get', '/customizer/get/' + id).then((res) => {
-      console.log(res.tabs);
+      console.log(res);
       setInstrument(res.instrument);
       let foundVariant = res.instrument.data.variants.filter((x) => x.id == id);
       setVariant(foundVariant[0]);
