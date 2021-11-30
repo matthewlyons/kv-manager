@@ -95,7 +95,7 @@ export default function Customizer() {
 
     axios({
       method: 'post',
-      url: '/cart.js',
+      url: '/cart/add.js',
       headers: {
         'Content-Type': 'application/json'
       },
