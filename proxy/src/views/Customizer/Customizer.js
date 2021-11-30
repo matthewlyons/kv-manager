@@ -96,12 +96,16 @@ export default function Customizer() {
     axios({
       method: 'post',
       url: '/cart.js',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: { items }
     })
       .then((response) => {
         console.log(response);
       })
       .catch((err) => {
+        console.log('Error');
         console.log(err);
       });
   };
