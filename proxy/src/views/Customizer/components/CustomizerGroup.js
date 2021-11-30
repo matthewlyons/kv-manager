@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import GroupProduct from './GroupProduct';
 
-export default function CustomizerGroup({ tabs, active, onChange }) {
+export default function CustomizerGroup({
+  tabs,
+  active,
+  onChange,
+  basket,
+  setBasket
+}) {
   const [activeAccordian, setActiveAccordian] = useState(0);
 
   const [activeProduct, setActiveProduct] = useState({});
@@ -15,6 +21,16 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
   const openQuickLook = (e) => {
     setActiveProduct(e);
     setQuickLook(true);
+  };
+
+  const getShortDescription = (obj) => {
+    let meta = obj.metafields;
+    let shortDesc = meta.filter((x) => x.key == 'short_description')[0];
+    if (shortDesc) {
+      return shortDesc.value;
+    } else {
+      return '';
+    }
   };
 
   return (
@@ -69,6 +85,9 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
                             product={product}
                             key={productIndex}
                             openModal={openQuickLook}
+                            setBasket={setBasket}
+                            section={section.name}
+                            basket={basket}
                           />
                         );
                       })}
@@ -87,7 +106,7 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
             setQuickLook(false);
           }}
         >
-          <div></div>
+          <div class="QuickLook__Blocker"></div>
           <div className="QuickLook__Container">
             <img
               src={activeProduct.data?.image.src}
@@ -96,7 +115,7 @@ export default function CustomizerGroup({ tabs, active, onChange }) {
             <div className="QuickLook__Text">
               <h3 className="QuickLook__Title">{activeProduct.data?.title}</h3>
               <p className="QuickLook__Description">
-                {activeProduct.data?.body_html}
+                {getShortDescription(activeProduct)}
               </p>
             </div>
           </div>

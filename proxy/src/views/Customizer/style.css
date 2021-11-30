@@ -55,12 +55,12 @@ Accordian HEader: f4f4f2
   display: flex;
   padding: 2px 0;
 }
-.Tab__SectionHeader--Active {
-}
+
 .Tab__SectionContainer {
   display: none;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1em;
+  grid-gap: 1em;
 }
 .Tab__SectionContainer--Active {
   display: grid;
@@ -78,16 +78,11 @@ Accordian HEader: f4f4f2
 
 .QuickLookModal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 100;
-  transform: translate(-50%, -50%);
-  width: 50vw;
-  height: 25vh;
-  max-width: 586px;
-  max-height: 500px;
-  border: 1px solid black;
-  background-color: white;
+  top: 0px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
 }
 
 .QuickLook__Image {
@@ -97,6 +92,34 @@ Accordian HEader: f4f4f2
 .QuickLook__Container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  width: 75vw;
+  height: 75vh;
+  max-width: 900px;
+  max-height: 500px;
+  background: white;
+}
+.QuickLook__Text {
+  padding: 1em;
+}
+.QuickLook__Blocker {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0.5;
+}
+.QuickLook__Open {
+  font-size: 12px;
+  cursor: pointer;
 }
 .Button {
   border-radius: 20px;
@@ -105,4 +128,20 @@ Accordian HEader: f4f4f2
   outline: none;
   border: none;
   padding: 4px 10px;
+}
+
+.Input__Checkbox {
+  appearance: auto;
+}
+.Variant__Label {
+  font-size: 12px;
+}
+
+.GroupProduct__Title {
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.OutfitSummary_Product {
+  line-height: 20px;
 }
