@@ -193,7 +193,7 @@ export default function Cart() {
       url: '/cart.js'
     })
       .then((response) => {
-        console.log(response.data.items);
+        setCart(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -218,7 +218,6 @@ export default function Cart() {
           <p>
             Total: <span>${cart.total_price / 100}</span>
           </p>
-          <Button text="Remove" />
         </div>
       </div>
     </div>
