@@ -9,7 +9,7 @@ router
   .route('/check/:id')
   // Submit form for modal
   .get(async (req, res) => {
-    let group = Customizer_Group.findOne({ instrument: req.params.id });
+    let group = await Customizer_Group.findOne({ instrument: req.params.id });
     if (group) {
       console.log(group)
       return res.send({ group: true });
