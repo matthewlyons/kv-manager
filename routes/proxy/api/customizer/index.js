@@ -11,6 +11,7 @@ router
   .get(async (req, res) => {
     let group = Customizer_Group.findOne({ instrument: req.params.id });
     if (group) {
+      console.log(group)
       return res.send({ group: true });
     }
     return res.send({ group: false });
