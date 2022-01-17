@@ -92,6 +92,7 @@ export default function Customizer() {
       },
       ...productVariants
     ];
+    console.log({ items });
 
     axios({
       method: 'post',

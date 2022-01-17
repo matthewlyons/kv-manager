@@ -193,7 +193,7 @@ export default function Cart() {
       url: '/cart.js'
     })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.items);
       })
       .catch((err) => {
         console.log(err);
