@@ -87,7 +87,8 @@ export default function Customizer() {
         id: basket.variant,
         quantity: quantity,
         properties: {
-          customizerCollection: start
+          customizerCollection: start,
+          main: true
         }
       },
       ...productVariants

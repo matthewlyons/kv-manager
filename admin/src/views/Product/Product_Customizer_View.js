@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import SlideModal from '../../components/SlideModal';
 
@@ -26,9 +26,13 @@ import {
   Avatar
 } from '@shopify/polaris';
 
+import AreYouSure from '../../components/AreYouSure';
 import Loading from '../../components/Loading';
+import AvaliabilityTable from './components/AvaliabilityTable';
 
 export default function Product_Customizer_View(props) {
+  let history = useHistory();
+
   const { state, setError } = useContext(StoreContext);
   let { id } = useParams();
   const [group, setGroup] = useState({});
@@ -45,6 +49,10 @@ export default function Product_Customizer_View(props) {
   const [itemModal, setItemModal] = useState(false);
   const [instrumentModal, setInstrumentModal] = useState(false);
   const [editGroupModal, setEditGroupModal] = useState(false);
+  const [deleteGroupModal, setDeleteGroupModal] = useState(false);
+  const [availabilityModal, setAvailabilityModal] = useState(false);
+  const [availability, setAvailability] = useState([]);
+  const [instrumentSizes, setInstrumentSizes] = useState([]);
 
   const [tabName, setTabName] = useState('');
   const [sectionName, setSectionName] = useState('');
@@ -69,9 +77,26 @@ export default function Product_Customizer_View(props) {
       case 'edit':
         setEditGroupModal(!editGroupModal);
         break;
+      case 'delete':
+        setDeleteGroupModal(!deleteGroupModal);
+        break;
+      case 'availability':
+        setAvailabilityModal(!availabilityModal);
+        break;
       default:
         break;
     }
+  };
+
+  const deleteGroup = () => {
+    console.log('Sending delete Request');
+    makeRequest('DELETE', `/customizer/single/${id}`)
+      .then((data) => {
+        history.goBack();
+      })
+      .catch((err) => {
+        alert('There Was An Error Deleting Group');
+      });
   };
 
   const addTab = (name) => {
@@ -301,10 +326,21 @@ export default function Product_Customizer_View(props) {
     }
   };
 
+  const editAvailability = (i, j) => {
+    console.log(i, j);
+    toggleModal('availability');
+  };
+
   useEffect(() => {
     makeRequest('GET', `/customizer/single/${id}`).then((data) => {
       setGroup(data);
-      console.log(data);
+      let instrumentData = [];
+      data.instruments.forEach((x) => {
+        let sizes = x.data.options.filter((e) => e.name == 'Size')[0].values;
+        instrumentData.push(...sizes);
+      });
+      let finalArray = Array.from(new Set(instrumentData));
+      setInstrumentSizes(finalArray);
     });
   }, [id]);
 
@@ -329,13 +365,26 @@ export default function Product_Customizer_View(props) {
         {
           content: 'Delete Group',
           onAction: () => {
-            console.log('Hello');
+            toggleModal('delete');
           }
         },
         {
           content: 'Edit Group',
           onAction: () => {
             toggleModal('edit');
+          }
+        },
+        {
+          content: 'View Customizer',
+          onAction: () => {
+            let firstVariant = group.instruments[0].data.variants[0].id;
+            if (firstVariant) {
+              window.open(
+                'https://kennedyviolins.com/community/application/Customizer/' +
+                  firstVariant,
+                '_blank'
+              );
+            }
           }
         }
       ]}
@@ -454,6 +503,12 @@ export default function Product_Customizer_View(props) {
                           content: 'Remove Section',
                           onClick: () => {
                             removeSection(i, j);
+                          }
+                        },
+                        {
+                          content: 'Edit Availability',
+                          onClick: () => {
+                            editAvailability(i, j);
                           }
                         }
                       ];
@@ -834,6 +889,24 @@ export default function Product_Customizer_View(props) {
           )}
         </Form>
       </SlideModal>
+      <SlideModal
+        title="Edit Availability"
+        open={availabilityModal}
+        toggleModal={() => {
+          toggleModal('availability');
+        }}
+      >
+        <AvaliabilityTable />
+      </SlideModal>
+      <AreYouSure
+        open={deleteGroupModal}
+        close={() => {
+          setDeleteGroupModal(false);
+        }}
+        action={() => {
+          deleteGroup();
+        }}
+      />
     </Page>
   );
 }
