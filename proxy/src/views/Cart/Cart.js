@@ -18,13 +18,13 @@ export default function Cart() {
       method: 'get',
       url: '/cart.js'
     })
-      .then((response) => {
+      .then(({data}) => {
         let itemContainer = {}
         let itemArray = [];
+        console.log(data);
+        setCart(data);
     
-        setCart(response);
-    
-        response.items.forEach((item)=>{
+        data.items.forEach((item)=>{
           if(item.properties.customizerCollection){
             if(itemContainer[item.properties.customizerCollection]){
               itemContainer[item.properties.customizerCollection] = [...itemContainer[item.properties.customizerCollection],item]
