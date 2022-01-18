@@ -25,7 +25,7 @@ export default function Cart() {
         setCart(data);
 
         data.items.forEach((item) => {
-          if (item.properties.customizerCollection) {
+          if (item.properties?.customizerCollection) {
             if (itemContainer[item.properties.customizerCollection]) {
               itemContainer[item.properties.customizerCollection] = [
                 ...itemContainer[item.properties.customizerCollection],
@@ -64,6 +64,8 @@ export default function Cart() {
       .catch((err) => {
         console.log(err);
       });
+
+    
   }, []);
 
   return (
