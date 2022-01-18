@@ -56,7 +56,6 @@ export default function Cart() {
           item.customizer = true;
           console.log('Adding Item', item);
           itemArray.push(item);
-          itemArray.push(item);
         });
         console.log(itemArray);
         setItems(itemArray);
