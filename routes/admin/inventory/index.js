@@ -81,7 +81,7 @@ router.route('/create/').post(async (req, res) => {
   let newProduct = await createNewShopifyProduct({
     ...newProductObject,
     published_scope: 'web',
-    tags: 'Hidden, Follower reverbsync:off',
+    tags: 'Hidden, Follower, reverbsync:off',
     status: 'active',
     title
   });
