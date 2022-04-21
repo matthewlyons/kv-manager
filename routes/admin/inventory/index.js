@@ -70,7 +70,7 @@ router.route('/create/').post(async (req, res) => {
       variants: variantData,
       metafields: [
         ...metafieldData,
-        { namepsace: 'global', key: 'title_tag', value: title }
+        { namepsace: 'global', key: 'title_tag', value: existingShopifyProduct.data.title }
       ]
     };
   }
