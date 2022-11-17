@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports = {
   async getShipping(request) {
@@ -15,7 +15,7 @@ module.exports = {
       cases: 0,
       bows: 0,
       musicStands: 0,
-      strings: 0
+      strings: 0,
     };
 
     items.forEach((element) => {
@@ -39,20 +39,20 @@ module.exports = {
     }
 
     products.forEach((element) => {
-      if (element.includes('outfit') || element.includes('bundle')) {
-        if (element.includes('Viola') || element.includes('Violin')) {
+      if (element.includes("outfit") || element.includes("bundle")) {
+        if (element.includes("Viola") || element.includes("Violin")) {
           PriorityMail = true;
         }
         freeShipping = true;
         outfits.push(element);
       } else {
-        if (element.includes('case')) {
+        if (element.includes("case")) {
           additional.cases++;
-        } else if (element.includes('bow')) {
+        } else if (element.includes("bow")) {
           additional.bows++;
-        } else if (element.includes('stand')) {
+        } else if (element.includes("stand")) {
           additional.musicStands++;
-        } else if (element.includes('string')) {
+        } else if (element.includes("string")) {
           additional.strings++;
         } else {
           accessories.push(element);
@@ -62,65 +62,65 @@ module.exports = {
     if (outfits.length > 0) {
       if (PriorityMail) {
         methods = [
-          'ups_3_day_select',
-          'ups_2nd_day_air',
-          'usps_parcel_select',
-          'usps_priority_mail'
+          "ups_3_day_select",
+          "ups_2nd_day_air",
+          "usps_parcel_select",
+          "usps_priority_mail",
         ];
       } else {
-        methods = ['ups_3_day_select', 'ups_2nd_day_air', 'usps_parcel_select'];
+        methods = ["ups_3_day_select", "ups_2nd_day_air", "usps_parcel_select"];
       }
     } else {
       methods = [
-        'ups_3_day_select',
-        'usps_parcel_select',
-        'ups_ground',
-        'usps_priority_mail'
+        "ups_3_day_select",
+        "usps_parcel_select",
+        "ups_ground",
+        "usps_priority_mail",
       ];
       if (additional.strings > 0) {
-        methods.push('usps_first_class_mail');
+        methods.push("usps_first_class_mail");
       }
     }
 
     outfits.forEach((element) => {
-      if (element.includes('violin')) {
+      if (element.includes("violin")) {
         packages.push({
           dimensions: {
             length: 40,
             width: 8,
             height: 12,
-            unit: 'inch'
+            unit: "inch",
           },
           weight: {
             value: 10,
-            unit: 'pound'
-          }
+            unit: "pound",
+          },
         });
-      } else if (element.includes('guitar')) {
+      } else if (element.includes("guitar")) {
         packages.push({
           dimensions: {
             length: 44,
             width: 10,
             height: 18,
-            unit: 'inch'
+            unit: "inch",
           },
           weight: {
             value: 12,
-            unit: 'pound'
-          }
+            unit: "pound",
+          },
         });
-      } else if (element.includes('viola')) {
+      } else if (element.includes("viola")) {
         packages.push({
           dimensions: {
             length: 38,
             width: 12,
             height: 14,
-            unit: 'inch'
+            unit: "inch",
           },
           weight: {
             value: 12,
-            unit: 'pound'
-          }
+            unit: "pound",
+          },
         });
       }
     });
@@ -132,12 +132,12 @@ module.exports = {
           length: 40,
           width: 8,
           height: 12,
-          unit: 'inch'
+          unit: "inch",
         },
         weight: {
           value: 6,
-          unit: 'pound'
-        }
+          unit: "pound",
+        },
       });
       cases--;
     }
@@ -148,12 +148,12 @@ module.exports = {
           length: 38,
           width: 2,
           height: 2,
-          unit: 'inch'
+          unit: "inch",
         },
         weight: {
           value: 2,
-          unit: 'pound'
-        }
+          unit: "pound",
+        },
       });
       bows--;
     }
@@ -164,12 +164,12 @@ module.exports = {
           length: 20,
           width: 4,
           height: 3,
-          unit: 'inch'
+          unit: "inch",
         },
         weight: {
           value: 3,
-          unit: 'pound'
-        }
+          unit: "pound",
+        },
       });
       musicStands--;
     }
@@ -180,12 +180,12 @@ module.exports = {
           length: 10,
           width: 8,
           height: 1,
-          unit: 'inch'
+          unit: "inch",
         },
         weight: {
           value: 15,
-          unit: 'ounce'
-        }
+          unit: "ounce",
+        },
       });
       strings = strings - 3;
     }
@@ -196,18 +196,18 @@ module.exports = {
           length: 10,
           width: 8,
           height: 1,
-          unit: 'inch'
+          unit: "inch",
         },
         weight: {
           value: 6,
-          unit: 'pound'
-        }
+          unit: "pound",
+        },
       });
     }
-    if (destination.country !== 'US') {
+    if (destination.country !== "US") {
       freeShipping = false;
     }
-    if (destination.province == 'HI' || destination.province == 'AK') {
+    if (destination.province == "HI" || destination.province == "AK") {
       freeShipping = false;
     }
     return { origin, destination, methods, packages, freeShipping };
@@ -217,7 +217,7 @@ module.exports = {
 
     let maxWeight = packages
       .map((package) => {
-        let multiplier = package.weight.unit === 'ounce' ? 1 : 16;
+        let multiplier = package.weight.unit === "ounce" ? 1 : 16;
         return package.weight.value * multiplier;
       })
       .sort((a, b) => {
@@ -225,16 +225,16 @@ module.exports = {
       })[0];
 
     packages.forEach((package) => {
-      package.weight = { value: maxWeight, unit: 'ounce' };
+      package.weight = { value: maxWeight, unit: "ounce" };
     });
 
     let config = {
       rate_options: {
-        carrier_ids: ['se-327858', 'se-164525'],
-        service_codes: methods
+        carrier_ids: ["se-327858", "se-164525"],
+        service_codes: methods,
       },
       shipment: {
-        validate_address: 'no_validation',
+        validate_address: "no_validation",
         ship_to: {
           company_name: destination.company_name,
           name: destination.name,
@@ -245,36 +245,38 @@ module.exports = {
           state_province: destination.province,
           postal_code: destination.postal_code,
           country_code: destination.country,
-          address_residential_indicator: 'yes'
+          address_residential_indicator: "yes",
         },
         ship_from: {
-          company_name: origin.company_name || 'Kennedy Violins',
-          name: origin.name || 'Kennedy Violins',
-          phone: origin.phone || '360-931-6225',
+          company_name: origin.company_name || "Kennedy Violins",
+          name: origin.name || "Kennedy Violins",
+          phone: origin.phone || "360-931-6225",
           address_line1: origin.address1,
           address_line2: origin.address2,
           city_locality: origin.city,
           state_province: origin.province,
           postal_code: origin.postal_code,
           country_code: origin.country,
-          address_residential_indicator: 'no'
+          address_residential_indicator: "no",
         },
-        packages
-      }
+        packages,
+      },
     };
 
+    console.log(config);
+
     let headers = {
-      Host: 'api.shipengine.com',
-      'API-Key': process.env.SHIP_ENGINE_API_KEY,
-      'Content-Type': 'application/json'
+      Host: "api.shipengine.com",
+      "API-Key": process.env.SHIP_ENGINE_API_KEY,
+      "Content-Type": "application/json",
     };
     let finalQuote = await axios
-      .post('https://api.shipengine.com/v1/rates', config, { headers })
+      .post("https://api.shipengine.com/v1/rates", config, { headers })
       .catch((err) => {
-        console.log('err');
+        console.log("err");
         console.log(err.response.data.errors);
       });
 
     return finalQuote;
-  }
+  },
 };
