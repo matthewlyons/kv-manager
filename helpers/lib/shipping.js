@@ -230,7 +230,7 @@ module.exports = {
 
     let config = {
       rate_options: {
-        carrier_ids: ["se-327858", "se-164525"],
+        carrier_ids: ["se-3460171", "se-164525"],
         service_codes: methods,
       },
       shipment: {
