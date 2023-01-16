@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import {
   Page,
@@ -6,22 +6,14 @@ import {
   SkeletonBodyText,
   Card,
   ResourceList,
-  TextStyle
-} from '@shopify/polaris';
+  TextStyle,
+} from "@shopify/polaris";
 
-import { makeRequest } from '../../util';
+import { makeRequest } from "../../util";
 
 export default function Pages_Home() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [pages, setPages] = useState([]);
-
-  useEffect(() => {
-    makeRequest('GET', '/shopify/pages').then((data) => {
-      let response = data.filter((page) => page.title === 'Lyons Test Page');
-      setPages(response);
-      setLoading(false);
-    });
-  }, []);
 
   return (
     <Page
@@ -29,9 +21,9 @@ export default function Pages_Home() {
       title="Page Editor"
       breadcrumbs={[
         {
-          content: 'Back',
-          url: '/'
-        }
+          content: "Back",
+          url: "/",
+        },
       ]}
     >
       <Layout>
@@ -43,10 +35,10 @@ export default function Pages_Home() {
           ) : (
             <Card>
               <ResourceList
-                resourceName={{ singular: 'teacher', plural: 'teachers' }}
+                resourceName={{ singular: "teacher", plural: "teachers" }}
                 items={pages}
                 renderItem={(item) => {
-                  const url = '/Page/' + item.id;
+                  const url = "/Page/" + item.id;
                   return (
                     <ResourceList.Item url={url}>
                       <h3>

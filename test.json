@@ -1,0 +1,53 @@
+{
+    "rate_options": {
+        "carrier_ids": [
+            "se-327858",
+            "se-164525"
+        ],
+        "service_codes": [
+            "usps_priority_mail",
+            "usps_parcel_select"
+        ]
+    },
+    "shipment": {
+        "validate_address": "no_validation",
+        "ship_to": {
+            "company_name": null,
+            "name": "Matthew Lyons",
+            "phone": "(360) 931-6225",
+            "address_line1": "12805 NE 8th PL",
+            "address_line2": null,
+            "city_locality": "Vancouver",
+            "state_province": "WA",
+            "postal_code": "98684",
+            "country_code": "US",
+            "address_residential_indicator": "yes"
+        },
+        "ship_from": {
+            "company_name": "Kennedy Violins",
+            "name": "Kennedy Violins",
+            "phone": "+18007790242",
+            "address_line1": "17720 Southeast Mill Plain Boulevard",
+            "address_line2": "Ste 160",
+            "city_locality": "Vancouver",
+            "state_province": "WA",
+            "postal_code": "98683",
+            "country_code": "US",
+            "address_residential_indicator": "no"
+        },
+        "packages": [
+            {
+                "dimensions": {
+                    "length": 10,
+                    "width": 8,
+                    "height": 1,
+                    "unit": "inch",
+                },
+                "weight": {
+                    "value": 6,
+                    "unit": "pound",
+                }
+            }
+        ]
+    }
+}

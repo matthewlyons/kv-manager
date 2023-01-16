@@ -1,19 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const moment = require('moment');
+const moment = require("moment");
 
-const cron = require('node-cron');
+const cron = require("node-cron");
 
-const Product_Event = require('../../../models/Product_Event');
-const Product_Store = require('../../../models/Product_Store');
-const Product_Config = require('../../../models/Product_Config');
-const Instrument_Class = require('../../../models/Instrument_Class');
-const Customizer_Group = require('../../../models/Customizer_Group');
+const Product_Event = require("../../../models/Product_Event");
+const Product_Store = require("../../../models/Product_Store");
+const Product_Config = require("../../../models/Product_Config");
+const Instrument_Class = require("../../../models/Instrument_Class");
+const Customizer_Group = require("../../../models/Customizer_Group");
 
-const { startProducts, getErrors } = require('../../../helpers');
+const { startProducts, getErrors } = require("../../../helpers");
 
 router
-  .route('/')
+  .route("/")
   .get((req, res) => {
     Product_Store.find()
       .then((products) => {
@@ -22,7 +22,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -37,13 +37,13 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/instrument-class')
+  .route("/instrument-class")
   .get((req, res) => {
     Instrument_Class.find()
       .then((classes) => {
@@ -52,7 +52,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -68,23 +68,23 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/config')
+  .route("/config")
   .get((req, res) => {
     Product_Config.find()
-      .populate('constraint')
+      .populate("constraint")
       .then((configs) => {
         res.json(configs);
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -99,23 +99,23 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/config/:id')
+  .route("/config/:id")
   .get((req, res) => {
     Product_Config.findById(req.params.id)
-      .populate('constraint')
+      .populate("constraint")
       .then((config) => {
         res.json(config);
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -127,7 +127,7 @@ router
         if (error) {
           let errors = getErrors(error);
           return res.status(400).send({
-            errors
+            errors,
           });
         }
         return res.sendStatus(200);
@@ -141,9 +141,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Configuration Found'
-              }
-            ]
+                message: "No Configuration Found",
+              },
+            ],
           });
         }
         config.remove().then(() => {
@@ -153,13 +153,13 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/customizer')
+  .route("/customizer")
   .get((req, res) => {
     Customizer_Group.find()
       .then((groups) => {
@@ -168,7 +168,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -183,24 +183,24 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/customizer/:id')
+  .route("/customizer/:id")
   .get((req, res) => {
     Customizer_Group.findById(req.params.id)
-      .populate('instruments')
-      .populate('products')
+      .populate("instruments")
+      .populate("products")
       .then((group) => {
         res.json(group);
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -212,7 +212,7 @@ router
         if (error) {
           let errors = getErrors(error);
           return res.status(400).send({
-            errors
+            errors,
           });
         }
         return res.sendStatus(200);
@@ -226,9 +226,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Group Found'
-              }
-            ]
+                message: "No Group Found",
+              },
+            ],
           });
         }
         group.remove().then(() => {
@@ -238,13 +238,13 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/Event/')
+  .route("/Event/")
   .get(async (req, res) => {
     let events = await Product_Event.find();
     res.json(events);
@@ -258,9 +258,9 @@ router
       return res.status(400).json({
         errors: [
           {
-            message: 'One Event Per Product'
-          }
-        ]
+            message: "One Event Per Product",
+          },
+        ],
       });
     }
 
@@ -271,7 +271,7 @@ router
   });
 
 router
-  .route('/Event/Override/:id')
+  .route("/Event/Override/:id")
   .post(async (req, res) => {
     Product_Event.findById(req.params.id)
       .then(async (event) => {
@@ -279,20 +279,20 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Event Found'
-              }
-            ]
+                message: "No Event Found",
+              },
+            ],
           });
         }
         await startProducts([event], [], event.active);
         event.active = true;
         event.save();
-        return res.json('Done');
+        return res.json("Done");
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -303,25 +303,25 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Event Found'
-              }
-            ]
+                message: "No Event Found",
+              },
+            ],
           });
         }
         event.remove();
         await startProducts([], [event]);
-        return res.json('Done');
+        return res.json("Done");
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
 router
-  .route('/Event/:id')
+  .route("/Event/:id")
   .get(async (req, res) => {
     Product_Event.findById(req.params.id)
       .then((event) => {
@@ -329,9 +329,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Event Found'
-              }
-            ]
+                message: "No Event Found",
+              },
+            ],
           });
         }
         return res.json(event);
@@ -339,7 +339,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -351,9 +351,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Event Found'
-              }
-            ]
+                message: "No Event Found",
+              },
+            ],
           });
         }
         console.log(event);
@@ -363,7 +363,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -374,9 +374,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Event Found'
-              }
-            ]
+                message: "No Event Found",
+              },
+            ],
           });
         }
         event.remove().then(() => {
@@ -386,52 +386,52 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });
 
-cron.schedule('00 00 */1 * * * *', async () => {
+cron.schedule("00 59 * * * * *", async () => {
   let newEvents = [];
   let oldEvents = [];
   // Find all inactive Events that need to go live
   Product_Event.find({
     active: false,
     start: {
-      $lte: Date.now()
-    }
+      $lte: Date.now(),
+    },
   }).then((events) => {
     newEvents = events;
     // find all active events that need to be removed
     Product_Event.find({
       active: true,
       end: {
-        $lte: new Date(moment().add(30, 'minutes'))
-      }
+        $lte: new Date(moment().add(30, "minutes")),
+      },
     }).then((events) => {
       oldEvents = events;
       console.log(newEvents, oldEvents);
       if (oldEvents.length > 0 || newEvents.length > 0) {
         startProducts(newEvents, oldEvents);
       } else {
-        console.log('Nothing to report');
+        console.log("Nothing to report");
       }
     });
   });
 });
 
 router
-  .route('/:id')
+  .route("/:id")
   .get((req, res) => {
     Product_Store.findById(req.params.id)
-      .populate('config')
+      .populate("config")
       .then((product) => {
         res.json(product);
       })
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   })
@@ -444,7 +444,7 @@ router
         if (error) {
           let errors = getErrors(error);
           return res.status(400).send({
-            errors
+            errors,
           });
         }
         return res.sendStatus(200);
@@ -458,9 +458,9 @@ router
           return res.status(404).json({
             errors: [
               {
-                message: 'No Product Found'
-              }
-            ]
+                message: "No Product Found",
+              },
+            ],
           });
         }
         product.remove().then(() => {
@@ -470,7 +470,7 @@ router
       .catch((error) => {
         let errors = getErrors(error);
         return res.status(400).send({
-          errors
+          errors,
         });
       });
   });

@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const Teacher = require('../../../models/Teacher');
-const Product_Event = require('../../../models/Product_Event');
+const Teacher = require("../../../models/Teacher");
+const Product_Event = require("../../../models/Product_Event");
 
 const {
   getPages,
@@ -16,29 +16,29 @@ const {
   getPriceRules,
   getDiscountCode,
   registerShopifyDiscountCode,
-  deleteShopifyDiscountCode
-} = require('../../../helpers');
-const teacher = require('../../../helpers/lib/teacher');
-const shopify = require('../../../helpers/lib/shopify');
+  deleteShopifyDiscountCode,
+} = require("../../../helpers");
+const teacher = require("../../../helpers/lib/teacher");
+const shopify = require("../../../helpers/lib/shopify");
 
-router.route('/Pages').get(async (req, res) => {
+router.route("/Pages").get(async (req, res) => {
   let response = await getPages();
   res.json(response.data.pages);
 });
 
-router.route('/Page/:id').post(async (req, res) => {
-  console.log('REQ');
+router.route("/Page/:id").post(async (req, res) => {
+  console.log("REQ");
 
   let response = updatePage(req.params.id, req.body.html);
   console.log(response);
   res.json({ success: true });
 });
 
-router.route('/Validate').post(async (req, res) => {
-  res.json('Done');
+router.route("/Validate").post(async (req, res) => {
+  res.json("Done");
   let priceRules = await getPriceRules();
   let teacherPriceRule = priceRules.data.price_rules.filter(
-    (pr) => pr.title === 'Teacher Discount'
+    (pr) => pr.title === "Teacher Discount"
   )[0].id;
 
   let discountCodes = await getDiscountCode(teacherPriceRule);
@@ -73,10 +73,10 @@ router.route('/Validate').post(async (req, res) => {
       requestedTeachers.push(teacher);
     }
   });
-  console.log(approvedTeachers.length, ' Approved Teachers');
-  console.log(misfireTeachers.length, ' Misfire Teachers');
-  console.log(unapprovedTeachers.length, ' Unpproved Teachers');
-  console.log(requestedTeachers.length, ' Teacher Requests');
+  console.log(approvedTeachers.length, " Approved Teachers");
+  console.log(misfireTeachers.length, " Misfire Teachers");
+  console.log(unapprovedTeachers.length, " Unpproved Teachers");
+  console.log(requestedTeachers.length, " Teacher Requests");
 
   unapprovedTeachers.forEach((teacher) => {
     teacher.approved = true;
@@ -90,7 +90,7 @@ router.route('/Validate').post(async (req, res) => {
 });
 
 router
-  .route('/Redirects')
+  .route("/Redirects")
   .get(async (req, res) => {
     let response = await getRedirects();
     res.json(response.data.redirects);
@@ -100,11 +100,11 @@ router
     res.json(response.data);
   });
 
-router.route('/Redirects/:id').delete(async (req, res) => {
+router.route("/Redirects/:id").delete(async (req, res) => {
   let id = req.params.id;
   let response = await deleteRedirect(id);
   if (response.status === 200) {
-    res.send('Success');
+    res.send("Success");
   } else {
     // TODO Error handling
     res.json(false);
@@ -112,24 +112,25 @@ router.route('/Redirects/:id').delete(async (req, res) => {
 });
 
 // Search All Shopify Products
-router.route('/Products/Search/:query').get(async (req, res) => {
+router.route("/Products/Search/:query").get(async (req, res) => {
   let response = await searchProducts(req.params.query);
   res.json(response.data);
 });
 
 // Get Single Shopify Product and Events for that product
-router.route('/Products/:id').get(async (req, res) => {
+router.route("/Products/:id").get(async (req, res) => {
+  console.log(req.params.id);
   let product = await getProduct(req.params.id);
   let metafields = await getProductMetafields(req.params.id);
 
   let event = await Product_Event.findOne({
-    shopifyID: req.params.id
+    shopifyID: req.params.id,
   });
 
   let response = {
     product: product.data.product,
     metafields: metafields.data,
-    event
+    event,
   };
 
   res.json(response);
