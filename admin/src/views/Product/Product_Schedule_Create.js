@@ -184,6 +184,7 @@ export default function Product_Schedule_View() {
       setProduct(data.product);
       let requiredMetafields = [
         "original_price",
+        "retail_price",
         "sale_banner_header",
         "sale_banner_paragraph",
         "short_description",
