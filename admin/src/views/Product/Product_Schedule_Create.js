@@ -54,7 +54,7 @@ export default function Product_Schedule_View() {
   };
 
   const [loading, setLoading] = useState(true);
-  const [dateModal, setDateModal] = useState(true);
+  const [dateModal, setDateModal] = useState(false);
 
   const handleSubmit = (eventProduct) => {
     let eventMetafields = [];
@@ -179,61 +179,58 @@ export default function Product_Schedule_View() {
   ];
 
   useEffect(() => {
-    if (true) {
-    } else {
-      makeRequest("GET", `/shopify/products/${id}`).then((data) => {
-        console.log(data);
-        setProduct(data.product);
-        let requiredMetafields = [
-          "original_price",
-          "sale_banner_header",
-          "sale_banner_paragraph",
-          "short_description",
-          "product_highlight_1",
-          "product_highlight_2",
-          "product_highlight_3",
-          "product_highlight_4",
-          "included_accessories",
-          "included_bow",
-          "included_case",
-          "included_rosin",
-        ];
-        let selectedMetafields = [];
-        let eventMetafields = [];
-        let metafields = data.metafields.metafields;
+    makeRequest("GET", `/shopify/products/${id}`).then((data) => {
+      console.log(data);
+      setProduct(data.product);
+      let requiredMetafields = [
+        "original_price",
+        "sale_banner_header",
+        "sale_banner_paragraph",
+        "short_description",
+        "product_highlight_1",
+        "product_highlight_2",
+        "product_highlight_3",
+        "product_highlight_4",
+        "included_accessories",
+        "included_bow",
+        "included_case",
+        "included_rosin",
+      ];
+      let selectedMetafields = [];
+      let eventMetafields = [];
+      let metafields = data.metafields.metafields;
 
-        requiredMetafields.forEach((field) => {
-          let found = metafields.find((x) => x.key === field);
-          if (found) {
-            selectedMetafields.push({ ...found, active: false });
-            eventMetafields.push(found);
-          } else {
-            let namespace = getNamespace(field);
-            eventMetafields.push({
-              namespace,
-              key: field,
-              value: "",
-              active: false,
-              value_type: "string",
-            });
-            selectedMetafields.push({
-              namespace,
-              key: field,
-              value: "",
-              value_type: "string",
-            });
-          }
-        });
-        setEvent(data.event);
-        if (data.event) {
-          setDBID(data.event._id);
-          let { start, end } = data.event;
-          setSelectedDates({ start: new Date(start), end: new Date(end) });
+      requiredMetafields.forEach((field) => {
+        let found = metafields.find((x) => x.key === field);
+        if (found) {
+          selectedMetafields.push({ ...found, active: false });
+          eventMetafields.push(found);
+        } else {
+          let namespace = getNamespace(field);
+          eventMetafields.push({
+            namespace,
+            key: field,
+            value: "",
+            active: false,
+            value_type: "string",
+          });
+          selectedMetafields.push({
+            namespace,
+            key: field,
+            value: "",
+            value_type: "string",
+          });
         }
-        setMetafields(selectedMetafields);
-        setLoading(false);
       });
-    }
+      setEvent(data.event);
+      if (data.event) {
+        setDBID(data.event._id);
+        let { start, end } = data.event;
+        setSelectedDates({ start: new Date(start), end: new Date(end) });
+      }
+      setMetafields(selectedMetafields);
+      setLoading(false);
+    });
   }, []);
 
   return (
